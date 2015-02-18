@@ -173,7 +173,7 @@ public class TestMap : MonoBehaviour
 		map.CenterWGS84 = new double[2] { 4.83527, 45.76487 };
 		map.UseLocation = true;
 		map.InputsEnabled = true;
-		map.ShowGUIControls = true;
+		map.ShowGUIControls = false;
 
 		map.GUIDelegate += Toolbar;
 
