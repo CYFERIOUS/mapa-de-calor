@@ -182,7 +182,7 @@ public class TestMap : MonoBehaviour
 		// create a VirtualEarth tile layer
 		VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer>("VirtualEarth");
 		// Note: this is the key UnitySlippyMap, DO NOT use it for any other purpose than testing
-		virtualEarthLayer.Key = "ArgkafZs0o_PGBuyg468RaapkeIQce996gkyCe8JN30MjY92zC_2hcgBU_rHVUwT";
+		virtualEarthLayer.Key = "Ag-ML2n_NjUqTCNOJyd9Yyr-GRfEWVmY_yboAe3A3aUL2JrE1d9er914Tfs9kgrp";
 		#if UNITY_WEBPLAYER
 		virtualEarthLayer.ProxyURL = "http://reallyreallyreal.com/UnitySlippyMap/demo/veproxy.php";
 		#endif
