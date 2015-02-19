@@ -22,7 +22,7 @@
 using UnityEngine;
 
 using System;
-
+using UnityEngine.UI;
 using UnitySlippyMap;
 using ProjNet.CoordinateSystems;
 using ProjNet.CoordinateSystems.Transformations;
@@ -37,6 +37,8 @@ public class TestMap : MonoBehaviour
 	
 	public Texture	LocationTexture;
 	public Texture	MarkerTexture;
+
+	public Text CoordinatesText;
 	
 	private float	guiXScale;
 	private float	guiYScale;
@@ -153,6 +155,8 @@ public class TestMap : MonoBehaviour
 	private void
 		Start()
 	{
+		//gameObject texto=GameObject
+		//CoordinatesText=gameObject.GetComponent<Text>();
 		// setup the gui scale according to the screen resolution
 		guiXScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.width : Screen.height) / 480.0f;
 		guiYScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.height : Screen.width) / 640.0f;
@@ -231,7 +235,7 @@ public class TestMap : MonoBehaviour
 	void Update()
 	{
 		if(map.HasMoved==true){
-			print ("la coordenada es: "+ (map.CenterWGS84)[0].ToString()+" , "+(map.CenterWGS84)[1].ToString());
+			CoordinatesText.text=("la coordenada es: "+ (map.CenterWGS84)[0].ToString()+" , "+(map.CenterWGS84)[1].ToString());
 		}
 
 		if (destinationAngle != 0.0f)
