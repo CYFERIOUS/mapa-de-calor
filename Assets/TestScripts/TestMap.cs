@@ -48,9 +48,9 @@ public class TestMap : MonoBehaviour
 	private float	currentAngle = 0.0f;
 	private float	animationDuration = 0.5f;
 	private float	animationStartTime = 0.0f;
-
-    private List<Layer> layers;
-    private int     currentLayerIndex = 0;
+	
+	private List<Layer> layers;
+	private int     currentLayerIndex = 0;
 	
 	bool Toolbar(Map map)
 	{
@@ -63,19 +63,19 @@ public class TestMap : MonoBehaviour
 		//GUILayout.Label("Zoom: " + map.CurrentZoom);
 		
 		bool pressed = false;
-        if (GUILayout.RepeatButton("+", GUILayout.ExpandHeight(true)))
+		if (GUILayout.RepeatButton("+", GUILayout.ExpandHeight(true)))
 		{
 			map.Zoom(1.0f);
 			pressed = true;
 		}
-        if (Event.current.type == EventType.Repaint)
-        {
-            Rect rect = GUILayoutUtility.GetLastRect();
-            if (rect.Contains(Event.current.mousePosition))
-                pressed = true;
-        }
-
-        if (GUILayout.Button("2D/3D", GUILayout.ExpandHeight(true)))
+		if (Event.current.type == EventType.Repaint)
+		{
+			Rect rect = GUILayoutUtility.GetLastRect();
+			if (rect.Contains(Event.current.mousePosition))
+				pressed = true;
+		}
+		
+		if (GUILayout.Button("2D/3D", GUILayout.ExpandHeight(true)))
 		{
 			if (isPerspectiveView)
 			{
@@ -90,80 +90,75 @@ public class TestMap : MonoBehaviour
 			
 			isPerspectiveView = !isPerspectiveView;
 		}
-        if (Event.current.type == EventType.Repaint)
-        {
-            Rect rect = GUILayoutUtility.GetLastRect();
-            if (rect.Contains(Event.current.mousePosition))
-                pressed = true;
-        }
-
-        if (GUILayout.Button("Center", GUILayout.ExpandHeight(true)))
-        {
-            map.CenterOnLocation();
-        }
-        if (Event.current.type == EventType.Repaint)
-        {
-            Rect rect = GUILayoutUtility.GetLastRect();
-            if (rect.Contains(Event.current.mousePosition))
-                pressed = true;
-        }
-
-        string layerMessage = String.Empty;
-        if (map.CurrentZoom > layers[currentLayerIndex].MaxZoom)
-            layerMessage = "\nZoom out!";
-        else if (map.CurrentZoom < layers[currentLayerIndex].MinZoom)
-            layerMessage = "\nZoom in!";
-        if (GUILayout.Button(((layers != null && currentLayerIndex < layers.Count) ? layers[currentLayerIndex].name + layerMessage : "Layer"), GUILayout.ExpandHeight(true)))
-        {
-#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
-            layers[currentLayerIndex].gameObject.SetActiveRecursively(false);
-#else
+		if (Event.current.type == EventType.Repaint)
+		{
+			Rect rect = GUILayoutUtility.GetLastRect();
+			if (rect.Contains(Event.current.mousePosition))
+				pressed = true;
+		}
+		
+		if (GUILayout.Button("Center", GUILayout.ExpandHeight(true)))
+		{
+			map.CenterOnLocation();
+		}
+		if (Event.current.type == EventType.Repaint)
+		{
+			Rect rect = GUILayoutUtility.GetLastRect();
+			if (rect.Contains(Event.current.mousePosition))
+				pressed = true;
+		}
+		
+		string layerMessage = String.Empty;
+		if (map.CurrentZoom > layers[currentLayerIndex].MaxZoom)
+			layerMessage = "\nZoom out!";
+		else if (map.CurrentZoom < layers[currentLayerIndex].MinZoom)
+			layerMessage = "\nZoom in!";
+		if (GUILayout.Button(((layers != null && currentLayerIndex < layers.Count) ? layers[currentLayerIndex].name + layerMessage : "Layer"), GUILayout.ExpandHeight(true)))
+		{
+			#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
+			layers[currentLayerIndex].gameObject.SetActiveRecursively(false);
+			#else
 			layers[currentLayerIndex].gameObject.SetActive(false);
-#endif
-            ++currentLayerIndex;
-            if (currentLayerIndex >= layers.Count)
-                currentLayerIndex = 0;
-#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
-            layers[currentLayerIndex].gameObject.SetActiveRecursively(true);
-#else
+			#endif
+			++currentLayerIndex;
+			if (currentLayerIndex >= layers.Count)
+				currentLayerIndex = 0;
+			#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
+			layers[currentLayerIndex].gameObject.SetActiveRecursively(true);
+			#else
 			layers[currentLayerIndex].gameObject.SetActive(true);
-#endif
-            map.IsDirty = true;
-        }
-
-        if (GUILayout.RepeatButton("-", GUILayout.ExpandHeight(true)))
+			#endif
+			map.IsDirty = true;
+		}
+		
+		if (GUILayout.RepeatButton("-", GUILayout.ExpandHeight(true)))
 		{
 			map.Zoom(-1.0f);
 			pressed = true;
 		}
-        if (Event.current.type == EventType.Repaint)
-        {
-            Rect rect = GUILayoutUtility.GetLastRect();
-            if (rect.Contains(Event.current.mousePosition))
-                pressed = true;
-        }
+		if (Event.current.type == EventType.Repaint)
+		{
+			Rect rect = GUILayoutUtility.GetLastRect();
+			if (rect.Contains(Event.current.mousePosition))
+				pressed = true;
+		}
 		
 		GUILayout.EndHorizontal();
-					
+		
 		GUILayout.EndArea();
 		
 		return pressed;
 	}
 	
-	private
-#if !UNITY_WEBPLAYER
-        IEnumerator
-#else
-        void
-#endif
-        Start()
+	private void
+		Start()
 	{
-        // setup the gui scale according to the screen resolution
-        guiXScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.width : Screen.height) / 480.0f;
-        guiYScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.height : Screen.width) / 640.0f;
+		// setup the gui scale according to the screen resolution
+		guiXScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.width : Screen.height) / 480.0f;
+		guiYScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.height : Screen.width) / 640.0f;
 		// setup the gui area
 		guiRect = new Rect(16.0f * guiXScale, 4.0f * guiXScale, Screen.width / guiXScale - 32.0f * guiXScale, 32.0f * guiYScale);
-
+		
 		// create the map singleton
 		map = Map.Instance;
 		map.CurrentCamera = Camera.main;
@@ -174,127 +169,45 @@ public class TestMap : MonoBehaviour
 		map.UseLocation = true;
 		map.InputsEnabled = true;
 		map.ShowGUIControls = false;
-
-		map.GUIDelegate += Toolbar;
-
-        layers = new List<Layer>();
-
-		// create an OSM tile layer
-        OSMTileLayer osmLayer = map.CreateLayer<OSMTileLayer>("OSM");
-        osmLayer.BaseURL = "http://a.tile.openstreetmap.org/";
 		
-        layers.Add(osmLayer);
-
-		// create a WMS tile layer
-        WMSTileLayer wmsLayer = map.CreateLayer<WMSTileLayer>("WMS");
-        //wmsLayer.BaseURL = "http://129.206.228.72/cached/osm?"; // http://www.osm-wms.de : seems to be of very limited use
-        //wmsLayer.Layers = "osm_auto:all";
-        wmsLayer.BaseURL = "http://vmap0.tiles.osgeo.org/wms/vmap0";
-        wmsLayer.Layers = "basic";
-#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
-        wmsLayer.gameObject.SetActiveRecursively(false);
-#else
-		wmsLayer.gameObject.SetActive(false);
-#endif
-
-        layers.Add(wmsLayer);
+		map.GUIDelegate += Toolbar;
+		
+		layers = new List<Layer>();
 
 		// create a VirtualEarth tile layer
-        VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer>("VirtualEarth");
-        // Note: this is the key UnitySlippyMap, DO NOT use it for any other purpose than testing
-        virtualEarthLayer.Key = "ArgkafZs0o_PGBuyg468RaapkeIQce996gkyCe8JN30MjY92zC_2hcgBU_rHVUwT";
-#if UNITY_WEBPLAYER
-        virtualEarthLayer.ProxyURL = "http://reallyreallyreal.com/UnitySlippyMap/demo/veproxy.php";
-#endif
-#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
-        virtualEarthLayer.gameObject.SetActiveRecursively(false);
-#else
-		virtualEarthLayer.gameObject.SetActive(false);
-#endif
-
-        layers.Add(virtualEarthLayer);
-
-#if !UNITY_WEBPLAYER // FIXME: SQLite won't work in webplayer except if I find a full .NET 2.0 implementation (for free)
-		// create an MBTiles tile layer
-		bool error = false;
-		// on iOS, you need to add the db file to the Xcode project using a directory reference
-		string mbTilesDir = "MBTiles/";
-		string filename = "UnitySlippyMap_World_0_8.mbtiles";
-		string filepath = null;
-		if (Application.platform == RuntimePlatform.IPhonePlayer)
-		{
-			filepath = Application.streamingAssetsPath + "/" + mbTilesDir + filename;
-		}
-		else if (Application.platform == RuntimePlatform.Android)
-		{
-			// Note: Android is a bit tricky, Unity produces APK files and those are never unzip on the device.
-			// Place your MBTiles file in the StreamingAssets folder (http://docs.unity3d.com/Documentation/Manual/StreamingAssets.html).
-			// Then you need to access the APK on the device with WWW and copy the file to persitentDataPath
-			// to that it can be read by SqliteDatabase as an individual file
-			string newfilepath = Application.temporaryCachePath + "/" + filename;
-			if (File.Exists(newfilepath) == false)
-			{
-				Debug.Log("DEBUG: file doesn't exist: " + newfilepath);
-				filepath = Application.streamingAssetsPath + "/" + mbTilesDir + filename;
-				// TODO: read the file with WWW and write it to persitentDataPath
-				WWW loader = new WWW(filepath);
-				yield return loader;
-				if (loader.error != null)
-				{
-					Debug.LogError("ERROR: " + loader.error);
-					error = true;
-				}
-				else
-				{
-					Debug.Log("DEBUG: will write: '" + filepath + "' to: '" + newfilepath + "'");
-					File.WriteAllBytes(newfilepath, loader.bytes);
-				}
-			}
-			else
-				Debug.Log("DEBUG: exists: " + newfilepath);
-			filepath = newfilepath;
-		}
-        else
-		{
-			filepath = Application.streamingAssetsPath + "/" + mbTilesDir + filename;
-		}
+		VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer>("VirtualEarth");
+		// Note: this is the key UnitySlippyMap, DO NOT use it for any other purpose than testing
+		virtualEarthLayer.Key = "ArgkafZs0o_PGBuyg468RaapkeIQce996gkyCe8JN30MjY92zC_2hcgBU_rHVUwT";
+		#if UNITY_WEBPLAYER
+		virtualEarthLayer.ProxyURL = "http://reallyreallyreal.com/UnitySlippyMap/demo/veproxy.php";
+		#endif
+		#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
+		virtualEarthLayer.gameObject.SetActiveRecursively(false);
+		#else
+		virtualEarthLayer.gameObject.SetActive(true);
+		#endif
 		
-		if (error == false)
-		{
-            Debug.Log("DEBUG: using MBTiles file: " + filepath);
-			MBTilesLayer mbTilesLayer = map.CreateLayer<MBTilesLayer>("MBTiles");
-			mbTilesLayer.Filepath = filepath;
-#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
-            mbTilesLayer.gameObject.SetActiveRecursively(false);
-#else
-			mbTilesLayer.gameObject.SetActive(false);
-#endif
-
-            layers.Add(mbTilesLayer);
-		}
-        else
-            Debug.LogError("ERROR: MBTiles file not found!");
-
-#endif
-
-        // create some test 2D markers
+		layers.Add(virtualEarthLayer);
+		
+		
+		// create some test 2D markers
 		GameObject go = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
 		go.renderer.material.mainTexture = MarkerTexture;
 		go.renderer.material.renderQueue = 4001;
 		go.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
 		go.transform.localScale /= 7.0f;
-        go.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
+		go.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
 		
 		GameObject markerGO;
 		markerGO = Instantiate(go) as GameObject;
 		map.CreateMarker<Marker>("test marker - 9 rue Gentil, Lyon", new double[2] { 4.83527, 45.76487 }, markerGO);
-
+		
 		markerGO = Instantiate(go) as GameObject;
 		map.CreateMarker<Marker>("test marker - 31 rue de la Bourse, Lyon", new double[2] { 4.83699, 45.76535 }, markerGO);
 		
 		markerGO = Instantiate(go) as GameObject;
 		map.CreateMarker<Marker>("test marker - 1 place St Nizier, Lyon", new double[2] { 4.83295, 45.76468 }, markerGO);
-
+		
 		DestroyImmediate(go);
 		
 		// create the location marker
@@ -305,7 +218,7 @@ public class TestMap : MonoBehaviour
 		
 		markerGO = Instantiate(go) as GameObject;
 		map.SetLocationMarker<LocationMarker>(markerGO);
-
+		
 		DestroyImmediate(go);
 	}
 	
@@ -337,12 +250,11 @@ public class TestMap : MonoBehaviour
 		}
 	}
 	
-#if DEBUG_PROFILE
+	#if DEBUG_PROFILE
 	void LateUpdate()
 	{
 		Debug.Log("PROFILE:\n" + UnitySlippyMap.Profiler.Dump());
 		UnitySlippyMap.Profiler.Reset();
 	}
-#endif
+	#endif
 }
-
