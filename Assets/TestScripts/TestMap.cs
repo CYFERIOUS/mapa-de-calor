@@ -169,6 +169,7 @@ public class TestMap : MonoBehaviour
 		map.UseLocation = true;
 		map.InputsEnabled = true;
 		map.ShowGUIControls = false;
+
 		
 		map.GUIDelegate += Toolbar;
 		
@@ -200,13 +201,13 @@ public class TestMap : MonoBehaviour
 		
 		GameObject markerGO;
 		markerGO = Instantiate(go) as GameObject;
-		map.CreateMarker<Marker>("test marker - 9 rue Gentil, Lyon", new double[2] { 4.83527, 45.76487 }, markerGO);
+		map.CreateMarker<Marker>("test marker - 9 rue Gentil, Lyon", new double[2] { -74.084246, 4.632194 }, markerGO);
 		
 		markerGO = Instantiate(go) as GameObject;
-		map.CreateMarker<Marker>("test marker - 31 rue de la Bourse, Lyon", new double[2] { 4.83699, 45.76535 }, markerGO);
+		map.CreateMarker<Marker>("test marker - 31 rue de la Bourse, Lyon", new double[2] { 4.81699, 45.76235 }, markerGO);
 		
 		markerGO = Instantiate(go) as GameObject;
-		map.CreateMarker<Marker>("test marker - 1 place St Nizier, Lyon", new double[2] { 4.83295, 45.76468 }, markerGO);
+		map.CreateMarker<Marker>("test marker - 1 place St Nizier, Lyon", new double[2] { 4.89295, 45.71468 }, markerGO);
 		
 		DestroyImmediate(go);
 		
@@ -229,6 +230,10 @@ public class TestMap : MonoBehaviour
 	
 	void Update()
 	{
+		if(map.HasMoved==true){
+			print ("la coordenada es: "+ (map.CenterWGS84)[0].ToString()+" , "+(map.CenterWGS84)[1].ToString());
+		}
+
 		if (destinationAngle != 0.0f)
 		{
 			Vector3 cameraLeft = Quaternion.AngleAxis(-90.0f, Camera.main.transform.up) * Camera.main.transform.forward;
