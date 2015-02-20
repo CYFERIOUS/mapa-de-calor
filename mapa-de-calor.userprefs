@@ -1,8 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MapToolkit-lite/Script/Editor/LevelScriptEditor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/OpenMapWrapper.cs">
     <Files>
-      <File FileName="Assets/MapToolkit-lite/Script/Editor/LevelScriptEditor.cs" Line="56" Column="1" />
+      <File FileName="Assets/Scripts/OpenMapWrapper.cs" Line="4" Column="58" />
+      <File FileName="../testUnityDependences/dependencyInjection/Assets/Scripts/AppManager.cs" Line="1" Column="1" />
+      <File FileName="../testUnityDependences/dependencyInjection/Assets/Scripts/WASDInput.cs" Line="7" Column="33" />
+      <File FileName="Assets/Scripts/MapWrapper.cs" Line="4" Column="22" />
+      <File FileName="../testUnityDependences/dependencyInjection/Assets/Scripts/InputGenerator.cs" Line="7" Column="2" />
+      <File FileName="Assets/UnitySlippyMap/Helpers/TextureAtlasManager/TextureAtlasManager.cs" Line="81" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
