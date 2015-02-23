@@ -198,38 +198,8 @@ public class TestMap : MonoBehaviour
 		#endif
 		
 		layers.Add(virtualEarthLayer);
-		
-		
-		// create some test 2D markers
-		go = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
-		go.renderer.material.mainTexture = MarkerTexture;
-		go.renderer.material.renderQueue = 4001;
-		go.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
-		go.transform.localScale /= 7.0f;
-		go.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
-		
-		GameObject markerGO;
-		markerGO = Instantiate(go) as GameObject;
-		map.CreateMarker<Marker>("test marker - 9 rue Gentil, Lyon", new double[2] { -74.084246, 4.632194 }, markerGO);
-		
-		markerGO = Instantiate(go) as GameObject;
-		map.CreateMarker<Marker>("test marker - 31 rue de la Bourse, Lyon", new double[2] { 4.81699, 45.76235 }, markerGO);
-		
-		markerGO = Instantiate(go) as GameObject;
-		map.CreateMarker<Marker>("test marker - 1 place St Nizier, Lyon", new double[2] { 4.89295, 45.71468 }, markerGO);
-		
-		DestroyImmediate(go);
-		
-		// create the location marker
-		go = Tile.CreateTileTemplate().gameObject;
-		go.renderer.material.mainTexture = LocationTexture;
-		go.renderer.material.renderQueue = 4000;
-		go.transform.localScale /= 27.0f;
-		
-		markerGO = Instantiate(go) as GameObject;
-		map.SetLocationMarker<LocationMarker>(markerGO);
-		
-		DestroyImmediate(go);
+
+		DrawGPSUserLocation();
 	}
 	
 	void OnApplicationQuit()
@@ -239,23 +209,11 @@ public class TestMap : MonoBehaviour
 	
 	void Update()
 	{
-		/*
-		if(Input.GetMouseButton(0))
-		{
-			pulsacion=Camera.main.ScreenPointToRay(Input.mousePosition);
-			if(Physics.Raycast(pulsacion,out colision))
-			{
-				Debug.Log("LA colision: "+colision.collider.name); 
-			}
-		}*/
 		Vector3 wordPos;
 		Vector3 mousePos=new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
 		Ray ray=Camera.main.ScreenPointToRay(mousePos);
-		
 		RaycastHit hit;
-		
 
-		
 		if(Input.GetMouseButtonDown(0)) {
 
 			if(Physics.Raycast(ray,out hit,1000f)) {
@@ -265,44 +223,13 @@ public class TestMap : MonoBehaviour
 			} else {
 				
 				wordPos=Camera.main.ScreenToWorldPoint(mousePos);
-				
-				
 			}
-			
-			print ("la coordenada real es= "+ wordPos);
+			print ("la coordenada de la pantalla es= "+ wordPos);
 
 			double latitude=(0.0167*wordPos[2])+((map.CenterWGS84)[1]);
 			double longitude=(0.0167*wordPos[0])+((map.CenterWGS84)[0]);
 
-			go = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
-			go.renderer.material.mainTexture = MarkerTexture;
-			go.renderer.material.renderQueue = 4001;
-			go.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
-			go.transform.localScale /= 7.0f;
-			go.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
-
-
-			GameObject markerGO;
-			markerGO = Instantiate(go) as GameObject;
-			map.CreateMarker<Marker>("test marker - 9 rue Gentil, Lyon", new double[2] { longitude, latitude  }, markerGO);
-			DestroyImmediate(go);
-
-			go = Tile.CreateTileTemplate().gameObject;
-			go.renderer.material.mainTexture = LocationTexture;
-			go.renderer.material.renderQueue = 4000;
-			go.transform.localScale /= 27.0f;
-			
-			markerGO = Instantiate(go) as GameObject;
-			map.SetLocationMarker<LocationMarker>(markerGO);
-			DestroyImmediate(go);
-
-			print(("la coordenada es: "+ (map.CenterWGS84)[0].ToString()+" , "+(map.CenterWGS84)[1].ToString()));
-
-			
-
-			
-			//or for tandom rotarion use Quaternion.LookRotation(Random.insideUnitSphere)
-			
+			CreateAnnotationOnClick(latitude,longitude);
 		}
 		
 		
@@ -330,6 +257,34 @@ public class TestMap : MonoBehaviour
 			
 			map.HasMoved = true;
 		}
+	}
+
+	public void DrawGPSUserLocation(){
+		go = Tile.CreateTileTemplate().gameObject;
+		go.renderer.material.mainTexture = LocationTexture;
+		go.renderer.material.renderQueue = 4000;
+		go.transform.localScale /= 27.0f;
+		
+		GameObject markerGO;
+		markerGO = Instantiate(go) as GameObject;
+		map.SetLocationMarker<LocationMarker>(markerGO);
+		DestroyImmediate(go);
+	}
+
+	public void CreateAnnotationOnClick(double latitude,double longitude){
+		go = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
+		go.renderer.material.mainTexture = MarkerTexture;
+		go.renderer.material.renderQueue = 4001;
+		go.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
+		go.transform.localScale /= 7.0f;
+		go.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
+
+		GameObject markerGO;
+		markerGO = Instantiate(go) as GameObject;
+		map.CreateMarker<Marker>("test marker - 9 rue Gentil, Lyon", new double[2] { longitude, latitude  }, markerGO);
+		DestroyImmediate(go);
+
+		print(("la coordenada es: "+ (map.CenterWGS84)[0].ToString()+" , "+(map.CenterWGS84)[1].ToString()));
 	}
 	
 	#if DEBUG_PROFILE
