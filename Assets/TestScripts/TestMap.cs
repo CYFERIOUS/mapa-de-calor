@@ -1,6 +1,3 @@
-// 
-//  TestMap.cs
-//  
 //  Author:
 //       Jonathan Derrough <jonathan.derrough@gmail.com>
 //  
@@ -37,7 +34,7 @@ public class TestMap : MonoBehaviour
 	
 	public Texture	LocationTexture;
 	public Texture	MarkerTexture;
-
+	
 	public Text CoordinatesText;
 	
 	private float	guiXScale;
@@ -53,6 +50,14 @@ public class TestMap : MonoBehaviour
 	
 	private List<Layer> layers;
 	private int     currentLayerIndex = 0;
+	
+	
+	private Ray pulsacion;
+	private RaycastHit colision;
+	
+	public GameObject go;
+	
+	
 	
 	bool Toolbar(Map map)
 	{
@@ -173,12 +178,12 @@ public class TestMap : MonoBehaviour
 		map.UseLocation = true;
 		map.InputsEnabled = true;
 		map.ShowGUIControls = false;
-
+		
 		
 		map.GUIDelegate += Toolbar;
 		
 		layers = new List<Layer>();
-
+		
 		// create a VirtualEarth tile layer
 		VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer>("VirtualEarth");
 		// Note: this is the key UnitySlippyMap, DO NOT use it for any other purpose than testing
@@ -196,7 +201,7 @@ public class TestMap : MonoBehaviour
 		
 		
 		// create some test 2D markers
-		GameObject go = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
+		go = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
 		go.renderer.material.mainTexture = MarkerTexture;
 		go.renderer.material.renderQueue = 4001;
 		go.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
@@ -234,10 +239,78 @@ public class TestMap : MonoBehaviour
 	
 	void Update()
 	{
+		/*
+		if(Input.GetMouseButton(0))
+		{
+			pulsacion=Camera.main.ScreenPointToRay(Input.mousePosition);
+			if(Physics.Raycast(pulsacion,out colision))
+			{
+				Debug.Log("LA colision: "+colision.collider.name); 
+			}
+		}*/
+		Vector3 wordPos;
+		Vector3 mousePos=new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
+		Ray ray=Camera.main.ScreenPointToRay(mousePos);
+		
+		RaycastHit hit;
+		
+
+		
+		if(Input.GetMouseButtonDown(0)) {
+
+			if(Physics.Raycast(ray,out hit,1000f)) {
+				
+				wordPos=hit.point;
+				
+			} else {
+				
+				wordPos=Camera.main.ScreenToWorldPoint(mousePos);
+				
+				
+			}
+			
+			print ("la coordenada real es= "+ wordPos);
+
+			double latitude=(0.0167*wordPos[2])+((map.CenterWGS84)[1]);
+			double longitude=(0.0167*wordPos[0])+((map.CenterWGS84)[0]);
+
+			go = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
+			go.renderer.material.mainTexture = MarkerTexture;
+			go.renderer.material.renderQueue = 4001;
+			go.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
+			go.transform.localScale /= 7.0f;
+			go.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
+
+
+			GameObject markerGO;
+			markerGO = Instantiate(go) as GameObject;
+			map.CreateMarker<Marker>("test marker - 9 rue Gentil, Lyon", new double[2] { longitude, latitude  }, markerGO);
+			DestroyImmediate(go);
+
+			go = Tile.CreateTileTemplate().gameObject;
+			go.renderer.material.mainTexture = LocationTexture;
+			go.renderer.material.renderQueue = 4000;
+			go.transform.localScale /= 27.0f;
+			
+			markerGO = Instantiate(go) as GameObject;
+			map.SetLocationMarker<LocationMarker>(markerGO);
+			DestroyImmediate(go);
+
+			print(("la coordenada es: "+ (map.CenterWGS84)[0].ToString()+" , "+(map.CenterWGS84)[1].ToString()));
+
+			
+
+			
+			//or for tandom rotarion use Quaternion.LookRotation(Random.insideUnitSphere)
+			
+		}
+		
+		
 		if(map.HasMoved==true){
 			CoordinatesText.text=("la coordenada es: "+ (map.CenterWGS84)[0].ToString()+" , "+(map.CenterWGS84)[1].ToString());
+			//print(("la coordenada es: "+ (map.CenterWGS84)[0].ToString()+" , "+(map.CenterWGS84)[1].ToString()));
 		}
-
+		
 		if (destinationAngle != 0.0f)
 		{
 			Vector3 cameraLeft = Quaternion.AngleAxis(-90.0f, Camera.main.transform.up) * Camera.main.transform.forward;
