@@ -173,23 +173,23 @@ namespace UnitySlippyMap.Input
 	    			}
 	    			
 	    			// zoom
-	    			if (UnityEngine.Input.GetKey(KeyCode.Z))
+					if (UnityEngine.Input.GetKey(KeyCode.RightShift))
 	    			{
 	    				zooming = true;
 	    				zoomFactor = 1.0f;
 	    				lastZoomFactor = 0.0f;
 	    			}
-	    			else if (UnityEngine.Input.GetKeyUp(KeyCode.Z))
+					else if (UnityEngine.Input.GetKeyUp(KeyCode.RightShift))
 	    			{
 	    				zoomingStopped = true;
 	    			}
-	    			if (UnityEngine.Input.GetKey(KeyCode.S))
+	    			if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
 	    			{
 	    				zooming = true;
 	    				zoomFactor = -1.0f;
 	    				lastZoomFactor = 0.0f;
 	    			}
-	    			else if (UnityEngine.Input.GetKeyUp(KeyCode.S))
+					else if (UnityEngine.Input.GetKeyUp(KeyCode.LeftShift))
 	    			{
 	    				zoomingStopped = true;
 	    			}
