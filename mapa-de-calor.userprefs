@@ -1,14 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/TestScripts/TestMap.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\OpenMapWrapper.cs">
     <Files>
-      <File FileName="../testUnityDependences/dependencyInjection/Assets/Scripts/AppManager.cs" Line="1" Column="1" />
-      <File FileName="../testUnityDependences/dependencyInjection/Assets/Scripts/InputReceiver.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/OpenMapWrapper.cs" Line="20" Column="60" />
-      <File FileName="Assets/UnitySlippyMap/Layer/VirtualEarthTileLayer.cs" Line="208" Column="1" />
-      <File FileName="Assets/Scripts/MapWrapper.cs" Line="6" Column="2" />
-      <File FileName="Assets/TestScripts/TestMap.cs" Line="215" Column="3" />
-      <File FileName="Assets/UnitySlippyMap/Helpers/TextureAtlasManager/TextureAtlasManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\TestScripts\TestMap.cs" Line="288" Column="104" />
+      <File FileName="Assets\Scripts\OpenMapWrapper.cs" Line="28" Column="2" />
+      <File FileName="Assets\Scripts\MapWrapper.cs" Line="10" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
