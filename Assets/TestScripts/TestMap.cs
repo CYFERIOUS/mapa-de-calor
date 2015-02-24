@@ -209,35 +209,10 @@ public class TestMap : MonoBehaviour
 	
 	void Update()
 	{
-		Vector3 wordPos;
-		Vector3 mousePos=new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
-		Ray ray=Camera.main.ScreenPointToRay(mousePos);
-		RaycastHit hit;
-
-		if(Input.GetMouseButtonDown(0)) {
-
-			if(Physics.Raycast(ray,out hit,1000f)) {
-				
-				wordPos=hit.point;
-				
-			} else {
-				
-				wordPos=Camera.main.ScreenToWorldPoint(mousePos);
-			}
-			print ("la coordenada de la pantalla es= "+ wordPos);
-
-			double latitude=(0.0167*wordPos[2])+((map.CenterWGS84)[1]);
-			double longitude=(0.0167*wordPos[0])+((map.CenterWGS84)[0]);
-
-			CreateAnnotationOnClick(latitude,longitude);
-		}
-		
-		
 		if(map.HasMoved==true){
 			CoordinatesText.text=("la coordenada es: "+ (map.CenterWGS84)[0].ToString()+" , "+(map.CenterWGS84)[1].ToString());
-			//print(("la coordenada es: "+ (map.CenterWGS84)[0].ToString()+" , "+(map.CenterWGS84)[1].ToString()));
 		}
-		
+
 		if (destinationAngle != 0.0f)
 		{
 			Vector3 cameraLeft = Quaternion.AngleAxis(-90.0f, Camera.main.transform.up) * Camera.main.transform.forward;
@@ -257,6 +232,32 @@ public class TestMap : MonoBehaviour
 			
 			map.HasMoved = true;
 		}
+	}
+
+	public Dictionary<string, double> GetCoordinatesOfCursor(){
+		Dictionary<string, double> dictionary = new Dictionary<string, double>();
+		Vector3 mousePos=new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
+		Ray ray=Camera.main.ScreenPointToRay(mousePos);
+		RaycastHit hit;
+		Vector3 wordPos;
+		if(Physics.Raycast(ray,out hit,1000f)) {
+			
+			wordPos=hit.point;
+			
+		} else {
+			
+			wordPos=Camera.main.ScreenToWorldPoint(mousePos);
+		}
+		print ("la coordenada de la pantalla es= "+ wordPos);
+
+		double latitude=(0.0167*wordPos[2])+((map.CenterWGS84)[1]);
+		double longitude=(0.0167*wordPos[0])+((map.CenterWGS84)[0]);
+
+		dictionary.Add ("latitude", latitude);
+		dictionary.Add ("longitude", longitude);
+
+		return dictionary;
+	
 	}
 
 	public void DrawGPSUserLocation(){

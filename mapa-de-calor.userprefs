@@ -1,13 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TestScripts\TestMap.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/TestScripts/TestMap.cs">
     <Files>
-      <File FileName="Assets\UnitySlippyMap\Map.cs" Line="734" Column="39" />
-      <File FileName="Assets\TestScripts\TestMap.cs" Line="313" Column="2" />
-      <File FileName="Assets\UnitySlippyMap\Layer\VirtualEarthTileLayer.cs" Line="319" Column="2" />
-      <File FileName="Assets\UnitySlippyMap\Marker\Marker.cs" Line="141" Column="2" />
-      <File FileName="Assets\UnitySlippyMap\Helpers\GeoHelpers.cs" Line="1" Column="1" />
-      <File FileName="Assets\UnitySlippyMap\Input\Input.cs" Line="267" Column="1" />
+      <File FileName="../testUnityDependences/dependencyInjection/Assets/Scripts/AppManager.cs" Line="1" Column="1" />
+      <File FileName="../testUnityDependences/dependencyInjection/Assets/Scripts/InputReceiver.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/OpenMapWrapper.cs" Line="20" Column="60" />
+      <File FileName="Assets/UnitySlippyMap/Layer/VirtualEarthTileLayer.cs" Line="208" Column="1" />
+      <File FileName="Assets/Scripts/MapWrapper.cs" Line="6" Column="2" />
+      <File FileName="Assets/TestScripts/TestMap.cs" Line="215" Column="3" />
+      <File FileName="Assets/UnitySlippyMap/Helpers/TextureAtlasManager/TextureAtlasManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

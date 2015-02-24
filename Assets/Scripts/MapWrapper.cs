@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 interface MapWrapper{
-	string GetCoordinates();
+	Dictionary<string, double> GetCursorCoordinates();
+	void SetMarkerInMap();
 }
