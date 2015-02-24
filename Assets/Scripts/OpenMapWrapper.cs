@@ -8,6 +8,7 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 {
 	public TestMap testMap;
 	public InputField DirectionInputField;
+	private bool isMarkerSet;
 
 	public Dictionary<string, double> GetCursorCoordinates ()
 	{
@@ -16,14 +17,21 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	}
 
 	public void SetMarkerInMap(){
-		Debug.Log ("Click en la clase del wrapper");
-		Dictionary<string, double> CursorCoordinates = GetCursorCoordinates ();
-		testMap.CreateAnnotationOnClick(CursorCoordinates["latitude"], CursorCoordinates["longitude"]);
-		SetCoordinatesOnInputField (CursorCoordinates["latitude"],CursorCoordinates["longitude"]);
+		if(isMarkerSet==false){
+			Debug.Log ("Click en la clase del wrapper");
+			Dictionary<string, double> CursorCoordinates = GetCursorCoordinates ();
+			testMap.CreateAnnotationOnClick(CursorCoordinates["latitude"], CursorCoordinates["longitude"]);
+			SetCoordinatesOnInputField (CursorCoordinates["latitude"],CursorCoordinates["longitude"]);
+		}
+		isMarkerSet = true;
 	}
 
 	public void SetCoordinatesOnInputField(double latitude, double longitude){
 		DirectionInputField.text = latitude.ToString () + " , " + longitude.ToString ();
+	}
+
+	public void SetToFalseIsMarkerSet(){
+		isMarkerSet = false;
 	}
 	// Use this for initialization
 	void Start ()
