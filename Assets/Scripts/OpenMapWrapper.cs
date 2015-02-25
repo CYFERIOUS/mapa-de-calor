@@ -15,7 +15,7 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	public InputField DirectionInputField;
 	public Texture	LocationTexture;
 	public Texture	MarkerTexture;
-	public GameObject go;
+	private GameObject go;
 	private Map		map;
 	private List<Layer> layers;
 	private Ray pulsacion;
