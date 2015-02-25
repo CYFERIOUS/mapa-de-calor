@@ -7,7 +7,7 @@ using UnityEngine;
 namespace UnityTest {
 	[TestFixture]
 	[Category("Test Category")]
-	internal class TemplateTest {
+	internal class OpenMapWrapperTest {
 
 		[Test]
 		[Category("Sample Test")]
