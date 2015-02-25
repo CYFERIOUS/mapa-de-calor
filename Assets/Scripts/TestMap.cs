@@ -132,7 +132,7 @@ public class TestMap : MonoBehaviour
 			
 		} else {
 			
-			wordPos = Camera.main.ScreenToWorldPoint (mousePos);
+			wordPos = Camera.main.ScreenToWorldPoint (Input.GetTouch(0).position);
 		}
 
 		return wordPos;
