@@ -48,28 +48,26 @@ public class TestMap : MonoBehaviour
 	private void
 	Start ()
 	{
-		SetupMapInstance ();
-		SetupVirtualEarthLayer ();
-		DrawGPSUserLocation ();
+
 	}
 
 	void Update ()
 	{
-		if (destinationAngle != 0.0f) {
-			Vector3 cameraLeft = Quaternion.AngleAxis (-90.0f, Camera.main.transform.up) * Camera.main.transform.forward;
-			if ((Time.time - animationStartTime) < animationDuration) {
-				float angle = Mathf.LerpAngle (0.0f, destinationAngle, (Time.time - animationStartTime) / animationDuration);
-				Camera.main.transform.RotateAround (Vector3.zero, cameraLeft, angle - currentAngle);
-				currentAngle = angle;
-			} else {
-				Camera.main.transform.RotateAround (Vector3.zero, cameraLeft, destinationAngle - currentAngle);
-				destinationAngle = 0.0f;
-				currentAngle = 0.0f;
-				map.IsDirty = true;
-			}
-			
-			map.HasMoved = true;
-		}
+//		if (destinationAngle != 0.0f) {
+//			Vector3 cameraLeft = Quaternion.AngleAxis (-90.0f, Camera.main.transform.up) * Camera.main.transform.forward;
+//			if ((Time.time - animationStartTime) < animationDuration) {
+//				float angle = Mathf.LerpAngle (0.0f, destinationAngle, (Time.time - animationStartTime) / animationDuration);
+//				Camera.main.transform.RotateAround (Vector3.zero, cameraLeft, angle - currentAngle);
+//				currentAngle = angle;
+//			} else {
+//				Camera.main.transform.RotateAround (Vector3.zero, cameraLeft, destinationAngle - currentAngle);
+//				destinationAngle = 0.0f;
+//				currentAngle = 0.0f;
+//				map.IsDirty = true;
+//			}
+//			
+//			map.HasMoved = true;
+//		}
 	}
 
 	void OnApplicationQuit ()
@@ -140,10 +138,6 @@ public class TestMap : MonoBehaviour
 
 	public void DrawGPSUserLocation ()
 	{
-//		go = Tile.CreateTileTemplate (Tile.AnchorPoint.MiddleCenter).gameObject;
-//		go.renderer.material.mainTexture = LocationTexture;
-//		go.renderer.material.renderQueue = 4001;
-//		go.transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f)/27;
 		GameObject markerGO = CreateMarkerGameObject(Tile.AnchorPoint.MiddleCenter, LocationTexture, 4001, new Vector3 (1.0f, 1.0f, 1.0f)/27);
 		map.SetLocationMarker<LocationMarker> (markerGO);
 		DestroyImmediate (go);

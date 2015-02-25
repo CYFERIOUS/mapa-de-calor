@@ -51,7 +51,9 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	// Use this for initialization
 	void Start ()
 	{
-
+testMap.SetupMapInstance ();
+testMap.SetupVirtualEarthLayer ();
+		testMap.DrawGPSUserLocation ();
 	}
 	
 	// Update is called once per frame
