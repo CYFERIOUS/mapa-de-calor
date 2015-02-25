@@ -36,6 +36,7 @@ public class TestMap : MonoBehaviour
 	public Texture	MarkerTexture;
 	
 	public Text CoordinatesText;
+
 	
 	private float	guiXScale;
 	private float	guiYScale;
@@ -210,7 +211,7 @@ public class TestMap : MonoBehaviour
 	void Update()
 	{
 		if(map.HasMoved==true){
-			CoordinatesText.text=("la coordenada es: "+ (map.CenterWGS84)[0].ToString()+" , "+(map.CenterWGS84)[1].ToString());
+			//CoordinatesText.text=("la coordenada es: "+ (map.CenterWGS84)[0].ToString()+" , "+(map.CenterWGS84)[1].ToString());
 		}
 
 		if (destinationAngle != 0.0f)
@@ -246,9 +247,9 @@ public class TestMap : MonoBehaviour
 			
 		} else {
 			
-			wordPos=Camera.main.ScreenToWorldPoint(mousePos);
+			wordPos=Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 		}
-		print ("la coordenada de la pantalla es= "+ wordPos);
+		CoordinatesText.text= ("posicion= "+ (wordPos));
 
 		double latitude=(0.0167*wordPos[2])+((map.CenterWGS84)[1]);
 		double longitude=(0.0167*wordPos[0])+((map.CenterWGS84)[0]);
