@@ -72,6 +72,9 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	void Update ()
 	{
 		DetectDoubleTap ();
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.Quit();
+		}
 	}
 
 	public void SetupVirtualEarthLayer(){

@@ -68,6 +68,11 @@ public class TestMap : MonoBehaviour
 //			
 //			map.HasMoved = true;
 //		}
+
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.Quit();
+		}
+			
 	}
 
 	void OnApplicationQuit ()
