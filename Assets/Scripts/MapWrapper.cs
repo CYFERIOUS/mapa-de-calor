@@ -8,4 +8,5 @@ interface MapWrapper{
 	void SetMarkerInMap();
 	void SetCoordinatesOnInputField(double latitude, double longitude);
 	void SetToFalseIsMarkerSet();
+	void DetectDoubleTap();
 }

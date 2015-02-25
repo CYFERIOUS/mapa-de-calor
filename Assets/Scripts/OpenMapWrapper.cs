@@ -34,6 +34,20 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	public void SetToFalseIsMarkerSet(){
 		isMarkerSet = false;
 	}
+
+	public void DetectDoubleTap(){
+		for (var i = 0; i < Input.touchCount; ++i)
+		{
+			if (Input.GetTouch(i).phase == TouchPhase.Began) 
+			{
+				if(Input.GetTouch(i).tapCount == 2)
+				{
+					SetMarkerInMap();
+				}
+			}
+		}
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -43,8 +57,7 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	// Update is called once per frame
 	void Update ()
 	{
-
-		
+		DetectDoubleTap ();
 	}
 
 
