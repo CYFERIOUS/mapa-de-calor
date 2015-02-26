@@ -25,9 +25,11 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	
 	public void SetSingleMarkerOnMap ()
 	{
-		if (LastPutMarkerCoordinates == null) {
-			SetMarkerInMap ();
+		if (LastPutMarkerCoordinates != null) {
+			RemoveLastPutMarker();
+			
 		}
+			SetMarkerInMap ();
 	}
 
 	public void SetMarkerInMap ()
@@ -40,7 +42,17 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 			
 
 	}
+	public void RemoveLastPutMarker(){
+		Marker[] markers = map.GetComponentsInChildren<Marker>();
 
+		foreach(Marker marker in markers){
+			if(marker.CoordinatesWGS84[0] == LastPutMarkerCoordinates["longitude"] && marker.CoordinatesWGS84[1] == LastPutMarkerCoordinates["latitude"]){
+				map.RemoveMarker(marker);
+				SetNullLastPutMarkerCoordinates ();
+			}
+		}
+
+	}
 	public void SetCoordinatesOnInputField (double latitude, double longitude)
 	{
 		DirectionInputField.text = latitude.ToString () + " , " + longitude.ToString ();
