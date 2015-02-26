@@ -4,9 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 interface MapWrapper{
-	Dictionary<string, double> GetCursorCoordinates();
+	Dictionary<string, double> GetCoordinatesOfCursor();
+	void SetSingleMarkerOnMap();
 	void SetMarkerInMap();
 	void SetCoordinatesOnInputField(double latitude, double longitude);
-	void SetToFalseIsMarkerSet();
 	void DetectDoubleTap();
 }

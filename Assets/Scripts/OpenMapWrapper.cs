@@ -21,22 +21,24 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	private Ray pulsacion;
 	private RaycastHit colision;
 	private bool isMarkerSet;
-
-	public Dictionary<string, double> GetCursorCoordinates ()
-	{
-		return GetCoordinatesOfCursor ();
+	private Dictionary<string, double> LastPutMarkerCoordinates = null;
 	
+	public void SetSingleMarkerOnMap ()
+	{
+		if (LastPutMarkerCoordinates == null) {
+			SetMarkerInMap ();
+		}
 	}
 
 	public void SetMarkerInMap ()
 	{
-		if (isMarkerSet == false) {
-			Debug.Log ("Click en la clase del wrapper");
-			Dictionary<string, double> CursorCoordinates = GetCursorCoordinates ();
-			CreateAnnotation (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
-			SetCoordinatesOnInputField (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
-		}
-		isMarkerSet = true;
+		Debug.Log ("Click en la clase del wrapper");
+		Dictionary<string, double> CursorCoordinates = GetCoordinatesOfCursor ();
+		CreateAnnotation (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
+		SetCoordinatesOnInputField (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
+		LastPutMarkerCoordinates = CursorCoordinates;
+			
+
 	}
 
 	public void SetCoordinatesOnInputField (double latitude, double longitude)
@@ -44,9 +46,9 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 		DirectionInputField.text = latitude.ToString () + " , " + longitude.ToString ();
 	}
 
-	public void SetToFalseIsMarkerSet ()
+	public void SetNullLastPutMarkerCoordinates ()
 	{
-		isMarkerSet = false;
+		LastPutMarkerCoordinates = null;
 	}
 
 	public void DetectDoubleTap ()
@@ -77,7 +79,8 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 		}
 	}
 
-	public void SetupVirtualEarthLayer(){
+	public void SetupVirtualEarthLayer ()
+	{
 		layers = new List<Layer> ();
 		
 		// create a VirtualEarth tile layer
@@ -132,7 +135,7 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 			
 		} else {
 			
-			wordPos = Camera.main.ScreenToWorldPoint (Input.GetTouch(0).position);
+			wordPos = Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position);
 		}
 		
 		return wordPos;
@@ -140,14 +143,14 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	
 	public void DrawGPSUserLocation ()
 	{
-		GameObject markerGO = CreateMarkerGameObject(Tile.AnchorPoint.MiddleCenter, LocationTexture, 4001, new Vector3 (1.0f, 1.0f, 1.0f)/27);
+		GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.MiddleCenter, LocationTexture, 4001, new Vector3 (1.0f, 1.0f, 1.0f) / 27);
 		map.SetLocationMarker<LocationMarker> (markerGO);
 		DestroyImmediate (go);
 	}
 	
 	public void CreateAnnotation (double latitude, double longitude)
 	{
-		GameObject markerGO = CreateMarkerGameObject(Tile.AnchorPoint.BottomCenter, MarkerTexture, 4000, new Vector3 (0.7f, 1.0f, 1.0f)/7);
+		GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.BottomCenter, MarkerTexture, 4000, new Vector3 (0.7f, 1.0f, 1.0f) / 7);
 		map.CreateMarker<Marker> ("test marker - 9 rue Gentil, Lyon", new double[2] {
 			longitude,
 			latitude
@@ -156,7 +159,8 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 		
 	}
 	
-	public GameObject CreateMarkerGameObject(Tile.AnchorPoint anchorPoint, Texture mainTexture, int renderQueue, Vector3 localScale){
+	public GameObject CreateMarkerGameObject (Tile.AnchorPoint anchorPoint, Texture mainTexture, int renderQueue, Vector3 localScale)
+	{
 		go = Tile.CreateTileTemplate (anchorPoint).gameObject;
 		go.renderer.material.mainTexture = mainTexture;
 		go.renderer.material.renderQueue = renderQueue;
