@@ -9,8 +9,8 @@ namespace UnityTest {
 	[Category("Report Saver Tests")]
 	internal class FormSaverTest {
 
-		IFormDataSaver saver = new FormSaverMock();
-		IDataStorage storage = new DataStorageMock();
+		IFormDataSaver saver = new DataStorageMock();
+		IDataStorage storage = new FormSaverMock();
 		FormData data = new FormData();
 
 		string name = "name";

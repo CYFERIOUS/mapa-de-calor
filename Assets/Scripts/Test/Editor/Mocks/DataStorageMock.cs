@@ -10,6 +10,8 @@ public class DataStorageMock : IDataStorage {
 	private string stuff;
 	private int robbery;
 
+	public void save(){	}
+
 	public string GetName(){
 		return name; 
 	}

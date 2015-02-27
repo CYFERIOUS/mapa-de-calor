@@ -16,4 +16,5 @@ public interface IDataStorage  {
 	void SetTimestamp (int val);
 	void SetStuff (string val);
 	void SetRobbery (int val);
+	void save();
 }
