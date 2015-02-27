@@ -22,14 +22,33 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	private RaycastHit colision;
 	private bool isMarkerSet;
 	private Dictionary<string, double> LastPutMarkerCoordinates = null;
+
+	// Use this for initialization
+	void Start ()
+	{
+		layers = new List<Layer> ();
+		SetupMapInstance ();
+		SetupVirtualEarthLayer ();
+		//SetupOpenMapsLayer ();
+		DrawGPSUserLocation ();
+	}
 	
+	// Update is called once per frame
+	void Update ()
+	{
+		DetectDoubleTap ();
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.Quit ();
+		}
+	}
+
 	public void SetSingleMarkerOnMap ()
 	{
 		if (LastPutMarkerCoordinates != null) {
-			RemoveLastPutMarker();
+			RemoveLastPutMarker ();
 			
 		}
-			SetMarkerInMap ();
+		SetMarkerInMap ();
 	}
 
 	public void SetMarkerInMap ()
@@ -42,17 +61,20 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 			
 
 	}
-	public void RemoveLastPutMarker(){
-		Marker[] markers = map.GetComponentsInChildren<Marker>();
 
-		foreach(Marker marker in markers){
-			if(marker.CoordinatesWGS84[0] == LastPutMarkerCoordinates["longitude"] && marker.CoordinatesWGS84[1] == LastPutMarkerCoordinates["latitude"]){
-				map.RemoveMarker(marker);
+	public void RemoveLastPutMarker ()
+	{
+		Marker[] markers = map.GetComponentsInChildren<Marker> ();
+
+		foreach (Marker marker in markers) {
+			if (marker.CoordinatesWGS84 [0] == LastPutMarkerCoordinates ["longitude"] && marker.CoordinatesWGS84 [1] == LastPutMarkerCoordinates ["latitude"]) {
+				map.RemoveMarker (marker);
 				SetNullLastPutMarkerCoordinates ();
 			}
 		}
 
 	}
+
 	public void SetCoordinatesOnInputField (double latitude, double longitude)
 	{
 		DirectionInputField.text = latitude.ToString () + " , " + longitude.ToString ();
@@ -74,26 +96,9 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 		}
 	}
 
-	// Use this for initialization
-	void Start ()
-	{
-		SetupMapInstance ();
-		SetupVirtualEarthLayer ();
-		DrawGPSUserLocation ();
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		DetectDoubleTap ();
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			Application.Quit();
-		}
-	}
-
 	public void SetupVirtualEarthLayer ()
 	{
-		layers = new List<Layer> ();
+
 		
 		// create a VirtualEarth tile layer
 		VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer> ("VirtualEarth");
@@ -103,6 +108,15 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 		
 		layers.Add (virtualEarthLayer);
 		
+	}
+
+	public void SetupOpenMapsLayer(){
+		// create an OSM tile layer
+
+		OSMTileLayer osmLayer = map.CreateLayer<OSMTileLayer>("OSM");
+		osmLayer.BaseURL = "http://a.tile.openstreetmap.org/";
+		
+		layers.Add(osmLayer);
 	}
 	
 	public void SetupMapInstance ()
@@ -163,7 +177,7 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	public void CreateAnnotation (double latitude, double longitude)
 	{
 		GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.BottomCenter, MarkerTexture, 4000, new Vector3 (0.7f, 1.0f, 1.0f) / 7);
-		map.CreateMarker<Marker> ("test marker - 9 rue Gentil, Lyon", new double[2] {
+		map.CreateMarker<Marker> ("Marker", new double[2] {
 			longitude,
 			latitude
 		}, markerGO);
