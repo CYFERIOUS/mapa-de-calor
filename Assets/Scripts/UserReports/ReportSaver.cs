@@ -9,11 +9,11 @@ public class ReportSaver : IFormDataSaver {
 	private IDataStorage storage;
 	private Vector2 coordinates;
 
-	void SetStorage(IDataStorage storage) {
+	public void SetStorage(IDataStorage storage) {
 		this.storage = storage;
 	}
 
-	void Save(FormData data) {
+	public void Save(FormData data) {
 		PlayerPrefs.SetInt("time", data.timestamp);
 		PlayerPrefs.SetString("user", data.name);
 	}
@@ -106,10 +106,8 @@ public class ReportSaver : IFormDataSaver {
 
 }
 
-	
 public enum Robbery{
 	NonSpecified,
 	Assault,
 	Thievery
 }
-
