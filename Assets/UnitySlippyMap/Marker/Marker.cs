@@ -84,7 +84,7 @@ public class Marker : MonoBehaviour
 	protected void Update()
 	{
 		if (this.gameObject.transform.localScale.x != Map.HalfMapScale)
-			this.gameObject.transform.localScale = new Vector3(Map.HalfMapScale, Map.HalfMapScale, Map.HalfMapScale);
+				this.gameObject.transform.localScale = new Vector3(1.0f, 1.0f,  1.0f);
 
 		Reposition();
 	}
