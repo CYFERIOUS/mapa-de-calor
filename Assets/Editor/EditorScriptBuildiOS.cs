@@ -8,7 +8,7 @@ class EditorScriptBuildiOS {
 
 		static string[] SCENES = FindEnabledEditorScenes();
 		
-		static string APP_NAME = "MapaDeCalor-IphoneS";
+		static string APP_NAME = "MapaDeCalor-Iphone";
 		static string TARGET_DIR = "/Users/Shared/Jenkins/Home/workspace/MapaDeCalor-Iphone";
 		
 		[MenuItem ("Custom/CI/Build Mac OS X")]
