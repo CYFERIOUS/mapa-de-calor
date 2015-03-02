@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
+using System.IO;	
 using UnityEngine;
 using UnityEngine.UI;
 using UnitySlippyMap;
@@ -22,6 +22,12 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	private RaycastHit colision;
 	private bool isMarkerSet;
 	private Dictionary<string, double> LastPutMarkerCoordinates = null;
+
+	public List<object> Markers {
+		get {
+			return new List<object> ();
+		}
+	}
 
 	// Use this for initialization
 	void Start ()
