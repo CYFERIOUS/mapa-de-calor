@@ -90,7 +90,7 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 		for (var i = 0; i < Input.touchCount; ++i) {
 			if (Input.GetTouch (i).phase == TouchPhase.Began) {
 				if (Input.GetTouch (i).tapCount == 2) {
-					SetMarkerInMap ();
+					SetSingleMarkerOnMap ();
 				}
 			}
 		}
