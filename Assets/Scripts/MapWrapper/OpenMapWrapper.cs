@@ -21,6 +21,7 @@ public class OpenMapWrapper : MonoBehaviour
 	private RaycastHit colision;
 	private bool isMarkerSet;
 	private Dictionary<string, double> LastPutMarkerCoordinates = null;
+	private bool isOnReportMapLocationWindow = false;
 
 	public int MarkersCount {
 		get {
@@ -53,7 +54,9 @@ public class OpenMapWrapper : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		DetectDoubleTap ();
+		if(isOnReportMapLocationWindow==true){
+			DetectDoubleTap ();
+		}
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
 		}
@@ -210,6 +213,10 @@ public class OpenMapWrapper : MonoBehaviour
 		GameObject markerGO = Instantiate (go) as GameObject;
 		return markerGO;
 		
+	}
+
+	public void ToggleisOnReportMapLocationWindow(){
+		isOnReportMapLocationWindow = !isOnReportMapLocationWindow;
 	}
 
 
