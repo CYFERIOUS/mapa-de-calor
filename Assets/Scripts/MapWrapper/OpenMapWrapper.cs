@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
+using System.IO;	
 using UnityEngine;
 using UnityEngine.UI;
 using UnitySlippyMap;
@@ -9,7 +9,7 @@ using ProjNet.CoordinateSystems;
 using ProjNet.CoordinateSystems.Transformations;
 using ProjNet.Converters.WellKnownText;
 
-public class OpenMapWrapper : MonoBehaviour, MapWrapper
+public class OpenMapWrapper : MonoBehaviour
 {
 	//public TestMap testMap;
 	public InputField DirectionInputField;
@@ -17,19 +17,55 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	public Texture	MarkerTexture;
 	private GameObject go;
 	private Map		map;
-	private List<Layer> layers;
 	private Ray pulsacion;
 	private RaycastHit colision;
 	private bool isMarkerSet;
 	private Dictionary<string, double> LastPutMarkerCoordinates = null;
+
+	public int MarkersCount {
+		get {
+			return 0;
+		}
+	}
+
+	public bool HasTemporalMarker {
+		get{
+			return true;
+		}
+	}
+
+	public void SetTemporalMarker ()
+	{
+	}
+
+	public void AddTemporalMarker ()
+	{
+	}
+
+	// Use this for initialization
+	void Start ()
+	{
+		SetupMapInstance ();
+		SetupVirtualEarthLayer ();
+		DrawGPSUserLocation ();
+	}
 	
+	// Update is called once per frame
+	void Update ()
+	{
+		DetectDoubleTap ();
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.Quit ();
+		}
+	}
+
 	public void SetSingleMarkerOnMap ()
 	{
 		if (LastPutMarkerCoordinates != null) {
-			RemoveLastPutMarker();
+			RemoveLastPutMarker ();
 			
 		}
-			SetMarkerInMap ();
+		SetMarkerInMap ();
 	}
 
 	public void SetMarkerInMap ()
@@ -42,17 +78,20 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 			
 
 	}
-	public void RemoveLastPutMarker(){
-		Marker[] markers = map.GetComponentsInChildren<Marker>();
 
-		foreach(Marker marker in markers){
-			if(marker.CoordinatesWGS84[0] == LastPutMarkerCoordinates["longitude"] && marker.CoordinatesWGS84[1] == LastPutMarkerCoordinates["latitude"]){
-				map.RemoveMarker(marker);
+	public void RemoveLastPutMarker ()
+	{
+		Marker[] markers = map.GetComponentsInChildren<Marker> ();
+
+		foreach (Marker marker in markers) {
+			if (marker.CoordinatesWGS84 [0] == LastPutMarkerCoordinates ["longitude"] && marker.CoordinatesWGS84 [1] == LastPutMarkerCoordinates ["latitude"]) {
+				map.RemoveMarker (marker);
 				SetNullLastPutMarkerCoordinates ();
 			}
 		}
 
 	}
+
 	public void SetCoordinatesOnInputField (double latitude, double longitude)
 	{
 		DirectionInputField.text = latitude.ToString () + " , " + longitude.ToString ();
@@ -68,41 +107,32 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 		for (var i = 0; i < Input.touchCount; ++i) {
 			if (Input.GetTouch (i).phase == TouchPhase.Began) {
 				if (Input.GetTouch (i).tapCount == 2) {
-					SetMarkerInMap ();
+					SetSingleMarkerOnMap ();
 				}
 			}
 		}
 	}
 
-	// Use this for initialization
-	void Start ()
-	{
-		SetupMapInstance ();
-		SetupVirtualEarthLayer ();
-	//	DrawGPSUserLocation ();
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		DetectDoubleTap ();
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			Application.Quit();
-		}
-	}
-
 	public void SetupVirtualEarthLayer ()
 	{
-		layers = new List<Layer> ();
+
 		
 		// create a VirtualEarth tile layer
 		VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer> ("VirtualEarth");
 		virtualEarthLayer.Key = "Ag-ML2n_NjUqTCNOJyd9Yyr-GRfEWVmY_yboAe3A3aUL2JrE1d9er914Tfs9kgrp";
-		
 		virtualEarthLayer.gameObject.SetActive (true);
 		
-		layers.Add (virtualEarthLayer);
+
 		
+	}
+
+	public void SetupOpenMapsLayer(){
+		// create an OSM tile layer
+
+		OSMTileLayer osmLayer = map.CreateLayer<OSMTileLayer>("OSM");
+		osmLayer.BaseURL = "http://a.tile.openstreetmap.org/";
+		
+
 	}
 	
 	public void SetupMapInstance ()
@@ -110,7 +140,7 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 		// create the map singleton
 		map = Map.Instance;
 		map.CurrentCamera = Camera.main;
-		map.InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard;
+		map.InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard; 
 		map.CurrentZoom = 15.0f;
 		map.CenterWGS84 = new double[2] { -74.084046, 4.638194 };
 		map.UseLocation = true;
@@ -153,17 +183,17 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 		return wordPos;
 	}
 	
-	/*public void DrawGPSUserLocation ()
+	public void DrawGPSUserLocation ()
 	{
 		GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.MiddleCenter, LocationTexture, 4001, new Vector3 (1.0f, 1.0f, 1.0f) / 27);
 		map.SetLocationMarker<LocationMarker> (markerGO);
 		DestroyImmediate (go);
-	}*/
+	}
 	
 	public void CreateAnnotation (double latitude, double longitude)
 	{
 		GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.BottomCenter, MarkerTexture, 4000, new Vector3 (0.7f, 1.0f, 1.0f) / 7);
-		map.CreateMarker<Marker> ("test marker - 9 rue Gentil, Lyon", new double[2] {
+		map.CreateMarker<Marker> ("Marker", new double[2] {
 			longitude,
 			latitude
 		}, markerGO);

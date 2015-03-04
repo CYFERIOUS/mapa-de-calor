@@ -1,39 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UnitySlippyMap\Layer\VirtualEarthTileLayer.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\OpenMapWrapper.cs">
     <Files>
-      <File FileName="Assets\Scripts\Test\Editor\MapWrapperTest.cs" Line="56" Column="24" />
-      <File FileName="Assets\Scripts\OpenMapWrapper.cs" Line="121" Column="16" />
       <File FileName="Assets\Scripts\MapWrapper.cs" Line="1" Column="1" />
-      <File FileName="Assets\UnitySlippyMap\Map.cs" Line="56" Column="6" />
-      <File FileName="Assets\Scripts\Test\Editor\Mocks\MapMock.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Test\Editor\Mocks\FormSaverMock.cs" Line="23" Column="1" />
-      <File FileName="Assets\UnitySlippyMap\Helpers\Tile.cs" Line="260" Column="50" />
-      <File FileName="Assets\UnitySlippyMap\Helpers\VirtualEarth\TileSystem.cs" Line="1" Column="1" />
-      <File FileName="Assets\UnitySlippyMap\Helpers\VirtualEarth\Metadata.cs" Line="28" Column="49" />
-      <File FileName="Assets\UnitySlippyMap\Layer\VirtualEarthTileLayer.cs" Line="301" Column="6" />
+      <File FileName="Assets\Scripts\OpenMapWrapper.cs" Line="217" Column="1" />
+      <File FileName="Assets\Scripts\Test\Editor\MapWrapperTest.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Scripts" expanded="True" />
-            <Node name="UnitySlippyMap" expanded="True">
-              <Node name="Helpers" expanded="True">
-                <Node name="VirtualEarth" expanded="True" />
-              </Node>
-              <Node name="Layer" expanded="True">
-                <Node name="VirtualEarthTileLayer.cs" selected="True" />
-              </Node>
-            </Node>
-          </Node>
-          <Node name="Assembly-CSharp-Editor" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="Test" expanded="True">
-                <Node name="Editor" expanded="True">
-                  <Node name="Mocks" expanded="True" />
-                </Node>
-              </Node>
+              <Node name="OpenMapWrapper.cs" selected="True" />
             </Node>
           </Node>
         </State>
