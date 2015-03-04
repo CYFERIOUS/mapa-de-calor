@@ -64,7 +64,7 @@ using UnitySlippyMap.Input;
 //				
 //		 // create a test layer
 //		 TileLayer layer = map.CreateLayer<OSMTileLayer>("test tile layer");
-//		 layer.URLFormat = "http://a.tile.openstreetmap.org/{0}/{1}/{2}.png";
+//		 layer.Format = "http://a.tile.openstreetmap.org/{0}/{1}/{2}.png";
 //		
 //		 // create some test 2D markers
 //		 GameObject go = Tile.CreateTileTemplate();

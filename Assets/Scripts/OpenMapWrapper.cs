@@ -9,7 +9,7 @@ using ProjNet.CoordinateSystems;
 using ProjNet.CoordinateSystems.Transformations;
 using ProjNet.Converters.WellKnownText;
 
-public class OpenMapWrapper : MonoBehaviour, MapWrapper
+public class OpenMapWrapper : MonoBehaviour
 {
 	//public TestMap testMap;
 	public InputField DirectionInputField;
@@ -17,25 +17,36 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 	public Texture	MarkerTexture;
 	private GameObject go;
 	private Map		map;
-	private List<Layer> layers;
 	private Ray pulsacion;
 	private RaycastHit colision;
 	private bool isMarkerSet;
 	private Dictionary<string, double> LastPutMarkerCoordinates = null;
 
-	public List<object> Markers {
+	public int MarkersCount {
 		get {
-			return new List<object> ();
+			return 0;
 		}
+	}
+
+	public bool HasTemporalMarker {
+		get{
+			return true;
+		}
+	}
+
+	public void SetTemporalMarker ()
+	{
+	}
+
+	public void AddTemporalMarker ()
+	{
 	}
 
 	// Use this for initialization
 	void Start ()
 	{
-		layers = new List<Layer> ();
 		SetupMapInstance ();
 		SetupVirtualEarthLayer ();
-		//SetupOpenMapsLayer ();
 		DrawGPSUserLocation ();
 	}
 	
@@ -109,10 +120,9 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 		// create a VirtualEarth tile layer
 		VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer> ("VirtualEarth");
 		virtualEarthLayer.Key = "Ag-ML2n_NjUqTCNOJyd9Yyr-GRfEWVmY_yboAe3A3aUL2JrE1d9er914Tfs9kgrp";
-		
 		virtualEarthLayer.gameObject.SetActive (true);
 		
-		layers.Add (virtualEarthLayer);
+
 		
 	}
 
@@ -122,7 +132,7 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 		OSMTileLayer osmLayer = map.CreateLayer<OSMTileLayer>("OSM");
 		osmLayer.BaseURL = "http://a.tile.openstreetmap.org/";
 		
-		layers.Add(osmLayer);
+
 	}
 	
 	public void SetupMapInstance ()
@@ -130,7 +140,7 @@ public class OpenMapWrapper : MonoBehaviour, MapWrapper
 		// create the map singleton
 		map = Map.Instance;
 		map.CurrentCamera = Camera.main;
-		map.InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard;
+		map.InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard; 
 		map.CurrentZoom = 15.0f;
 		map.CenterWGS84 = new double[2] { -74.084046, 4.638194 };
 		map.UseLocation = true;

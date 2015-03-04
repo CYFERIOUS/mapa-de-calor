@@ -9,20 +9,55 @@ namespace UnityTest {
 	[Category("Test Category")]
 	internal class MapWrapperTest {
 
-		MapWrapper map;
+		MapWrapper mapWrapper;
 
 		[SetUp]
 		public void Setup()
 		{
-			map = new MapWrapperMock ();
+			mapWrapper = new MapWrapper ();
+			mapWrapper.map = new MapMock();
 		}
-
 
 		[Test]
 		[Category("Marker on map test")]
 		public void TestPutMarkerOnMap(){
-			map.SetSingleMarkerOnMap();
-			Assert.AreEqual (1, map.Markers.Count);
+			mapWrapper.SetMarkerInMap();
+			Assert.AreEqual (1, mapWrapper.MarkersCount);
 		}
+
+		[Test]
+		[Category("Two Markers on map test")]
+		public void TestPutTwoMarkersOnMap(){
+			mapWrapper.SetMarkerInMap ();
+			mapWrapper.SetMarkerInMap ();
+			Assert.AreEqual (2,mapWrapper.MarkersCount);
+		}
+
+		[Test]
+		[Category("Set Temporal Marker test")]
+		public void TestSettingTemporalMarkerMakesMapHasATemporalMarker(){
+			mapWrapper.SetTemporalMarker();
+			Assert.IsTrue(mapWrapper.HasTemporalMarker);
+		}
+
+		[Test]
+		[Category("Temporal Marker test")]
+		public void TestAddingTemporalMarkerMakesMapHasNoTemporalMarker(){
+			mapWrapper.SetTemporalMarker();
+			mapWrapper.AddTemporalMarker();
+			Assert.IsFalse(mapWrapper.HasTemporalMarker);
+		}
+
+		[Test]
+		[Category("Temporal Marker test")]
+		public void TestAddingTemporalMarkerPutsMarker(){
+			mapWrapper.SetTemporalMarker();
+			mapWrapper.AddTemporalMarker();
+			Assert.AreEqual (1, mapWrapper.MarkersCount);
+		}
+		/*[Test]
+		[Category("*/
+	
+
 	}
 }

@@ -310,6 +310,7 @@ public class VirtualEarthTileLayer : WebTileLayer
         string url = baseURL.Replace("{quadkey}", quadKey).Replace("{subdomain}", "t0");
         if (proxyURL != null)
             url = (proxyURL.StartsWith("http://") ? "" : "http://") + proxyURL + (proxyURL.EndsWith("?") ? "" : "?") + "key=" + key + "&url=" + WWW.EscapeURL(url);
+			Debug.Log ("la url es "+url);
         return url;
     }
 	
