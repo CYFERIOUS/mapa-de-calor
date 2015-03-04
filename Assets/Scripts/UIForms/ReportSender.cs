@@ -16,7 +16,7 @@ public class ReportSender: MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		data.comments = place.text;
+
 	}
 	
 	// Update is called once per frame
