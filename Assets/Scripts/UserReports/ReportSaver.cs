@@ -19,12 +19,12 @@ public class ReportSaver : IFormDataSaver {
 		storage.SetAnnotation (data.annotation);
 		storage.SetTimestamp (data.timestamp);
 		storage.SetStuff (data.stuff);
-		storage.SetRobbery (data.robbery);
+		storage.SetOcurrence (data.ocurrence);
 		storage.save ();
 	}
 }
 
-public enum Robbery{
+public enum Ocurrence{
 	NonSpecified,
 	Assault,
 	Thievery

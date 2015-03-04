@@ -7,5 +7,5 @@ public struct FormData  {
 	public Vector2 annotation;
 	public int timestamp;
 	public string stuff;
-	public int robbery;
+	public int ocurrence;
 }

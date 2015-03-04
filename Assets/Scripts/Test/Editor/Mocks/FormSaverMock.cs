@@ -16,7 +16,7 @@ public class FormSaverMock : IFormDataSaver {
 		storage.SetAnnotation (data.annotation);
 		storage.SetTimestamp (data.timestamp);
 		storage.SetStuff (data.stuff);
-		storage.SetRobbery (data.robbery);
+		storage.SetOcurrence (data.ocurrence);
 	}
 
 }

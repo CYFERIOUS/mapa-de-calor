@@ -22,8 +22,8 @@ public class PlayerPrefStorage : IDataStorage {
 		return PlayerPrefs.GetString ("stuff");
 	}
 	
-	public int GetRobbery() {
-		return PlayerPrefs.GetInt ("robbing");
+	public int GetOcurrence() {
+		return PlayerPrefs.GetInt ("ocurrence");
 	}
 	
 	public void SetName(string val){
@@ -46,8 +46,8 @@ public class PlayerPrefStorage : IDataStorage {
 		PlayerPrefs.SetString ("stuff", val);
 	}
 	
-	public void SetRobbery(int val) {
-		PlayerPrefs.SetInt ("robbing", val);
+	public void SetOcurrence(int val) {
+		PlayerPrefs.SetInt ("ocurrence", val);
 	}
 	public void save(){
 		PlayerPrefs.Save ();

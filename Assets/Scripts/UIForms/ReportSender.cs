@@ -6,15 +6,17 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-[IntegrationTest.DynamicTest ("ReportSenderTests")]
 public class ReportSender: MonoBehaviour {
 
-	public InputField Crime;
-	//public Button Accept&SaveButton;
+	public InputField place;
+
+
+	public ReportSaver saver;
+	private FormData data = new FormData ();
 
 	// Use this for initialization
 	void Start () {
-		IntegrationTest.Pass (gameObject);
+		data.comments = place.text;
 	}
 	
 	// Update is called once per frame
@@ -22,8 +24,8 @@ public class ReportSender: MonoBehaviour {
 		
 	}
 
-	public string GetCrimeIpunt(){
-		Debug.Log (Crime.text);
-		return Crime.text;
+	public string GetPlaceIpunt(){
+		Debug.Log (place.text);
+		return place.text;
 	}
 }

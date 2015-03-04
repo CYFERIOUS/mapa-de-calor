@@ -8,7 +8,7 @@ public class DataStorageMock : IDataStorage {
 	private Vector2 coordinates;
 	private int timeStamp;
 	private string stuff;
-	private int robbery;
+	private int ocurrence;
 
 	public void save(){	}
 
@@ -28,8 +28,8 @@ public class DataStorageMock : IDataStorage {
 		return stuff;
 	}
 
-	public int GetRobbery() {
-		return robbery;
+	public int GetOcurrence() {
+		return ocurrence;
 	}
 
 	public void SetName(string val){
@@ -51,8 +51,8 @@ public class DataStorageMock : IDataStorage {
 		stuff = val;
 	}
 
-	public void SetRobbery(int val) {
-		robbery = val;
+	public void SetOcurrence(int val) {
+		ocurrence = val;
 	}
 
 }
