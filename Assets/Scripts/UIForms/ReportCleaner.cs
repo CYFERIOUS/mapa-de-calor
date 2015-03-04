@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class ReportCleaner : MonoBehaviour {
 	public InputField Direction;
@@ -8,6 +9,11 @@ public class ReportCleaner : MonoBehaviour {
 	public InputField TimeInput;
 	public InputField Crime;
 	public InputField Description;
+	public FormData reporter;
+	public DateTime time;
+
+	void start() {
+	}
 
 	public void ReportInputClean(){
 		Direction.text = "";
@@ -16,4 +22,5 @@ public class ReportCleaner : MonoBehaviour {
 		Crime.text = "";
 		Description.text = "";
 	}
+
 }
