@@ -2,22 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnitySlippyMap;
-
-
-public class MapMonoBehaviour : MonoBehaviour {
-	public MapWrapper mapWrapper;	
-
-	void start(){
-		mapWrapper = new MapWrapper ();
-		mapWrapper.map = Map.Instance;
-	}
-}
 
 
 public class MapWrapper
 {
-	public object map {
+	public AbstractMap map {
 		get;
 		set;
 	}
@@ -45,6 +34,7 @@ public class MapWrapper
 	public void SetTemporalMarker ()
 	{
 		temporalMarker = new object ();
+		map.AddMarker (new AppMarker());
 	}
 
 	public void AddTemporalMarker ()
@@ -53,8 +43,10 @@ public class MapWrapper
 		temporalMarker = null;
 	}
 
-	public void SetMarkerInMap ()
+	public void SetMarkerInMap (AppMarker userGeneratedMarker)
 	{
 		markers.Add (new object ());
+		map.AddMarker (userGeneratedMarker);
 	}
+	
 }
