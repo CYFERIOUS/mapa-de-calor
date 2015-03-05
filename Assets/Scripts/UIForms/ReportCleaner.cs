@@ -12,7 +12,12 @@ public class ReportCleaner : MonoBehaviour {
 	public FormData reporter;
 	public DateTime time;
 
+	public Button submitButton;
+
 	void start() {
+		submitButton.onClick.AddListener (delegate {
+			ReportInputClean();
+		});
 	}
 
 	public void ReportInputClean(){

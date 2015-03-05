@@ -19,6 +19,7 @@ public class ReportSender: MonoBehaviour {
 	void Start(){
 		submitButton.onClick.AddListener (delegate {
 			HandleSubmitClicked();
+			ClearReportInput();
 		});
 	}
 
@@ -72,6 +73,13 @@ public class ReportSender: MonoBehaviour {
 		TimeSpan diff = date.ToUniversalTime() - origin;
 		Debug.Log ((int)diff.TotalSeconds);
 		return (int)diff.TotalSeconds;
+	}
+	
+	public void ClearReportInput(){
+		ubicationField.text = "";
+		commentsField.text = "";
+		dateField.text = "";
+		hourField.text = "";
 	}
 
 
