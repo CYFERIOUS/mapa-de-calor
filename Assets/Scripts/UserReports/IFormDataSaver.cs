@@ -5,4 +5,5 @@ public interface IFormDataSaver  {
 
 	void SetStorage(IDataStorage storage);
 	void Save(FormData data);
+	FormData Load();
 }

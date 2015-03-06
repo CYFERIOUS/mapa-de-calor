@@ -19,4 +19,8 @@ public class FormSaverMock : IFormDataSaver {
 		storage.SetOcurrence (data.ocurrence);
 	}
 
+	public FormData Load() {
+		return new FormData ();
+	}
+
 }

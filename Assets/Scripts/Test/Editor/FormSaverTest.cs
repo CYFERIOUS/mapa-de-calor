@@ -18,7 +18,7 @@ namespace UnityTest {
 		string name = "name";
 		string comments = "comments";
 		Vector2 annotation = new Vector2(1,2);
-		int timestamp = 1234567;
+		int timestamp = 338498400;
 		string stuff = "article";
 		int ocurrence = (int)Ocurrence.Assault;
 
@@ -74,6 +74,19 @@ namespace UnityTest {
 		[Category("Ocurrence is Saved")]
 		public void TestRobberyIsSaved() {
 			storage.Received().SetOcurrence(ocurrence);
+		}
+
+		[Test]
+		[Category("Test is Saved")]
+		public void TestLoadFormData() {
+			saver.Save (data);
+			FormData loaded = saver.Load ();
+			Assert.AreEqual (loaded.timestamp,data.timestamp);
+			/*Assert.AreEqual (data.annotation, loaded.annotation);
+			Assert.AreEqual (data.comments, loaded.comments);
+			Assert.AreEqual (data.ocurrence, loaded.ocurrence);
+			Assert.AreEqual (data.stuff, loaded.stuff);
+			Assert.AreEqual (data.timestamp, loaded.timestamp);*/
 		}
 
 	}
