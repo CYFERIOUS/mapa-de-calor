@@ -10,7 +10,6 @@ namespace UnityTest {
 	[Category("Report Saver Tests")]
 	internal class ReportSaverTests {
 
-		IFormDataLoader loader = new IFormDataLoader ();
 		IFormDataSaver saver = new ReportSaver();
 	
 		IDataStorage storage;

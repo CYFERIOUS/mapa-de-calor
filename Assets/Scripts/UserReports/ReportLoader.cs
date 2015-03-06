@@ -10,7 +10,7 @@ public class ReportLoader : IFormDataLoader {
 	}
 
 	public FormData Load(){
-		return null;
+		return new FormData();
 	}
 
 }
