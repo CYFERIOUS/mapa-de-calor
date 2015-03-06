@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using NUnit.Framework;
 using UnityEngine;
+using NSubstitute;
 
 namespace UnityTest {
 	[TestFixture]
@@ -10,26 +11,30 @@ namespace UnityTest {
 	internal class MapWrapperTest {
 
 		MapWrapper mapWrapper;
+		AbstractMap map;
 
 		[SetUp]
 		public void Setup()
 		{
+			map = NSubstitute.Substitute.For<AbstractMap> ();
 			mapWrapper = new MapWrapper ();
-			mapWrapper.map = new MapMock();
+			mapWrapper.map = map;
 		}
 
 		[Test]
 		[Category("Marker on map test")]
 		public void TestPutMarkerOnMap(){
-			mapWrapper.SetMarkerInMap();
+			AppMarker userGeneratedMarker = new AppMarker ();
+			mapWrapper.SetMarkerInMap(userGeneratedMarker);
 			Assert.AreEqual (1, mapWrapper.MarkersCount);
 		}
 
 		[Test]
 		[Category("Two Markers on map test")]
 		public void TestPutTwoMarkersOnMap(){
-			mapWrapper.SetMarkerInMap ();
-			mapWrapper.SetMarkerInMap ();
+			AppMarker userGeneratedMarker = new AppMarker ();
+			mapWrapper.SetMarkerInMap (userGeneratedMarker);
+			mapWrapper.SetMarkerInMap (userGeneratedMarker);
 			Assert.AreEqual (2,mapWrapper.MarkersCount);
 		}
 
@@ -55,9 +60,20 @@ namespace UnityTest {
 			mapWrapper.AddTemporalMarker();
 			Assert.AreEqual (1, mapWrapper.MarkersCount);
 		}
-		/*[Test]
-		[Category("*/
-	
 
+		[Test]
+		[Category ("Map tests")]
+		public void TestMapIsAddingAMarkerGeneratedByUser() {
+			AppMarker userGeneratedMarker = new AppMarker ();
+			mapWrapper.SetMarkerInMap (userGeneratedMarker);
+			map.Received (1).AddMarker (userGeneratedMarker);
+		}
+
+		[Test, Ignore]
+		[Category ( "Map Test")]
+		public void TestMapHasPutTemporalMarker() {
+			mapWrapper.SetTemporalMarker();
+			//map.Received (1).AddMarker ();
+		}
 	}
 }
