@@ -8,8 +8,9 @@ using NSubstitute;
 namespace UnityTest {
 	[TestFixture]
 	[Category("Report Saver Tests")]
-	internal class FormSaverTest {
+	internal class ReportSaverTests {
 
+		IFormDataLoader loader = new IFormDataLoader ();
 		IFormDataSaver saver = new ReportSaver();
 	
 		IDataStorage storage;
@@ -44,6 +45,7 @@ namespace UnityTest {
 		[Category("Name is saved Test")]
 		public void TestNameIsSaved() {
 			storage.Received().SetName(name);
+
 		}
 
 		[Test]
@@ -74,19 +76,6 @@ namespace UnityTest {
 		[Category("Ocurrence is Saved")]
 		public void TestRobberyIsSaved() {
 			storage.Received().SetOcurrence(ocurrence);
-		}
-
-		[Test]
-		[Category("Test is Saved")]
-		public void TestLoadFormData() {
-			saver.Save (data);
-			FormData loaded = saver.Load ();
-			Assert.AreEqual (loaded.timestamp,data.timestamp);
-			/*Assert.AreEqual (data.annotation, loaded.annotation);
-			Assert.AreEqual (data.comments, loaded.comments);
-			Assert.AreEqual (data.ocurrence, loaded.ocurrence);
-			Assert.AreEqual (data.stuff, loaded.stuff);
-			Assert.AreEqual (data.timestamp, loaded.timestamp);*/
 		}
 
 	}
