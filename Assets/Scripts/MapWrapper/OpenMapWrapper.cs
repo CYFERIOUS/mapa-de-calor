@@ -56,13 +56,7 @@ public class OpenMapWrapper : MonoBehaviour
 	void Update ()
 	{
 		if(isOnReportMapLocationWindow==true){
-			var recognizer = new TKLongPressRecognizer ();
-			TouchKit.addGestureRecognizer( recognizer );
-			recognizer.gestureCompleteEvent += ( r ) =>
-			{
-				SetSingleMarkerOnMap ();
-			};
-
+			DetectDoubleTap();
 		}
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
