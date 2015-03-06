@@ -37,6 +37,7 @@ public class OpenMapWrapper : MonoBehaviour
 
 	public void SetTemporalMarker ()
 	{
+
 	}
 
 	public void AddTemporalMarker ()
@@ -55,7 +56,13 @@ public class OpenMapWrapper : MonoBehaviour
 	void Update ()
 	{
 		if(isOnReportMapLocationWindow==true){
-			DetectDoubleTap ();
+			var recognizer = new TKLongPressRecognizer ();
+			TouchKit.addGestureRecognizer( recognizer );
+			recognizer.gestureCompleteEvent += ( r ) =>
+			{
+				SetSingleMarkerOnMap ();
+			};
+
 		}
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();

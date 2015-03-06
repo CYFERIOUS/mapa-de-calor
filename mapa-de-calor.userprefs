@@ -1,32 +1,25 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Test\Editor\Mocks\FormSaverMock.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Test\Editor\UserReports\ReportSaverTests.cs">
     <Files>
-      <File FileName="Assets\Scripts\UIForms\ReportSender.cs" Line="39" Column="38" />
-      <File FileName="Assets\Scripts\Test\Editor\FormSaverTest.cs" Line="84" Column="37" />
-      <File FileName="Assets\Scripts\UserReports\ReportSaver.cs" Line="27" Column="35" />
+      <File FileName="Assets\Scripts\UserReports\IDataStorage.cs" Line="4" Column="30" />
+      <File FileName="Assets\Scripts\Test\Editor\UserReports\ReportSaverTests.cs" Line="12" Column="3" />
       <File FileName="Assets\Scripts\UserReports\FormData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UserReports\PlayerPrefStorage.cs" Line="25" Column="29" />
-      <File FileName="Assets\Scripts\UIForms\ReportCleaner.cs" Line="22" Column="2" />
-      <File FileName="Assets\Scripts\UserReports\IFormDataSaver.cs" Line="10" Column="1" />
-      <File FileName="Assets\Scripts\UserReports\IDataStorage.cs" Line="11" Column="22" />
-      <File FileName="Assets\Scripts\Test\Editor\Mocks\FormSaverMock.cs" Line="26" Column="2" />
+      <File FileName="Assets\Scripts\UserReports\IFormDataSaver.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\UserReports\ReportSaver.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\UserReports\IFormDataLoader.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\UserReports\ReportLoader.cs" Line="13" Column="1" />
+      <File FileName="Assets\Scripts\Test\Editor\UserReports\DataStorageTests.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Scripts" expanded="True">
-              <Node name="UIForms" expanded="True" />
-              <Node name="UserReports" expanded="True" />
-            </Node>
-          </Node>
           <Node name="Assembly-CSharp-Editor" expanded="True">
             <Node name="Scripts" expanded="True">
               <Node name="Test" expanded="True">
                 <Node name="Editor" expanded="True">
-                  <Node name="Mocks" expanded="True">
-                    <Node name="FormSaverMock.cs" selected="True" />
+                  <Node name="UserReports" expanded="True">
+                    <Node name="ReportSaverTests.cs" selected="True" />
                   </Node>
                 </Node>
               </Node>

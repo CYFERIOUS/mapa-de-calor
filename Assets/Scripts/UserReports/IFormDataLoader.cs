@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface IFormDataSaver  {
+public interface IFormDataLoader {
 
 	void SetStorage(IDataStorage storage);
-	void Save(FormData data);
+	FormData Load();
 
 }
