@@ -637,9 +637,9 @@ public class Map : MonoBehaviour
         // setup the gui scale according to the screen resolution
         if (Application.platform == RuntimePlatform.Android
             || Application.platform == RuntimePlatform.IPhonePlayer)
-            screenScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.width : Screen.height) / 480.0f;
+            screenScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.width : Screen.height) / 720.0f;
         else
-            screenScale = 2.0f;
+            screenScale = 1.5f;
 
         // initialize the camera position and rotation
         currentCamera.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
