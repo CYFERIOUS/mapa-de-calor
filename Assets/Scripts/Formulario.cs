@@ -39,7 +39,7 @@ public class Formulario : MonoBehaviour {
 public class TestAppConfig{
 
 	static public IDataStorage GetStorage(){
-		return new LogStorage();
+		return new PlayerPrefStorage ();
 	}
 }
 
