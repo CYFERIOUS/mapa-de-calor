@@ -22,6 +22,11 @@ public class OpenMapWrapper : MonoBehaviour
 	private bool isMarkerSet;
 	private Dictionary<string, double> LastPutMarkerCoordinates = null;
 	private bool isOnReportMapLocationWindow = false;
+	
+	const float timeToLongPress = 1f;
+	
+	private float timeSincePress = 0f;
+	private bool isLongPressing;
 
 	public int MarkersCount {
 		get {
@@ -108,13 +113,38 @@ public class OpenMapWrapper : MonoBehaviour
 
 	public void DetectDoubleTap ()
 	{
-		for (var i = 0; i < Input.touchCount; ++i) {
+		/*for (var i = 0; i < Input.touchCount; ++i) {
 			if (Input.GetTouch (i).phase == TouchPhase.Began) {
 				if (Input.GetTouch (i).tapCount == 2) {
 					SetSingleMarkerOnMap ();
 				}
 			}
+		}*/
+
+		if (Input.GetMouseButtonDown (0)) {
+			isLongPressing = true;
 		}
+		if (Input.GetMouseButtonUp (0)) {
+			isLongPressing = false;
+		}
+		
+		if (isLongPressing) {
+			timeSincePress += Time.deltaTime;
+			if (timeSincePress >= timeToLongPress)
+			{
+				isLongPressing = false;
+				timeSincePress = 0;
+				SetSingleMarkerOnMap ();
+			}
+		} else {
+			timeSincePress = 0;
+		}
+	
+
+
+
+
+
 	}
 
 	public void SetupVirtualEarthLayer ()
