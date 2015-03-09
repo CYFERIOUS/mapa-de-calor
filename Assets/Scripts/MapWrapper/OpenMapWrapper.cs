@@ -113,21 +113,12 @@ public class OpenMapWrapper : MonoBehaviour
 
 	public void DetectDoubleTap ()
 	{
-		/*for (var i = 0; i < Input.touchCount; ++i) {
-			if (Input.GetTouch (i).phase == TouchPhase.Began) {
-				if (Input.GetTouch (i).tapCount == 2) {
-					SetSingleMarkerOnMap ();
-				}
-			}
-		}*/
-
-		if (Input.GetMouseButtonDown (0)) {
+		if (Input.GetTouch(0).phase==TouchPhase.Began) {
 			isLongPressing = true;
 		}
-		if (Input.GetMouseButtonUp (0)) {
+		if (Input.GetTouch(0).phase==TouchPhase.Ended) {
 			isLongPressing = false;
 		}
-		
 		if (isLongPressing) {
 			timeSincePress += Time.deltaTime;
 			if (timeSincePress >= timeToLongPress)
@@ -139,12 +130,6 @@ public class OpenMapWrapper : MonoBehaviour
 		} else {
 			timeSincePress = 0;
 		}
-	
-
-
-
-
-
 	}
 
 	public void SetupVirtualEarthLayer ()
