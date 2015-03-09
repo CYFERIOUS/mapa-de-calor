@@ -22,7 +22,8 @@ public class OpenMapWrapper : MonoBehaviour
 	private bool isMarkerSet;
 	private Dictionary<string, double> LastPutMarkerCoordinates = null;
 	private bool isOnReportMapLocationWindow = false;
-	
+	private InputReader inputReader;
+
 	const float timeToLongPress = 1f;
 	
 	private float timeSincePress = 0f;
@@ -55,13 +56,25 @@ public class OpenMapWrapper : MonoBehaviour
 		SetupMapInstance ();
 		SetupVirtualEarthLayer ();
 		DrawGPSUserLocation ();
+		inputReader = new InputReader ();
+		inputReader.SetGenerator (GetValidInputGenerator());
+		inputReader.LongPressExecuted +=()=>{SetSingleMarkerOnMap();};
+	}
+
+	private InputGenerator GetValidInputGenerator()
+	{
+		#if UNITY_EDITOR
+			return GetComponent<EditorInputGenerator>();
+		#else
+			return GetComponent<DeviceInputGenerator>();
+		#endif
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		if(isOnReportMapLocationWindow==true){
-			DetectDoubleTap();
+			inputReader.Update();
 		}
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
@@ -79,7 +92,7 @@ public class OpenMapWrapper : MonoBehaviour
 
 	public void SetMarkerInMap ()
 	{
-		Debug.Log ("Click en la clase del wrapper");
+//		Debug.Log ("Click en la clase del wrapper");
 		Dictionary<string, double> CursorCoordinates = GetCoordinatesOfCursor ();
 		CreateAnnotation (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
 		SetCoordinatesOnInputField (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
@@ -110,28 +123,7 @@ public class OpenMapWrapper : MonoBehaviour
 	{
 		LastPutMarkerCoordinates = null;
 	}
-
-	public void DetectDoubleTap ()
-	{
-		if (Input.GetTouch(0).phase==TouchPhase.Began) {
-			isLongPressing = true;
-		}
-		if (Input.GetTouch(0).phase==TouchPhase.Ended) {
-			isLongPressing = false;
-		}
-		if (isLongPressing) {
-			timeSincePress += Time.deltaTime;
-			if (timeSincePress >= timeToLongPress)
-			{
-				isLongPressing = false;
-				timeSincePress = 0;
-				SetSingleMarkerOnMap ();
-			}
-		} else {
-			timeSincePress = 0;
-		}
-	}
-
+	
 	public void SetupVirtualEarthLayer ()
 	{
 
