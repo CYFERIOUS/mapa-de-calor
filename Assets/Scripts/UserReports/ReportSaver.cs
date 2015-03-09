@@ -22,18 +22,6 @@ public class ReportSaver : IFormDataSaver {
 		storage.SetOcurrence (data.ocurrence);
 		storage.save ();
 	}
-
-	public FormData Load() {
-		FormData data = new FormData ();
-		data.name = storage.GetName ();
-		data.comments = storage.GetComments ();
-		data.annotation = storage.GetAnnotation ();
-		data.timestamp = storage.GetTimestamp ();
-		data.stuff = storage.GetStuff ();
-		data.ocurrence = storage.GetOcurrence ();
-
-		return data;
-	}
 }
 
 public enum Ocurrence{
