@@ -10,7 +10,13 @@ public class ReportLoader : IFormDataLoader {
 	}
 
 	public FormData Load(){
-		return new FormData();
+		FormData data = new FormData ();
+		data.name = storage.GetName ();
+		data.annotation = storage.GetAnnotation ();
+		data.stuff = storage.GetStuff();
+		data.comments = storage.GetComments();
+		data.timestamp = storage.GetTimestamp();
+		data.ocurrence = storage.GetOcurrence();
+		return data;
 	}
-
 }

@@ -27,7 +27,7 @@ public class ReportSender: MonoBehaviour {
 	{
 		FormData formdata = CreateFormData ();
 		ReportSaver saver = new ReportSaver();
-		saver.SetStorage (new PlayerPrefStorage());
+		saver.SetStorage (AppConfig.GetStorage());
 		saver.Save (formdata);
 
 	}
@@ -51,9 +51,15 @@ public class ReportSender: MonoBehaviour {
 
 	DateTime ConvertToDateTime (string[] date, string[] hour)
 	{
-		int year = int.Parse(date [2]);
-		int month = int.Parse(date [1]);
-		int day = int.Parse(date [0]);
+		int year = 1990, month = 1, day = 1;
+		try {
+			year = int.Parse(date [2]);
+			month = int.Parse(date [1]);
+			day = int.Parse(date [0]);
+			dateField.image.color = Color.white;
+		} catch(Exception e) {
+			dateField.image.color = Color.red;
+		}
 		int hh = int.Parse(hour [0]);
 		int minute = int.Parse(hour [1]);
 		return new DateTime (year, month, day, hh, minute, 0);
@@ -81,6 +87,10 @@ public class ReportSender: MonoBehaviour {
 		dateField.text = "";
 		hourField.text = "";
 	}
-
-
+}
+public class AppConfig{
+	
+	static public IDataStorage GetStorage(){
+		return new LogStorage();
+	}
 }

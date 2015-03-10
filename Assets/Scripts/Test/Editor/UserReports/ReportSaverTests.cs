@@ -8,37 +8,7 @@ using NSubstitute;
 namespace UnityTest {
 	[TestFixture]
 	[Category("Report Saver Tests")]
-	internal class ReportSaverTests {
-
-		IFormDataSaver saver = new ReportSaver();
-	
-		IDataStorage storage;
-		FormData data;
-
-		string name = "name";
-		string comments = "comments";
-		Vector2 annotation = new Vector2(1,2);
-		int timestamp = 338498400;
-		string stuff = "article";
-		int ocurrence = (int)Ocurrence.Assault;
-
-		[SetUp]
-		public void Setup(){
-			CreateFormData ();
-			storage = Substitute.For<IDataStorage>();
-			saver.SetStorage (storage);
-			saver.Save (data);
-		}
-
-		private void CreateFormData(){
-			data = new FormData ();
-			data.name = name;
-			data.comments = comments;
-			data.annotation = annotation;
-			data.timestamp = timestamp;
-			data.stuff = stuff;
-			data.ocurrence = ocurrence;
-		}
+	internal class ReportSaverTests : DataIOTestBase {
 
 		[Test]
 		[Category("Name is saved Test")]

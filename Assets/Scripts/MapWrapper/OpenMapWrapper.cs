@@ -22,6 +22,12 @@ public class OpenMapWrapper : MonoBehaviour
 	private bool isMarkerSet;
 	private Dictionary<string, double> LastPutMarkerCoordinates = null;
 	private bool isOnReportMapLocationWindow = false;
+	private InputReader inputReader;
+
+	const float timeToLongPress = 1f;
+	
+	private float timeSincePress = 0f;
+	private bool isLongPressing;
 
 	public int MarkersCount {
 		get {
@@ -50,19 +56,25 @@ public class OpenMapWrapper : MonoBehaviour
 		SetupMapInstance ();
 		SetupVirtualEarthLayer ();
 		DrawGPSUserLocation ();
+		inputReader = new InputReader ();
+		inputReader.SetGenerator (GetValidInputGenerator());
+		inputReader.LongPressExecuted +=()=>{SetSingleMarkerOnMap();};
+	}
+
+	private InputGenerator GetValidInputGenerator()
+	{
+		#if UNITY_EDITOR
+			return GetComponent<EditorInputGenerator>();
+		#else
+			return GetComponent<DeviceInputGenerator>();
+		#endif
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		if(isOnReportMapLocationWindow==true){
-			var recognizer = new TKLongPressRecognizer ();
-			TouchKit.addGestureRecognizer( recognizer );
-			recognizer.gestureCompleteEvent += ( r ) =>
-			{
-				SetSingleMarkerOnMap ();
-			};
-
+			inputReader.Update();
 		}
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
@@ -80,7 +92,7 @@ public class OpenMapWrapper : MonoBehaviour
 
 	public void SetMarkerInMap ()
 	{
-		Debug.Log ("Click en la clase del wrapper");
+//		Debug.Log ("Click en la clase del wrapper");
 		Dictionary<string, double> CursorCoordinates = GetCoordinatesOfCursor ();
 		CreateAnnotation (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
 		SetCoordinatesOnInputField (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
@@ -111,18 +123,7 @@ public class OpenMapWrapper : MonoBehaviour
 	{
 		LastPutMarkerCoordinates = null;
 	}
-
-	public void DetectDoubleTap ()
-	{
-		for (var i = 0; i < Input.touchCount; ++i) {
-			if (Input.GetTouch (i).phase == TouchPhase.Began) {
-				if (Input.GetTouch (i).tapCount == 2) {
-					SetSingleMarkerOnMap ();
-				}
-			}
-		}
-	}
-
+	
 	public void SetupVirtualEarthLayer ()
 	{
 
