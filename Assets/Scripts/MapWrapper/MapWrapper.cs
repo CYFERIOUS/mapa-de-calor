@@ -3,16 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class MapWrapper
 {
-	public AbstractMap map {
+	public AbstractMap Map {
 		get;
 		set;
 	}
-
-	private List<object> markers = new List<object> ();
-	private object temporalMarker;
 
 	public int MarkersCount {
 		get {
@@ -20,8 +16,31 @@ public class MapWrapper
 		} 
 	}
 
+	public List<object> LayerNames = new List<object> (); 
+
+	public void SetupLayer (string layerName)
+	{
+		LayerNames.Add (layerName);
+	}
+
+	public void SetCurrentZoom (float currentZoom)
+	{
+		if (Map != null)
+		Map.CurrentZoom = currentZoom;
+	}
+
+	public void SetCurrentCamera (Camera currentCamera)
+	{
+		if (Map != null)
+		Map.CurrentCamera = currentCamera;
+	
+	}
+
+	private List<object> markers = new List<object> ();
+	private object temporalMarker;
+
 	public bool HasTemporalMarker {
-		get{
+		get {
 			return temporalMarker != null;
 		}
 	}
@@ -34,7 +53,7 @@ public class MapWrapper
 	public void SetTemporalMarker ()
 	{
 		temporalMarker = new object ();
-		map.AddMarker (new AppMarker());
+		Map.AddMarker (new AppMarker ());
 	}
 
 	public void AddTemporalMarker ()
@@ -46,7 +65,7 @@ public class MapWrapper
 	public void SetMarkerInMap (AppMarker userGeneratedMarker)
 	{
 		markers.Add (new object ());
-		map.AddMarker (userGeneratedMarker);
+		Map.AddMarker (userGeneratedMarker);
 	}
 	
 }

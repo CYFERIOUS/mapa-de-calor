@@ -18,7 +18,6 @@
 // 
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 using UnityEngine;
 
 namespace UnitySlippyMap
@@ -28,25 +27,45 @@ namespace UnitySlippyMap
 // An abstract class representing a map layer.
 // One can derive from it to add custom content to the map.
 // </summary>
-public abstract class Layer : MonoBehaviour
-{
-	public Map	Map;
+	public abstract class Layer : MonoBehaviour, AbstractTileLayer
+	{
+		public Map	Map;
 	
 	#region Protected members & properties
 	
-	protected float				minZoom;
-	public float				MinZoom { get { return minZoom; } set { minZoom = value; } }
+		protected float				minZoom;
+
+		public float				MinZoom { get { return minZoom; } set { minZoom = value; } }
 	
-	protected float				maxZoom;
-	public float				MaxZoom { get { return maxZoom; } set { maxZoom = value; } }
+		protected float				maxZoom;
+
+		public float				MaxZoom { get { return maxZoom; } set { maxZoom = value; } }
 	
 	#endregion
+
+
+		#region AbstractTileLayer implementation
+		public GameObject gameObject {
+			get;
+			set;
+		}
+
+		string AbstractTileLayer.Key {
+			get {
+				throw new System.NotImplementedException ();
+			}
+			set {
+				throw new System.NotImplementedException ();
+			}
+		}
+
+		#endregion
 	
 	#region Layer interface
 
-	public abstract void UpdateContent();
+		public abstract void UpdateContent ();
 	
 	#endregion
-}
+	}
 
 }

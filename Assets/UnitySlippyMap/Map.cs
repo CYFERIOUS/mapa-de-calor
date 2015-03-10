@@ -94,8 +94,10 @@ using UnitySlippyMap.Input;
 namespace UnitySlippyMap
 {
 
-public class Map : MonoBehaviour
+public class Map : MonoBehaviour, AbstractMap
 {
+
+
 	#region Singleton stuff
 		
 	private static Map instance = null;
@@ -118,6 +120,36 @@ public class Map : MonoBehaviour
 			return instance;
 		}
 	}
+
+		#region AbstractMap implementation
+
+		public System.Collections.ICollection Layers {
+			get {
+				throw new NotImplementedException ();
+			}
+			set {
+				throw new NotImplementedException ();
+			}
+		}
+
+
+
+		AbstractTileLayer AbstractMap.CreateLayer (string virtualEarth)
+		{
+			throw new NotImplementedException ();
+		}
+
+
+		public List<AppMarker> GetMarkers ()
+		{
+			return new List<AppMarker>() ;
+		}
+		public void AddMarker (AppMarker marker)
+		{
+
+		}
+		#endregion
+
 	
 	private void EnsureMap()
 	{
