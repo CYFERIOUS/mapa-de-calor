@@ -24,6 +24,8 @@ public class OpenMapWrapper : MonoBehaviour
 	private bool isOnReportMapLocationWindow = false;
 	private InputReader inputReader;
 
+	private ReportLoader reportLoader;
+
 	const float timeToLongPress = 1f;
 	
 	private float timeSincePress = 0f;
@@ -59,6 +61,21 @@ public class OpenMapWrapper : MonoBehaviour
 		inputReader = new InputReader ();
 		inputReader.SetGenerator (GetValidInputGenerator());
 		inputReader.LongPressExecuted +=()=>{SetSingleMarkerOnMap();};
+		LoadPrefsData ();
+	}
+
+	void LoadPrefsData ()
+	{
+		reportLoader = new ReportLoader ();
+		reportLoader.SetStorage (LoadDataAppConfig.GetStorage());
+		FormData data = new FormData ();
+
+		data.annotation = reportLoader.Load ().annotation;
+
+		Debug.Log (data.annotation.x);
+		Debug.Log (data.annotation.y);
+
+		CreateAnnotation ((double)data.annotation.x,(double)data.annotation.y);
 	}
 
 	private InputGenerator GetValidInputGenerator()
@@ -226,6 +243,11 @@ public class OpenMapWrapper : MonoBehaviour
 	public void ToggleisOnReportMapLocationWindow(){
 		isOnReportMapLocationWindow = !isOnReportMapLocationWindow;
 	}
-
-
 }
+public class LoadDataAppConfig{
+	
+	static public IDataStorage GetStorage(){
+		return new PlayerPrefStorage();
+	}
+}
+

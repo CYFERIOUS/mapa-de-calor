@@ -15,7 +15,7 @@ public class Formulario : MonoBehaviour {
 	
 	void Start() {
 		reportSaver = new ReportSaver ();
-		EnviarFormulario ();
+		//EnviarFormulario ();
 	}
 
 	private void EnviarFormulario(){

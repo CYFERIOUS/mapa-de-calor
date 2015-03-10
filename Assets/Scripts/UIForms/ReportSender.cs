@@ -91,6 +91,6 @@ public class ReportSender: MonoBehaviour {
 public class AppConfig{
 	
 	static public IDataStorage GetStorage(){
-		return new LogStorage();
+		return new PlayerPrefStorage();
 	}
 }
