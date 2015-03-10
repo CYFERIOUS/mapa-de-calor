@@ -120,24 +120,20 @@ public class Map : MonoBehaviour, AbstractMap
 			return instance;
 		}
 	}
+		#endregion
 
 		#region AbstractMap implementation
-
 		public System.Collections.ICollection Layers {
-			get {
-				throw new NotImplementedException ();
-			}
-			set {
-				throw new NotImplementedException ();
-			}
+			get;
+			set;
 		}
+	
 
 
-
-		AbstractTileLayer AbstractMap.CreateLayer (string virtualEarth)
-		{
-			throw new NotImplementedException ();
-		}
+//		AbstractTileLayer AbstractMap.CreateLayer (string  layerName)
+//		{
+//
+//		}
 
 
 		public List<AppMarker> GetMarkers ()
@@ -169,7 +165,7 @@ public class Map : MonoBehaviour, AbstractMap
 		DestroyImmediate(this.gameObject);
 	}
 	
-	#endregion
+
 	
 	#region Variables & properties
 

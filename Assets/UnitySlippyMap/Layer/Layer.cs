@@ -27,7 +27,7 @@ namespace UnitySlippyMap
 // An abstract class representing a map layer.
 // One can derive from it to add custom content to the map.
 // </summary>
-	public abstract class Layer : MonoBehaviour, AbstractTileLayer
+	public abstract class Layer : MonoBehaviour
 	{
 		public Map	Map;
 	
@@ -44,22 +44,6 @@ namespace UnitySlippyMap
 	#endregion
 
 
-		#region AbstractTileLayer implementation
-		public GameObject gameObject {
-			get;
-			set;
-		}
-
-		string AbstractTileLayer.Key {
-			get {
-				throw new System.NotImplementedException ();
-			}
-			set {
-				throw new System.NotImplementedException ();
-			}
-		}
-
-		#endregion
 	
 	#region Layer interface
 

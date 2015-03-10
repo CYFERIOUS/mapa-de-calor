@@ -17,8 +17,7 @@ public interface AbstractMap {
 		get;
 		set;
 	}
-
-	AbstractTileLayer CreateLayer (string virtualEarth);
+	
 	List<AppMarker> GetMarkers ();
 	void AddMarker(AppMarker marker);
 }
