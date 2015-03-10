@@ -2,8 +2,19 @@
 using System.Collections;
 
 public class DeviceInputGenerator : MonoBehaviour, InputGenerator {
-	
-	private bool generatedLongPress=false;
+
+private bool generatedLongPress=false;
+
+#if UNITY_EDITOR
+	public bool GeneratedLongPress ()
+	{
+		return generatedLongPress;
+	}
+	public bool GeneratedTap ()
+	{
+		return false;
+	}
+#else
 	
 	public bool GeneratedLongPress ()
 	{
@@ -40,4 +51,5 @@ public class DeviceInputGenerator : MonoBehaviour, InputGenerator {
 			timeSincePress = 0;
 		}
 	}
+#endif
 }
