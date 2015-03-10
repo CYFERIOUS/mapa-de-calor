@@ -14,13 +14,47 @@ public class ReportSender: MonoBehaviour {
 	public InputField hourField;
 	public Button submitButton;
 
-	public 
+	public GameObject reportWindow;
 
 	void Start(){
 		submitButton.onClick.AddListener (delegate {
-			HandleSubmitClicked();
-			ClearReportInput();
+
+			if(!isEmpty(ubicationField.text) && isValidDate(dateField.text) && isValidHour(hourField.text)){
+				resetColorValidation();
+				HandleSubmitClicked();
+				reportWindow.SetActive(false);
+				ClearReportInput();
+			}else{
+				if(isEmpty(ubicationField.text)){
+					ubicationField.image.color = Color.red;
+				}
+				if(!isValidDate(dateField.text)){
+					dateField.image.color = Color.red;
+				}
+				if(!isValidHour(hourField.text)){
+					hourField.image.color = Color.red;
+				}
+			}
+
 		});
+
+		ubicationField.onValueChange.AddListener (delegate {
+			ubicationField.image.color = Color.white;
+		});
+		dateField.onValueChange.AddListener (delegate {
+			dateField.image.color = Color.white;
+		});
+		hourField.onValueChange.AddListener (delegate {
+			hourField.image.color = Color.white;
+		});
+	}
+
+	void resetColorValidation ()
+	{
+		ubicationField.image.color = Color.white;
+		commentsField.image.color = Color.white;
+		dateField.image.color = Color.white;
+		hourField.image.color = Color.white;
 	}
 
 	private void HandleSubmitClicked ()
@@ -52,14 +86,11 @@ public class ReportSender: MonoBehaviour {
 	DateTime ConvertToDateTime (string[] date, string[] hour)
 	{
 		int year = 1990, month = 1, day = 1;
-		try {
-			year = int.Parse(date [2]);
-			month = int.Parse(date [1]);
-			day = int.Parse(date [0]);
-			dateField.image.color = Color.white;
-		} catch(Exception e) {
-			dateField.image.color = Color.red;
-		}
+
+		year = int.Parse(date [2]);
+		month = int.Parse(date [1]);
+		day = int.Parse(date [0]);
+
 		int hh = int.Parse(hour [0]);
 		int minute = int.Parse(hour [1]);
 		return new DateTime (year, month, day, hh, minute, 0);
@@ -86,6 +117,34 @@ public class ReportSender: MonoBehaviour {
 		commentsField.text = "";
 		dateField.text = "";
 		hourField.text = "";
+	}
+
+	public bool isEmpty (String text){
+		if (text.Equals (""))
+			return true;
+		return false;
+	}
+
+	public bool isValidDate(String date){
+		try {
+			DateTime.Parse(date);
+			return true;
+		} catch {
+			return false;
+		}
+	}
+
+	public bool isValidHour(string hour) {
+		try {
+			string pattern = "^\\d{2}:\\d{2}$";
+			if(System.Text.RegularExpressions.Regex.IsMatch(hour,pattern)) {
+				TimeSpan span = TimeSpan.Parse(hour);
+				return true;
+			}
+			return false;
+		} catch {
+			return false;
+		}
 	}
 }
 public class AppConfig{
