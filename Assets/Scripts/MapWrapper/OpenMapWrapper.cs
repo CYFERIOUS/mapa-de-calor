@@ -21,8 +21,9 @@ public class OpenMapWrapper : MonoBehaviour
 	private RaycastHit colision;
 	private bool isMarkerSet;
 	private Dictionary<string, double> LastPutMarkerCoordinates = null;
-	private bool isOnReportMapLocationWindow = false;
+	private bool isOnReportMapLocationWindow = true;
 	private InputReader inputReader;
+	public GameObject ReportTrigger;
 
 	private ReportLoader reportLoader;
 
@@ -64,7 +65,10 @@ public class OpenMapWrapper : MonoBehaviour
 	public void SetUpInputReader(){
 		inputReader = new InputReader ();
 		inputReader.SetGenerator (GetValidInputGenerator());
-		inputReader.LongPressExecuted +=()=>{SetSingleMarkerOnMap();};
+		inputReader.LongPressExecuted +=()=>{
+			SetSingleMarkerOnMap();
+			ReportTrigger.SetActive (true);
+		};
 		LoadPrefsData ();
 	}
 
@@ -113,12 +117,13 @@ public class OpenMapWrapper : MonoBehaviour
 
 	public void SetMarkerInMap ()
 	{
-//		Debug.Log ("Click en la clase del wrapper");
+
+
 		Dictionary<string, double> CursorCoordinates = GetCoordinatesOfCursor ();
 		CreateAnnotation (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
 		SetCoordinatesOnInputField (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
 		LastPutMarkerCoordinates = CursorCoordinates;
-			
+
 
 	}
 
@@ -187,7 +192,8 @@ public class OpenMapWrapper : MonoBehaviour
 		Dictionary<string, double> dictionary = new Dictionary<string, double> ();
 		
 		Vector3 wordPos = getCursorPosition ();
-		
+
+		//ReportTrigger.transform.localScale = new Vector2 (0.5f,0.5f);
 		double latitude = (0.0167 * wordPos [2]) + ((map.CenterWGS84) [1]);
 		double longitude = (0.0167 * wordPos [0]) + ((map.CenterWGS84) [0]);
 		dictionary.Add ("latitude", latitude);
@@ -199,6 +205,7 @@ public class OpenMapWrapper : MonoBehaviour
 	public Vector3 getCursorPosition ()
 	{
 		Vector3 mousePos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0f);
+		ReportTrigger.transform.position = mousePos;
 		Ray ray = Camera.main.ScreenPointToRay (mousePos);
 		RaycastHit hit;
 		
