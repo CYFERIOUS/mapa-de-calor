@@ -24,6 +24,7 @@ public class OpenMapWrapper : MonoBehaviour
 	private bool isOnMainWindow = true;
 	private InputReader inputReader;
 	public GameObject ReportTrigger;
+	private double PrivateTriggerMovementManager;
 
 	private ReportLoader reportLoader;
 
@@ -60,6 +61,7 @@ public class OpenMapWrapper : MonoBehaviour
 		SetupVirtualEarthLayer ();
 		DrawGPSUserLocation ();
 		SetUpInputReader ();
+		PrivateTriggerMovementManager = map.CenterWGS84 [0];
 	}
 
 	public void SetUpInputReader(){
@@ -68,6 +70,7 @@ public class OpenMapWrapper : MonoBehaviour
 		inputReader.LongPressExecuted +=()=>{
 			SetSingleMarkerOnMap();
 			ReportTrigger.SetActive (true);
+			PrivateTriggerMovementManager = map.CenterWGS84 [0];
 		};
 		LoadPrefsData ();
 	}
@@ -103,6 +106,11 @@ public class OpenMapWrapper : MonoBehaviour
 		}
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
+		}
+
+		if(PrivateTriggerMovementManager!=map.CenterWGS84[0]&&ReportTrigger.activeInHierarchy==true){
+			ReportTrigger.SetActive(false);
+			RemoveLastPutMarker();
 		}
 	}
 
@@ -183,7 +191,8 @@ public class OpenMapWrapper : MonoBehaviour
 		map.UseLocation = true;
 		map.InputsEnabled = true;
 		map.ShowGUIControls = false;
-		
+
+
 		
 	}
 	
