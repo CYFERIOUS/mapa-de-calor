@@ -220,7 +220,7 @@ public class OpenMapWrapper : MonoBehaviour
 	
 	public void CreateAnnotation (double latitude, double longitude)
 	{
-		GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.BottomCenter, MarkerTexture, 4000, new Vector3 (0.7f, 1.0f, 1.0f) / 7);
+		GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.BottomCenter, MarkerTexture, 4000, new Vector3 (1.0f, 1.0f, 1.0f) / 27);
 		map.CreateMarker<Marker> ("Marker", new double[2] {
 			longitude,
 			latitude
