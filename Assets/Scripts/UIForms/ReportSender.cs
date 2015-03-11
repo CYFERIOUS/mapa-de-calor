@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using System.Globalization;
 
 public class ReportSender: MonoBehaviour {
 
@@ -126,12 +127,15 @@ public class ReportSender: MonoBehaviour {
 	}
 
 	public bool isValidDate(String date){
-		try {
-			DateTime.Parse(date);
+		string[] formats = {"dd-mm-yyyy"};
+		DateTime dateValue;
+
+		if (DateTime.TryParseExact (date, formats, 
+           new CultureInfo ("en-US"), 
+           DateTimeStyles.None, 
+           out dateValue))
 			return true;
-		} catch {
-			return false;
-		}
+		return false;
 	}
 
 	public bool isValidHour(string hour) {
