@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using System.Globalization;
 
 public class ReportSender: MonoBehaviour {
 
@@ -13,21 +14,19 @@ public class ReportSender: MonoBehaviour {
 	public InputField dateField;
 	public InputField hourField;
 	public Button submitButton;
+	public Button cancelButton;
 
 	public GameObject reportWindow;
 
 	void Start(){
 		submitButton.onClick.AddListener (delegate {
 
-			if(!isEmpty(ubicationField.text) && isValidDate(dateField.text) && isValidHour(hourField.text)){
+			if(isValidDate(dateField.text) && isValidHour(hourField.text)){
 				resetColorValidation();
 				HandleSubmitClicked();
 				reportWindow.SetActive(false);
 				ClearReportInput();
 			}else{
-				if(isEmpty(ubicationField.text)){
-					ubicationField.image.color = Color.red;
-				}
 				if(!isValidDate(dateField.text)){
 					dateField.image.color = Color.red;
 				}
@@ -38,9 +37,11 @@ public class ReportSender: MonoBehaviour {
 
 		});
 
-		ubicationField.onValueChange.AddListener (delegate {
-			ubicationField.image.color = Color.white;
+		cancelButton.onClick.AddListener (delegate {
+			ClearReportInput();
+			resetColorValidation();
 		});
+
 		dateField.onValueChange.AddListener (delegate {
 			dateField.image.color = Color.white;
 		});
@@ -49,9 +50,8 @@ public class ReportSender: MonoBehaviour {
 		});
 	}
 
-	void resetColorValidation ()
+	public void resetColorValidation ()
 	{
-		ubicationField.image.color = Color.white;
 		commentsField.image.color = Color.white;
 		dateField.image.color = Color.white;
 		hourField.image.color = Color.white;
@@ -119,19 +119,16 @@ public class ReportSender: MonoBehaviour {
 		hourField.text = "";
 	}
 
-	public bool isEmpty (String text){
-		if (text.Equals (""))
+	public bool isValidDate(String date){
+		string[] formats = {"dd-mm-yyyy"};
+		DateTime dateValue;
+
+		if (DateTime.TryParseExact (date, formats, 
+           new CultureInfo ("en-US"), 
+           DateTimeStyles.None, 
+           out dateValue))
 			return true;
 		return false;
-	}
-
-	public bool isValidDate(String date){
-		try {
-			DateTime.Parse(date);
-			return true;
-		} catch {
-			return false;
-		}
 	}
 
 	public bool isValidHour(string hour) {
