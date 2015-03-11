@@ -2,12 +2,9 @@
 using System.Collections;
 using UnitySlippyMap;
 
-public class MapWrapperBehaviour : MonoBehaviour {
+public class MapWrapperBehaviour : OpenMapWrapper {
 
-	private AbstractMap	map;
 	private MapWrapper mapWrapper;
-
-
 
 	void Start ()
 	{
@@ -21,31 +18,18 @@ public class MapWrapperBehaviour : MonoBehaviour {
 
 
 		SetupMapInstance ();
-//		SetupVirtualEarthLayer ();
+
+
+		SetUpInputReader ();
 	}
 	
-	
-	
-	public void SetupVirtualEarthLayer ()
-	{
-		
-		
-		// create a VirtualEarth tile layer
-//		VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer> ("VirtualEarth");
-//		virtualEarthLayer.Key = "Ag-ML2n_NjUqTCNOJyd9Yyr-GRfEWVmY_yboAe3A3aUL2JrE1d9er914Tfs9kgrp";
-//		virtualEarthLayer.gameObject.SetActive (true);
-//		
-		
-		
-	}
-	
+
 	public void SetupMapInstance ()
 	{
-
-//Map.InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard; 
-//		mapWrapper.map.CenterWGS84 = new double[2] { -74.084046, 4.638194 };
-//		mapWrapper.map.UseLocation = true;
-//		mapWrapper.map.InputsEnabled = true;
-//		mapWrapper.map.ShowGUIControls = false;
+		map.InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard; 
+		map.CenterWGS84 = new double[2] { -74.084046, 4.638194 };
+		map.UseLocation = true;
+		map.InputsEnabled = true;
+		map.ShowGUIControls = false;
 	}
 }

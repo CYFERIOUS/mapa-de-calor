@@ -131,7 +131,8 @@ namespace UnitySlippyMap
 
 		public void SetActiveVirtualEarthLayer (BaseVirtualEarthLayer layer)
 		{
-
+			if (typeof(Layer) == typeof(VirtualEarthTileLayer))
+				SetActiveVirtualEarthTileLayer (layer as VirtualEarthTileLayer);
 		}
 
 

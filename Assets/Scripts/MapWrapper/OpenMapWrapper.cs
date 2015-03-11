@@ -16,7 +16,7 @@ public class OpenMapWrapper : MonoBehaviour
 	public Texture	LocationTexture;
 	public Texture	MarkerTexture;
 	private GameObject go;
-	private Map		map;
+	public Map		map;
 	private Ray pulsacion;
 	private RaycastHit colision;
 	private bool isMarkerSet;
@@ -58,6 +58,10 @@ public class OpenMapWrapper : MonoBehaviour
 		SetupMapInstance ();
 		SetupVirtualEarthLayer ();
 		DrawGPSUserLocation ();
+		SetUpInputReader ();
+	}
+
+	public void SetUpInputReader(){
 		inputReader = new InputReader ();
 		inputReader.SetGenerator (GetValidInputGenerator());
 		inputReader.LongPressExecuted +=()=>{SetSingleMarkerOnMap();};
