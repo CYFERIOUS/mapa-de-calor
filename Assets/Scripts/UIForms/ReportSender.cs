@@ -14,21 +14,19 @@ public class ReportSender: MonoBehaviour {
 	public InputField dateField;
 	public InputField hourField;
 	public Button submitButton;
+	public Button cancelButton;
 
 	public GameObject reportWindow;
 
 	void Start(){
 		submitButton.onClick.AddListener (delegate {
 
-			if(!isEmpty(ubicationField.text) && isValidDate(dateField.text) && isValidHour(hourField.text)){
+			if(isValidDate(dateField.text) && isValidHour(hourField.text)){
 				resetColorValidation();
 				HandleSubmitClicked();
 				reportWindow.SetActive(false);
 				ClearReportInput();
 			}else{
-				if(isEmpty(ubicationField.text)){
-					ubicationField.image.color = Color.red;
-				}
 				if(!isValidDate(dateField.text)){
 					dateField.image.color = Color.red;
 				}
@@ -39,9 +37,11 @@ public class ReportSender: MonoBehaviour {
 
 		});
 
-		ubicationField.onValueChange.AddListener (delegate {
-			ubicationField.image.color = Color.white;
+		cancelButton.onClick.AddListener (delegate {
+			ClearReportInput();
+			resetColorValidation();
 		});
+
 		dateField.onValueChange.AddListener (delegate {
 			dateField.image.color = Color.white;
 		});
@@ -50,9 +50,8 @@ public class ReportSender: MonoBehaviour {
 		});
 	}
 
-	void resetColorValidation ()
+	public void resetColorValidation ()
 	{
-		ubicationField.image.color = Color.white;
 		commentsField.image.color = Color.white;
 		dateField.image.color = Color.white;
 		hourField.image.color = Color.white;
@@ -118,12 +117,6 @@ public class ReportSender: MonoBehaviour {
 		commentsField.text = "";
 		dateField.text = "";
 		hourField.text = "";
-	}
-
-	public bool isEmpty (String text){
-		if (text.Equals (""))
-			return true;
-		return false;
 	}
 
 	public bool isValidDate(String date){
