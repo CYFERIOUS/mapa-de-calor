@@ -11,12 +11,15 @@ public class MapWrapper
 	}
 
 	public int MarkersCount {
+	
 		get {
 			return markers.Count;
 		} 
 	}
 	
 	public List<BaseVirtualEarthLayer> Layers = new List<BaseVirtualEarthLayer> (); 
+	private List<object> markers = new List<object> ();
+	private object temporalMarker;
 
 	public void AddLayer (BaseVirtualEarthLayer layer)
 	{
@@ -36,8 +39,26 @@ public class MapWrapper
 	
 	}
 
-	private List<object> markers = new List<object> ();
-	private object temporalMarker;
+	public void setOriginCoordinates (BaseCoordinates coordinates)
+	{
+		Map.setOriginCoordinates (coordinates);
+		//throw new NotImplementedException ();
+	}
+
+	public void EnableInputs ()
+	{
+		Map.InputsEnabled = true;
+	}
+
+	public void EnableUseLocation ()
+	{
+		Map.UseLocation = true;
+	}
+
+	public void addInputDelegateKeyboard ()
+	{
+		Map.addInputDelegateKeyboard ();
+	}
 
 	public void createVirtualEarthLayer (string key)
 	{

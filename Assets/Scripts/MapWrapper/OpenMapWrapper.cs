@@ -16,7 +16,7 @@ public class OpenMapWrapper : MonoBehaviour
 	public Texture	LocationTexture;
 	public Texture	MarkerTexture;
 	private GameObject go;
-	public Map		map;
+	protected Map		map;
 	private Ray pulsacion;
 	private RaycastHit colision;
 	private bool isMarkerSet;
@@ -222,6 +222,7 @@ public class OpenMapWrapper : MonoBehaviour
 		DestroyImmediate (go);
 	}
 	
+
 	public void CreateAnnotation (double latitude, double longitude)
 	{
 		GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.BottomCenter, MarkerTexture, 4000, new Vector3 (1.0f, 1.0f, 1.0f) / 27);

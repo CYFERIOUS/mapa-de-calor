@@ -119,10 +119,27 @@ namespace UnitySlippyMap
 
 		#region AbstractMap implementation
 
+
+
+		public void setOriginCoordinates (BaseCoordinates coordinates)
+		{
+
+			CenterWGS84 = new double[2] { coordinates.Latitude, coordinates.Longitude};
+		}
+
+
+
 		public void SetActiveVirtualEarthTileLayer (VirtualEarthTileLayer layer)
 		{
 			layer.gameObject.SetActive (true);
 		}
+
+
+		public void addInputDelegateKeyboard ()
+		{
+			InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard; 
+		}
+
 
 		public List<AppMarker> GetMarkers ()
 		{
@@ -416,6 +433,10 @@ namespace UnitySlippyMap
 		// <summary>
 		// Is set to false is the map is manipulated by the user.
 		// </summary>
+		public bool InputsEnabled {
+			get;
+			set;
+		}
 		private bool							updateCenterWithLocation = true;
 
 		public bool								UpdateCenterWithLocation {
@@ -495,7 +516,6 @@ namespace UnitySlippyMap
 		/// Enables/disables of the platform specific controls.
 		/// TODO: implement inputs in a user oriented customizable way
 		/// </summary>
-		public bool                             InputsEnabled = false;
 		private LocationMarker					locationMarker;
 		private List<Layer>						layers = new List<Layer> ();
 	

@@ -126,7 +126,6 @@ namespace UnityTest
 			BaseVirtualEarthLayer layer = NSubstitute.Substitute.For<BaseVirtualEarthLayer> ();
 			mapWrapper.AddLayer (layer);
 			Assert.Contains (layer, mapWrapper.Layers);
-		
 		}
 
 		[Test]
@@ -168,5 +167,35 @@ namespace UnityTest
 			Map.Received(1).SetActiveVirtualEarthLayer (mapWrapper.Layers[0]); // Es correcto hacer esto?
 		}
 
+		[Test]
+		[Category("Map setup start coordinates")]
+		public void TestInitialCoordinatesAreSet(){
+			double latitude = 1111;
+			double longitude = 1111;
+			BaseCoordinates coordinates = NSubstitute.Substitute.For<BaseCoordinates> (latitude, longitude);
+			mapWrapper.setOriginCoordinates (coordinates);
+			Map.Received (1).setOriginCoordinates (coordinates);
+		}
+
+		[Test]
+		[Category("Map setup enable use location")]
+		public void TestEnableUseLocation(){
+			mapWrapper.EnableUseLocation ();
+			Assert.IsTrue (Map.UseLocation);
+		}
+
+		[Test]
+		[Category("Map add input delegate")]
+		public void TestAddInputDelegateKeyboard(){
+			mapWrapper.addInputDelegateKeyboard();
+			Map.Received (1).addInputDelegateKeyboard ();
+		}
+
+		[Test]
+		[Category("Enable inputs")]
+		public void TestEnableInputs(){
+			mapWrapper.EnableInputs ();
+			Assert.IsTrue (Map.InputsEnabled);
+		}
 	}
 }
