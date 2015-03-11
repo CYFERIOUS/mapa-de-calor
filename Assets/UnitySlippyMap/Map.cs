@@ -687,7 +687,6 @@ namespace UnitySlippyMap
 #if DEBUG_PROFILE
 		UnitySlippyMap.Profiler.Begin("Map.Update");
 #endif
-			print ("El zoom actual es:"+currentZoom.ToString());
 			// update the centerWGS84 with the last location if enabled
 			if (useLocation
 				&& UnityEngine.Input.location.status == LocationServiceStatus.Running) {
