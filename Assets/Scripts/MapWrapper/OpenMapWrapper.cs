@@ -21,7 +21,7 @@ public class OpenMapWrapper : MonoBehaviour
 	private RaycastHit colision;
 	private bool isMarkerSet;
 	private Dictionary<string, double> LastPutMarkerCoordinates = null;
-	private bool isOnReportMapLocationWindow = true;
+	private bool isOnMainWindow = true;
 	private InputReader inputReader;
 	public GameObject ReportTrigger;
 
@@ -98,7 +98,7 @@ public class OpenMapWrapper : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if(isOnReportMapLocationWindow==true){
+		if(isOnMainWindow==true){
 			inputReader.Update();
 		}
 		if (Input.GetKeyDown (KeyCode.Escape)) {
@@ -251,8 +251,8 @@ public class OpenMapWrapper : MonoBehaviour
 		
 	}
 
-	public void ToggleisOnReportMapLocationWindow(){
-		isOnReportMapLocationWindow = !isOnReportMapLocationWindow;
+	public void ToggleisOnMainWindow(){
+		isOnMainWindow = !isOnMainWindow;
 	}
 }
 public class LoadDataAppConfig{
