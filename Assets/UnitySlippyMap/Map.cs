@@ -308,8 +308,8 @@ namespace UnitySlippyMap
 			get { return minZoom; }
 			set {
 				if (value < 3.0f
-					|| value > 18.0f) {
-					minZoom = Mathf.Clamp (value, 3.0f, 18.0f);
+					|| value > 16.7f) {
+					minZoom = Mathf.Clamp (value, 3.0f, 16.7f);
 				} else {		
 					minZoom = value;
 				}
@@ -323,14 +323,14 @@ namespace UnitySlippyMap
 			}
 		}
 	
-		private float							maxZoom = 18.0f;
+		private float							maxZoom = 16.7f;
 
 		public float							MaxZoom {
 			get { return maxZoom; }
 			set {
 				if (value < 3.0f
-					|| value > 18.0f) {
-					maxZoom = Mathf.Clamp (value, 3.0f, 18.0f);
+					|| value > 16.7f) {
+					maxZoom = Mathf.Clamp (value, 3.0f, 16.7f);
 				} else {		
 					maxZoom = value;
 				}
@@ -686,7 +686,7 @@ namespace UnitySlippyMap
 #if DEBUG_PROFILE
 		UnitySlippyMap.Profiler.Begin("Map.Update");
 #endif
-		
+			print ("El zoom actual es:"+currentZoom.ToString());
 			// update the centerWGS84 with the last location if enabled
 			if (useLocation
 				&& UnityEngine.Input.location.status == LocationServiceStatus.Running) {
