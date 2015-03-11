@@ -1,35 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UserReports\ReportSaver.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UIForms\ReportSender.cs">
     <Files>
-      <File FileName="Assets\Scripts\Formulario.cs" Line="42" Column="24" />
-      <File FileName="Assets\Scripts\UserReports\ReportSaver.cs" Line="31" Column="2" />
-      <File FileName="Assets\Scripts\UserReports\ReportLoader.cs" Line="23" Column="1" />
-      <File FileName="Assets\Scripts\Test\Editor\UserReports\DataIOTestBase.cs" Line="88" Column="1" />
-      <File FileName="Assets\Scripts\UserReports\IFormDataLoader.cs" Line="10" Column="1" />
-      <File FileName="Assets\Scripts\Storages\LogStorage.cs" Line="24" Column="3" />
-      <File FileName="Assets\Scripts\Storages\PlayerPrefStorage.cs" Line="7" Column="40" />
-      <File FileName="Assets\Scripts\UserReports\IFormDataSaver.cs" Line="4" Column="17" />
+      <File FileName="Assets\Scripts\UIForms\ReportSender.cs" Line="51" Column="11" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Scripts" expanded="True">
+              <Node name="MapWrapper" expanded="True" />
               <Node name="Storages" expanded="True" />
-              <Node name="UIForms" expanded="True" />
-              <Node name="UserReports" expanded="True">
-                <Node name="ReportSaver.cs" selected="True" />
+              <Node name="UIForms" expanded="True">
+                <Node name="ReportCleaner.cs" selected="True" />
               </Node>
-            </Node>
-          </Node>
-          <Node name="Assembly-CSharp-Editor" expanded="True">
-            <Node name="Scripts" expanded="True">
-              <Node name="Test" expanded="True">
-                <Node name="Editor" expanded="True">
-                  <Node name="UserReports" expanded="True" />
-                </Node>
-              </Node>
+              <Node name="UserReports" expanded="True" />
             </Node>
           </Node>
         </State>
