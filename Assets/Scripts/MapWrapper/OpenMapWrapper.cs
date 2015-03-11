@@ -21,8 +21,10 @@ public class OpenMapWrapper : MonoBehaviour
 	private RaycastHit colision;
 	private bool isMarkerSet;
 	private Dictionary<string, double> LastPutMarkerCoordinates = null;
-	private bool isOnReportMapLocationWindow = false;
+	private bool isOnMainWindow = true;
 	private InputReader inputReader;
+	public GameObject ReportTrigger;
+	private double PrivateTriggerMovementManager;
 
 	private ReportLoader reportLoader;
 
@@ -59,12 +61,17 @@ public class OpenMapWrapper : MonoBehaviour
 		SetupVirtualEarthLayer ();
 		DrawGPSUserLocation ();
 		SetUpInputReader ();
+		PrivateTriggerMovementManager = map.CenterWGS84 [0];
 	}
 
 	public void SetUpInputReader(){
 		inputReader = new InputReader ();
 		inputReader.SetGenerator (GetValidInputGenerator());
-		inputReader.LongPressExecuted +=()=>{SetSingleMarkerOnMap();};
+		inputReader.LongPressExecuted +=()=>{
+			SetSingleMarkerOnMap();
+			ReportTrigger.SetActive (true);
+			PrivateTriggerMovementManager = map.CenterWGS84 [0];
+		};
 		LoadPrefsData ();
 	}
 
@@ -94,11 +101,16 @@ public class OpenMapWrapper : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if(isOnReportMapLocationWindow==true){
+		if(isOnMainWindow==true){
 			inputReader.Update();
 		}
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
+		}
+
+		if(PrivateTriggerMovementManager!=map.CenterWGS84[0]&&ReportTrigger.activeInHierarchy==true){
+			ReportTrigger.SetActive(false);
+			RemoveLastPutMarker();
 		}
 	}
 
@@ -113,12 +125,13 @@ public class OpenMapWrapper : MonoBehaviour
 
 	public void SetMarkerInMap ()
 	{
-//		Debug.Log ("Click en la clase del wrapper");
+
+
 		Dictionary<string, double> CursorCoordinates = GetCoordinatesOfCursor ();
 		CreateAnnotation (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
 		SetCoordinatesOnInputField (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
 		LastPutMarkerCoordinates = CursorCoordinates;
-			
+
 
 	}
 
@@ -178,7 +191,8 @@ public class OpenMapWrapper : MonoBehaviour
 		map.UseLocation = true;
 		map.InputsEnabled = true;
 		map.ShowGUIControls = false;
-		
+
+
 		
 	}
 	
@@ -187,7 +201,8 @@ public class OpenMapWrapper : MonoBehaviour
 		Dictionary<string, double> dictionary = new Dictionary<string, double> ();
 		
 		Vector3 wordPos = getCursorPosition ();
-		
+
+		//ReportTrigger.transform.localScale = new Vector2 (0.5f,0.5f);
 		double latitude = (0.0167 * wordPos [2]) + ((map.CenterWGS84) [1]);
 		double longitude = (0.0167 * wordPos [0]) + ((map.CenterWGS84) [0]);
 		dictionary.Add ("latitude", latitude);
@@ -199,6 +214,7 @@ public class OpenMapWrapper : MonoBehaviour
 	public Vector3 getCursorPosition ()
 	{
 		Vector3 mousePos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0f);
+		ReportTrigger.transform.position = mousePos;
 		Ray ray = Camera.main.ScreenPointToRay (mousePos);
 		RaycastHit hit;
 		
@@ -245,8 +261,8 @@ public class OpenMapWrapper : MonoBehaviour
 		
 	}
 
-	public void ToggleisOnReportMapLocationWindow(){
-		isOnReportMapLocationWindow = !isOnReportMapLocationWindow;
+	public void ToggleisOnMainWindow(){
+		isOnMainWindow = !isOnMainWindow;
 	}
 }
 public class LoadDataAppConfig{
