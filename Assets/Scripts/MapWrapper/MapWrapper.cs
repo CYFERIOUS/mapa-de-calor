@@ -15,12 +15,12 @@ public class MapWrapper
 			return markers.Count;
 		} 
 	}
+	
+	public List<BaseVirtualEarthLayer> Layers = new List<BaseVirtualEarthLayer> (); 
 
-	public List<object> LayerNames = new List<object> (); 
-
-	public void SetupLayer (string layerName)
+	public void AddLayer (BaseVirtualEarthLayer layer)
 	{
-		LayerNames.Add (layerName);
+		Layers.Add (layer);
 	}
 
 	public void SetCurrentZoom (float currentZoom)
@@ -38,6 +38,19 @@ public class MapWrapper
 
 	private List<object> markers = new List<object> ();
 	private object temporalMarker;
+
+	public void createVirtualEarthLayer (string key)
+	{
+		BaseVirtualEarthLayer layer = Map.createVirtualEarthLayer();
+		layer.Key = key ;
+		Map.SetActiveVirtualEarthLayer (layer);
+		Layers.Add(layer);
+	}
+
+	public void createVirtualEarthLayer ()
+	{
+		Layers.Add(Map.createVirtualEarthLayer ());
+	}
 
 	public bool HasTemporalMarker {
 		get {
@@ -67,5 +80,6 @@ public class MapWrapper
 		markers.Add (new object ());
 		Map.AddMarker (userGeneratedMarker);
 	}
-	
+
+
 }

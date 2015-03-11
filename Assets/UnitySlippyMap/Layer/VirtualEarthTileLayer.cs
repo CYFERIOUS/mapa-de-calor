@@ -36,7 +36,7 @@ namespace UnitySlippyMap
 // <summary>
 // A class representing a VirtualEarth tile layer.
 // </summary>
-public class VirtualEarthTileLayer : WebTileLayer
+public class VirtualEarthTileLayer : WebTileLayer, BaseVirtualEarthLayer
 {
     // http://msdn.microsoft.com/en-us/library/ff701712.aspx
     // http://msdn.microsoft.com/en-us/library/ff701716.aspx

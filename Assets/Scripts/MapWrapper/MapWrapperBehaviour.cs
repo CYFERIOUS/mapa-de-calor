@@ -17,9 +17,10 @@ public class MapWrapperBehaviour : MonoBehaviour {
 		mapWrapper.Map = map;
 		mapWrapper.SetCurrentCamera (Camera.main);
 		mapWrapper.SetCurrentZoom (15.0f);
+		mapWrapper.createVirtualEarthLayer ("Ag-ML2n_NjUqTCNOJyd9Yyr-GRfEWVmY_yboAe3A3aUL2JrE1d9er914Tfs9kgrp");
 
 
-		//SetupMapInstance ();
+		SetupMapInstance ();
 //		SetupVirtualEarthLayer ();
 	}
 	
@@ -30,11 +31,10 @@ public class MapWrapperBehaviour : MonoBehaviour {
 		
 		
 		// create a VirtualEarth tile layer
-		//VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer> ("VirtualEarth");
-		//AbstractTileLayer virtualEarthLayer = mapWrapper.Map.CreateLayer("VirtualEarth");
-		//virtualEarthLayer.Key = "Ag-ML2n_NjUqTCNOJyd9Yyr-GRfEWVmY_yboAe3A3aUL2JrE1d9er914Tfs9kgrp";
-		//virtualEarthLayer.gameObject.SetActive (true);
-		
+//		VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer> ("VirtualEarth");
+//		virtualEarthLayer.Key = "Ag-ML2n_NjUqTCNOJyd9Yyr-GRfEWVmY_yboAe3A3aUL2JrE1d9er914Tfs9kgrp";
+//		virtualEarthLayer.gameObject.SetActive (true);
+//		
 		
 		
 	}
@@ -42,8 +42,7 @@ public class MapWrapperBehaviour : MonoBehaviour {
 	public void SetupMapInstance ()
 	{
 
-//		mapWrapper.map.InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard; 
-//		mapWrapper.map.CurrentZoom = 15.0f;
+//Map.InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard; 
 //		mapWrapper.map.CenterWGS84 = new double[2] { -74.084046, 4.638194 };
 //		mapWrapper.map.UseLocation = true;
 //		mapWrapper.map.InputsEnabled = true;

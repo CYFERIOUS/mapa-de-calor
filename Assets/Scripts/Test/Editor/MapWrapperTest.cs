@@ -121,13 +121,52 @@ namespace UnityTest
 		}
 
 		[Test]
-		[Category("Map setup layer tests")]
-		public void TestMapSetVirtualEarthLayer(){
-			mapWrapper.SetupLayer ("VirtualEarth");
-			Assert.Contains ("VirtualEarth", mapWrapper.LayerNames);
+		[Category("Map setup layer")]
+		public void TestAddANewLayer(){
+			BaseVirtualEarthLayer layer = NSubstitute.Substitute.For<BaseVirtualEarthLayer> ();
+			mapWrapper.AddLayer (layer);
+			Assert.Contains (layer, mapWrapper.Layers);
+		
+		}
+
+		[Test]
+		[Category("Map setup VirtualEarth layer")]
+		public void TestMapCreatesVirtualEarthLayer(){
+			mapWrapper.createVirtualEarthLayer ();
+			Map.Received (1).createVirtualEarthLayer ();
 
 		}
 
-	
+		[Test]
+		[Category("Map setup VirtualEarth layer")]
+		public void TestAddVirtualEarthLayer(){
+			BaseVirtualEarthLayer layer = NSubstitute.Substitute.For<BaseVirtualEarthLayer> ();
+			Map.createVirtualEarthLayer().Returns(layer);
+			mapWrapper.createVirtualEarthLayer();
+			Assert.Contains(layer, mapWrapper.Layers);
+
+		}
+
+		[Test]
+		[Category("Map setup VirtualEarth layer")]
+		public void TestSetVirtualEarthLayerKey(){
+			string key = "Dummykey";
+			BaseVirtualEarthLayer layer = NSubstitute.Substitute.For<BaseVirtualEarthLayer> ();
+			Map.createVirtualEarthLayer(key).Returns(layer);
+			mapWrapper.createVirtualEarthLayer(key);
+			Assert.AreEqual (key, mapWrapper.Layers[0].Key); // Es correcto hacer esto?
+
+		}
+
+		[Test]
+		[Category("Map setup VirtualEarth layer")]
+		public void TestVirtualEarthLayerGameObjectIsSetActive(){
+			string key = "Dummykey";
+			BaseVirtualEarthLayer layer = NSubstitute.Substitute.For<BaseVirtualEarthLayer> ();
+			Map.createVirtualEarthLayer(key).Returns(layer);
+			mapWrapper.createVirtualEarthLayer(key);
+			Map.Received(1).SetActiveVirtualEarthLayer (mapWrapper.Layers[0]); // Es correcto hacer esto?
+		}
+
 	}
 }
