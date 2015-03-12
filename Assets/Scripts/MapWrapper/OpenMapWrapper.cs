@@ -25,6 +25,7 @@ public class OpenMapWrapper : MonoBehaviour
 	protected InputReader inputReader;
 	public GameObject ReportTrigger;
 	protected double PrivateTriggerMovementManager;
+	PlayerPrefStorage loaderInit = new PlayerPrefStorage();
 
 	private ReportLoader reportLoader;
 
@@ -62,6 +63,14 @@ public class OpenMapWrapper : MonoBehaviour
 		DrawGPSUserLocation ();
 		SetUpInputReader ();
 		PrivateTriggerMovementManager = map.CenterWGS84 [0];
+		int keyTotals = loaderInit.GetTotalKey ();
+		Debug.Log ("totalReportes" + keyTotals);
+		for(int i = 0;i<=keyTotals-1;i++){
+			loaderInit.SetKey(i);
+			Vector2 init = loaderInit.GetAnnotation();
+			CreateAnnotation (init.x, init.y);
+		}
+
 	}
 
 	public void SetUpInputReader(){
