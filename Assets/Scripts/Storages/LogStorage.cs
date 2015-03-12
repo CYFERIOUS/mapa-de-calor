@@ -6,6 +6,9 @@ public class LogStorage : IDataStorage {
 	public string GetName(){
 		return "name";
 	}
+	public int GetKey(){
+		return 1;
+	}
 	public string GetComments(){
 		return "comments"; 
 	}
@@ -22,10 +25,20 @@ public class LogStorage : IDataStorage {
 	public int GetOcurrence() {
 		return 0;
 	}
-	
+
+	public int GetTotalKey() {
+		return 0;
+	}
+
+
 	public void SetName(string val){
 		Debug.Log ("Name: "+val);
 	}
+
+	public void SetKey(int val){
+		Debug.Log ("ReportNumber: "+val);
+	}
+
 	public void SetComments(string val){
 		Debug.Log ("comments: "+val);
 	}
@@ -45,6 +58,11 @@ public class LogStorage : IDataStorage {
 	public void SetOcurrence(int val) {
 		Debug.Log ("occurrence: "+val);
 	}
+
+	public void SetTotalKey(int val) {
+		Debug.Log ("TotalKeys: "+val);
+	}
+
 	public void save(){
 		Debug.Log ("save");
 	}

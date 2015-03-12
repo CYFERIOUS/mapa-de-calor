@@ -4,37 +4,82 @@ using System.Collections;
 public class DataStorageMock : IDataStorage {
 
 	private string name;
+	private int key;
 	private string comments;
 	private Vector2 coordinates;
 	private int timeStamp;
 	private string stuff;
 	private int ocurrence;
+	private ArrayList data = new ArrayList();
+	private int total;
 
-	public void save(){	}
+	public FormData search() {
+		FormData form = new FormData();
+		form.key = -1;
+		foreach (FormData frm in data)
+			if (frm.key == key)
+				form = frm;
+		return form;
+	}
+
+	public void save(){
+		FormData form = search ();
+
+		form.name = name;
+		form.comments = comments;
+		form.annotation = coordinates;
+		form.timestamp = timeStamp;
+		form.ocurrence = ocurrence;
+		form.stuff = stuff;
+		
+		if (form.key == -1) {
+			form.key = key;
+			data.Add (form);
+		} else
+			form.key = key;
+	}
 
 	public string GetName(){
-		return name; 
+		FormData form = search ();
+		return (form.key == -1)? null : form.name;
+	}
+	public int GetKey(){
+		return key;
 	}
 	public string GetComments(){
-		return comments; 
+		FormData form = search ();
+		return (form.key == -1)? null : form.comments;
 	}
 	public Vector2 GetAnnotation(){
-		return coordinates;
+		FormData form = search ();
+		return (form.key == -1)? new Vector2() : form.annotation;
 	}
 	public int GetTimestamp(){
-		return timeStamp;
+		FormData form = search ();
+		return (form.key == -1)? 0 : form.timestamp;
 	}
 	public string GetStuff(){
-		return stuff;
+		FormData form = search ();
+		return (form.key == -1)? null : form.stuff;
 	}
 
 	public int GetOcurrence() {
-		return ocurrence;
+		FormData form = search ();
+		return (form.key == -1)? 0 : form.ocurrence;
+	}
+
+	public int GetTotalKey(){
+		return total;
 	}
 
 	public void SetName(string val){
 		name = val;
 	}
+
+	public void SetKey(int val){
+		key = val;
+	}
+
 	public void SetComments(string val){
 		comments = val;
 	}
@@ -53,6 +98,9 @@ public class DataStorageMock : IDataStorage {
 
 	public void SetOcurrence(int val) {
 		ocurrence = val;
+	}
+	public void SetTotalKey(int val) {
+		total = val;
 	}
 
 }
