@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using NUnit.Framework;
@@ -20,14 +20,14 @@ namespace UnityTest
 		{
 			Map = NSubstitute.Substitute.For<AbstractMap> ();
 			mapWrapper = new MapWrapper ();
-			mapWrapper.Map = Map;
+			mapWrapper.MapImplementation = Map;
 		}
 
 		[Test]
 		[Category("Marker on map test")]
 		public void TestPutMarkerOnMap ()
 		{
-			AppMarker userGeneratedMarker = new AppMarker ();
+			AbstractMarker userGeneratedMarker = new AbstractMarker ();
 			mapWrapper.SetMarkerInMap (userGeneratedMarker);
 			Assert.AreEqual (1, mapWrapper.MarkersCount);
 		}
@@ -36,7 +36,7 @@ namespace UnityTest
 		[Category("Two Markers on map test")]
 		public void TestPutTwoMarkersOnMap ()
 		{
-			AppMarker userGeneratedMarker = new AppMarker ();
+			AbstractMarker userGeneratedMarker = new AbstractMarker ();
 			mapWrapper.SetMarkerInMap (userGeneratedMarker);
 			mapWrapper.SetMarkerInMap (userGeneratedMarker);
 			Assert.AreEqual (2, mapWrapper.MarkersCount);
@@ -72,7 +72,7 @@ namespace UnityTest
 		[Category ("Map add marker tests")]
 		public void TestMapIsAddingAMarkerGeneratedByUser ()
 		{
-			AppMarker userGeneratedMarker = new AppMarker ();
+			AbstractMarker userGeneratedMarker = new AbstractMarker ();
 			mapWrapper.SetMarkerInMap (userGeneratedMarker);
 			Map.Received (1).AddMarker (userGeneratedMarker);
 		}
@@ -84,7 +84,7 @@ namespace UnityTest
 			Camera currentCamera = new Camera ();
 
 			mapWrapper.SetCurrentCamera (currentCamera);
-			Assert.IsNotNull (mapWrapper.Map.CurrentCamera);
+			Assert.IsNotNull (mapWrapper.MapImplementation.CurrentCamera);
 		}
 
 		[Test]
@@ -92,7 +92,7 @@ namespace UnityTest
 		public void TestNotSetupCameraIfMapIsNull ()
 		{
 			Camera currentCamera = new Camera ();
-			mapWrapper.Map = null;
+			mapWrapper.MapImplementation = null;
 
 			Assert.DoesNotThrow (() => {
 				mapWrapper.SetCurrentCamera (currentCamera);
@@ -105,7 +105,7 @@ namespace UnityTest
 		{
 			float currentZoom = 10.0f;
 			mapWrapper.SetCurrentZoom (currentZoom);
-			Assert.AreEqual (currentZoom, mapWrapper.Map.CurrentZoom); 
+			Assert.AreEqual (currentZoom, mapWrapper.MapImplementation.CurrentZoom); 
 		}
 
 		[Test]
@@ -113,7 +113,7 @@ namespace UnityTest
 		public void TestNoSetupCurrentZoomIfMapIsNull ()
 		{
 			float currentZoom = 10.0f;
-			mapWrapper.Map = null;
+			mapWrapper.MapImplementation = null;
 			mapWrapper.SetCurrentZoom (currentZoom);
 			Assert.DoesNotThrow (() => {
 				mapWrapper.SetCurrentZoom (currentZoom);
@@ -151,7 +151,7 @@ namespace UnityTest
 		public void TestSetVirtualEarthLayerKey(){
 			string key = "Dummykey";
 			BaseVirtualEarthLayer layer = NSubstitute.Substitute.For<BaseVirtualEarthLayer> ();
-			Map.createVirtualEarthLayer(key).Returns(layer);
+			Map.createVirtualEarthLayer().Returns(layer);
 			mapWrapper.createVirtualEarthLayer(key);
 			Assert.AreEqual (key, mapWrapper.Layers[0].Key); // Es correcto hacer esto?
 
@@ -162,7 +162,7 @@ namespace UnityTest
 		public void TestVirtualEarthLayerGameObjectIsSetActive(){
 			string key = "Dummykey";
 			BaseVirtualEarthLayer layer = NSubstitute.Substitute.For<BaseVirtualEarthLayer> ();
-			Map.createVirtualEarthLayer(key).Returns(layer);
+			Map.createVirtualEarthLayer().Returns(layer);
 			mapWrapper.createVirtualEarthLayer(key);
 			Map.Received(1).SetActiveVirtualEarthLayer (mapWrapper.Layers[0]); // Es correcto hacer esto?
 		}
@@ -197,5 +197,6 @@ namespace UnityTest
 			mapWrapper.EnableInputs ();
 			Assert.IsTrue (Map.InputsEnabled);
 		}
+
 	}
 }

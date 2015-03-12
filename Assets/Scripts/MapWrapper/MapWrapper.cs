@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MapWrapper
 {
-	public AbstractMap Map {
+	public AbstractMap MapImplementation {
 		get;
 		set;
 	}
@@ -28,49 +28,49 @@ public class MapWrapper
 
 	public void SetCurrentZoom (float currentZoom)
 	{
-		if (Map != null)
-		Map.CurrentZoom = currentZoom;
+		if (MapImplementation != null)
+		MapImplementation.CurrentZoom = currentZoom;
 	}
 
 	public void SetCurrentCamera (Camera currentCamera)
 	{
-		if (Map != null)
-		Map.CurrentCamera = currentCamera;
+		if (MapImplementation != null)
+		MapImplementation.CurrentCamera = currentCamera;
 	
 	}
 
 	public void setOriginCoordinates (BaseCoordinates coordinates)
 	{
-		Map.setOriginCoordinates (coordinates);
+		MapImplementation.setOriginCoordinates (coordinates);
 		//throw new NotImplementedException ();
 	}
 
 	public void EnableInputs ()
 	{
-		Map.InputsEnabled = true;
+		MapImplementation.InputsEnabled = true;
 	}
 
 	public void EnableUseLocation ()
 	{
-		Map.UseLocation = true;
+		MapImplementation.UseLocation = true;
 	}
 
 	public void addInputDelegateKeyboard ()
 	{
-		Map.addInputDelegateKeyboard ();
+		MapImplementation.addInputDelegateKeyboard ();
 	}
 
 	public void createVirtualEarthLayer (string key)
 	{
-		BaseVirtualEarthLayer layer = Map.createVirtualEarthLayer();
+		BaseVirtualEarthLayer layer = MapImplementation.createVirtualEarthLayer();
 		layer.Key = key ;
-		Map.SetActiveVirtualEarthLayer (layer);
+		MapImplementation.SetActiveVirtualEarthLayer (layer);
 		Layers.Add(layer);
 	}
 
 	public void createVirtualEarthLayer ()
 	{
-		Layers.Add(Map.createVirtualEarthLayer ());
+		Layers.Add(MapImplementation.createVirtualEarthLayer ());
 	}
 
 	public bool HasTemporalMarker {
@@ -87,7 +87,7 @@ public class MapWrapper
 	public void SetTemporalMarker ()
 	{
 		temporalMarker = new object ();
-		Map.AddMarker (new AppMarker ());
+		MapImplementation.AddMarker (new AbstractMarker ());
 	}
 
 	public void AddTemporalMarker ()
@@ -96,10 +96,10 @@ public class MapWrapper
 		temporalMarker = null;
 	}
 
-	public void SetMarkerInMap (AppMarker userGeneratedMarker)
+	public void SetMarkerInMap (AbstractMarker userGeneratedMarker)
 	{
 		markers.Add (new object ());
-		Map.AddMarker (userGeneratedMarker);
+		MapImplementation.AddMarker (userGeneratedMarker);
 	}
 
 

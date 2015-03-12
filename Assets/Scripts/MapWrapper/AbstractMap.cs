@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -23,12 +23,10 @@ public interface AbstractMap {
 		set;
 	}
 
-	List<AppMarker> GetMarkers ();
-	void AddMarker(AppMarker marker);
+	List<AbstractMarker> GetMarkers ();
+	void AddMarker(AbstractMarker marker);
 
 	void setOriginCoordinates (BaseCoordinates coordinates);
-	
-	BaseVirtualEarthLayer createVirtualEarthLayer (string key);
 	BaseVirtualEarthLayer createVirtualEarthLayer ();
 
 	void SetActiveVirtualEarthLayer (BaseVirtualEarthLayer layer);

@@ -2,20 +2,38 @@
 using System.Collections;
 using UnitySlippyMap;
 
-public class MapWrapperBehaviour : OpenMapWrapper{
+public class MapWrapperBehaviour: OpenMapWrapper{
 
 	private MapWrapper mapWrapper;
-	//private Map map;
+	private AbstractMap mapImplementation;
 
 	void Start ()
-	{
+	{	
 		map = Map.Instance;
+		mapImplementation = new MapImplementation ();
 		mapWrapper = new MapWrapper ();
-		mapWrapper.Map = map;
+		mapWrapper.MapImplementation = mapImplementation;
 		SetupMapInstance ();	
+
+		DrawGPSUserLocation ();
 		SetUpInputReader ();
+		PrivateTriggerMovementManager = map.CenterWGS84 [0];
 	}
-	
+
+	void Update ()
+	{
+		if (isOnMainWindow == true) {
+			inputReader.Update ();
+		}
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.Quit ();
+		}
+		
+		if (PrivateTriggerMovementManager != map.CenterWGS84 [0] && ReportTrigger.activeInHierarchy == true) {
+			ReportTrigger.SetActive (false);
+			RemoveLastPutMarker ();
+		}
+	}
 
 	public void SetupMapInstance ()
 	{
@@ -26,6 +44,6 @@ public class MapWrapperBehaviour : OpenMapWrapper{
 		mapWrapper.EnableUseLocation ();
 		mapWrapper.addInputDelegateKeyboard ();
 		mapWrapper.EnableInputs ();
-		//map.ShowGUIControls = false;
+
 	}
 }

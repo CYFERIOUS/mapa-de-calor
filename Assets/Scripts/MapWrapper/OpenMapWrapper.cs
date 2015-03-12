@@ -21,10 +21,10 @@ public class OpenMapWrapper : MonoBehaviour
 	private RaycastHit colision;
 	private bool isMarkerSet;
 	private Dictionary<string, double> LastPutMarkerCoordinates = null;
-	private bool isOnMainWindow = true;
-	private InputReader inputReader;
+	protected bool isOnMainWindow = true;
+	protected InputReader inputReader;
 	public GameObject ReportTrigger;
-	private double PrivateTriggerMovementManager;
+	protected double PrivateTriggerMovementManager;
 
 	private ReportLoader reportLoader;
 
