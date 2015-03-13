@@ -273,6 +273,10 @@ public class OpenMapWrapper : MonoBehaviour
 	public void ToggleisOnMainWindow(){
 		isOnMainWindow = !isOnMainWindow;
 	}
+
+	public void SetToTrueIsOnMainWindow(){
+		isOnMainWindow = true;
+	}
 }
 public class LoadDataAppConfig{
 	
