@@ -13,21 +13,33 @@ namespace UnityTest
 	{
 
 		MapWrapper mapWrapper;
-		AbstractMap Map;
+		AbstractMap map;
+		MarkerGenerator markerGenerator;
+		BaseCoordinates temporalMarkerLocation;
+		BaseCoordinates markerLocation;
+		AbstractMarker marker;
 
 		[SetUp]
 		public void Setup ()
-		{
-			Map = NSubstitute.Substitute.For<AbstractMap> ();
+		{	
+			SetUpSubstitutes ();
+			markerGenerator = new MarkerGeneratorMock ();
 			mapWrapper = new MapWrapper ();
-			mapWrapper.MapImplementation = Map;
+			mapWrapper.MapImplementation = map;
+			mapWrapper.MarkerGenerator = markerGenerator;
+		}
+
+		private void SetUpSubstitutes()
+		{
+			map = NSubstitute.Substitute.For<AbstractMap> ();
+			temporalMarkerLocation = NSubstitute.Substitute.For<BaseCoordinates> (1, 1);
+			marker = NSubstitute.Substitute.For<AbstractMarker>();
 		}
 
 		[Test]
 		[Category("Marker on map test")]
 		public void TestPutMarkerOnMap ()
 		{	
-			BaseCoordinates markerLocation = NSubstitute.Substitute.For<BaseCoordinates> (1, 1);
 			mapWrapper.SetMarkerInMap (markerLocation);
 			Assert.AreEqual (1, mapWrapper.MarkersCount);
 		}
@@ -36,7 +48,6 @@ namespace UnityTest
 		[Category("Two Markers on map test")]
 		public void TestPutTwoMarkersOnMap ()
 		{
-			BaseCoordinates markerLocation = NSubstitute.Substitute.For<BaseCoordinates> (1, 1);
 			mapWrapper.SetMarkerInMap (markerLocation);
 			mapWrapper.SetMarkerInMap (markerLocation);
 			Assert.AreEqual (2, mapWrapper.MarkersCount);
@@ -46,15 +57,31 @@ namespace UnityTest
 		[Category("Set Temporal Marker test")]
 		public void TestSettingTemporalMarkerMakesMapHasATemporalMarker ()
 		{ 
-			mapWrapper.SetTemporalMarker ();
+			mapWrapper.SetTemporalMarker (temporalMarkerLocation);
 			Assert.IsTrue (mapWrapper.HasTemporalMarker);
+		}
+
+		[Test]
+		[Category("Test temporal marker is instance of abstract marker")]
+		public void TestTemporalMarkerIsInstanceOfAbstractMarker(){
+			mapWrapper.SetTemporalMarker (temporalMarkerLocation);
+			map.Received (1).AddMarker (Arg.Any<AbstractMarker>());
+		}
+
+		[Test]
+		[Category("Test temporal marker has coordinates")]
+		public void TestTemporalMarkerHasLocationSetByUser(){
+			AbstractMarker argumentUsed = null;
+			map.AddMarker (Arg.Do<AbstractMarker> (x => argumentUsed = x));
+			mapWrapper.SetTemporalMarker (temporalMarkerLocation);
+			Assert.AreSame (temporalMarkerLocation, argumentUsed.Location);
 		}
 
 		[Test]
 		[Category("Temporal Marker test")]
 		public void TestAddingTemporalMarkerMakesMapHasNoTemporalMarker ()
 		{
-			mapWrapper.SetTemporalMarker ();
+			mapWrapper.SetTemporalMarker (temporalMarkerLocation);
 			mapWrapper.AddTemporalMarker ();
 			Assert.IsFalse (mapWrapper.HasTemporalMarker);
 		}
@@ -63,19 +90,18 @@ namespace UnityTest
 		[Category("Temporal Marker test")]
 		public void TestAddingTemporalMarkerPutsMarker ()
 		{
-			mapWrapper.SetTemporalMarker ();
+			mapWrapper.SetTemporalMarker (temporalMarkerLocation);
 			mapWrapper.AddTemporalMarker ();
 			Assert.AreEqual (1, mapWrapper.MarkersCount);
 		}
 
-		[Test, Ignore]
-		[Category ("Map add marker tests")]
-		public void TestMapIsAddingAMarkerGeneratedByUser ()
-		{
-			AbstractMarker userGeneratedMarker = new AbstractMarker ();
-			BaseCoordinates markerLocation = NSubstitute.Substitute.For<BaseCoordinates> (1, 1);
+		[Test]
+		[Category("Test Marker has coordinates")]
+		public void TestMarkerHasCoordinates(){
+			AbstractMarker argumentUsed = null;
+			map.AddMarker (Arg.Do<AbstractMarker> (x => argumentUsed = x));
 			mapWrapper.SetMarkerInMap (markerLocation);
-			Map.Received (1).AddMarker (userGeneratedMarker);
+			Assert.AreSame (markerLocation, argumentUsed.Location);
 		}
 
 		[Test]
@@ -83,7 +109,6 @@ namespace UnityTest
 		public void TestMapSetupsCurrentCamera ()
 		{
 			Camera currentCamera = new Camera ();
-
 			mapWrapper.SetCurrentCamera (currentCamera);
 			Assert.IsNotNull (mapWrapper.MapImplementation.CurrentCamera);
 		}
@@ -133,7 +158,7 @@ namespace UnityTest
 		[Category("Map setup VirtualEarth layer")]
 		public void TestMapCreatesVirtualEarthLayer(){
 			mapWrapper.createVirtualEarthLayer ();
-			Map.Received (1).createVirtualEarthLayer ();
+			map.Received (1).createVirtualEarthLayer ();
 
 		}
 
@@ -141,7 +166,7 @@ namespace UnityTest
 		[Category("Map setup VirtualEarth layer")]
 		public void TestAddVirtualEarthLayer(){
 			BaseVirtualEarthLayer layer = NSubstitute.Substitute.For<BaseVirtualEarthLayer> ();
-			Map.createVirtualEarthLayer().Returns(layer);
+			map.createVirtualEarthLayer().Returns(layer);
 			mapWrapper.createVirtualEarthLayer();
 			Assert.Contains(layer, mapWrapper.Layers);
 
@@ -152,9 +177,9 @@ namespace UnityTest
 		public void TestSetVirtualEarthLayerKey(){
 			string key = "Dummykey";
 			BaseVirtualEarthLayer layer = NSubstitute.Substitute.For<BaseVirtualEarthLayer> ();
-			Map.createVirtualEarthLayer().Returns(layer);
+			map.createVirtualEarthLayer().Returns(layer);
 			mapWrapper.createVirtualEarthLayer(key);
-			Assert.AreEqual (key, mapWrapper.Layers[0].Key); // Es correcto hacer esto?
+			Assert.AreEqual (key, mapWrapper.Layers[0].Key);
 
 		}
 
@@ -163,9 +188,9 @@ namespace UnityTest
 		public void TestVirtualEarthLayerGameObjectIsSetActive(){
 			string key = "Dummykey";
 			BaseVirtualEarthLayer layer = NSubstitute.Substitute.For<BaseVirtualEarthLayer> ();
-			Map.createVirtualEarthLayer().Returns(layer);
+			map.createVirtualEarthLayer().Returns(layer);
 			mapWrapper.createVirtualEarthLayer(key);
-			Map.Received(1).SetActiveVirtualEarthLayer (mapWrapper.Layers[0]); // Es correcto hacer esto?
+			map.Received(1).SetActiveVirtualEarthLayer (mapWrapper.Layers[0]);
 		}
 
 		[Test]
@@ -173,45 +198,35 @@ namespace UnityTest
 		public void TestInitialCoordinatesAreSet(){
 			BaseCoordinates coordinates = NSubstitute.Substitute.For<BaseCoordinates> (1, 1);
 			mapWrapper.setOriginCoordinates (coordinates);
-			Map.Received (1).setOriginCoordinates (coordinates);
+			map.Received (1).setOriginCoordinates (coordinates);
 		}
 
 		[Test]
 		[Category("Map setup enable use location")]
 		public void TestEnableUseLocation(){
 			mapWrapper.EnableUseLocation ();
-			Assert.IsTrue (Map.UseLocation);
+			Assert.IsTrue (map.UseLocation);
 		}
 
 		[Test]
 		[Category("Map add input delegate")]
 		public void TestAddInputDelegateKeyboard(){
 			mapWrapper.addInputDelegateKeyboard();
-			Map.Received (1).addInputDelegateKeyboard ();
+			map.Received (1).addInputDelegateKeyboard ();
 		}
 
 		[Test]
 		[Category("Enable inputs")]
 		public void TestEnableInputs(){
 			mapWrapper.EnableInputs ();
-			Assert.IsTrue (Map.InputsEnabled);
+			Assert.IsTrue (map.InputsEnabled);
 		}
 
 		[Test]
 		[Category("Set user location")]
 		public void TestSetUserLocationIsSet(){
 			mapWrapper.SetUserLocation ();
-			Map.Received (1).SetUserLocation ();
-		}
-
-		[Test]
-		[Category("Test Marker has coordinates")]
-		public void TestMarkerHasCoordinates(){
-			BaseCoordinates markerLocation = NSubstitute.Substitute.For<BaseCoordinates> (1, 1);
-			AbstractMarker argumentUsed = null;
-			Map.AddMarker (Arg.Do<AbstractMarker> (x => argumentUsed = x));//  [0].Location, markerLocation);
-			mapWrapper.SetMarkerInMap (markerLocation);
-			Assert.AreSame (markerLocation, argumentUsed.Location);
+			map.Received (1).SetUserLocation ();
 		}
 
 	}

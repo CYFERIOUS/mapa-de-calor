@@ -23,7 +23,7 @@ public interface AbstractMap {
 		set;
 	}
 
-	List<AbstractMarker> GetMarkers ();
+	List<ConcreteMarker> GetMarkers ();
 	void AddMarker(AbstractMarker marker);
 
 	void setOriginCoordinates (BaseCoordinates coordinates);

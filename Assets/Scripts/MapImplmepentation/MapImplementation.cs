@@ -65,9 +65,9 @@ public class MapImplementation : AbstractMap {
 	}
 	
 	
-	public List<AbstractMarker> GetMarkers ()
+	public List<ConcreteMarker> GetMarkers ()
 	{
-		return new List<AbstractMarker> ();
+		return new List<ConcreteMarker> ();
 	}
 	
 	public void SetActiveVirtualEarthLayer (BaseVirtualEarthLayer layer)

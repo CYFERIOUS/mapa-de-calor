@@ -5,9 +5,21 @@ using UnityEngine;
 
 public class MapWrapper
 {
+	private MarkerGenerator markerGenerator;
+	public List<BaseVirtualEarthLayer> Layers = new List<BaseVirtualEarthLayer> ();
+	private List<AbstractMarker> markers = new List<AbstractMarker> ();
+	private AbstractMarker temporalAbstractMarker;
+
 	public AbstractMap MapImplementation {
 		get;
 		set;
+	}
+	
+	public MarkerGenerator MarkerGenerator
+	{
+		set {
+			markerGenerator = value;
+		}
 	}
 
 	public int MarkersCount {
@@ -16,10 +28,12 @@ public class MapWrapper
 			return markers.Count;
 		} 
 	}
-	
-	public List<BaseVirtualEarthLayer> Layers = new List<BaseVirtualEarthLayer> (); 
-	private List<object> markers = new List<object> ();
-	private object temporalMarker;
+
+	public bool HasTemporalMarker {
+		get {
+			return temporalAbstractMarker != null;
+		}
+	}
 
 	public void SetUserLocation ()
 	{
@@ -47,7 +61,6 @@ public class MapWrapper
 	public void setOriginCoordinates (BaseCoordinates coordinates)
 	{
 		MapImplementation.setOriginCoordinates (coordinates);
-		//throw new NotImplementedException ();
 	}
 
 	public void EnableInputs ()
@@ -78,36 +91,22 @@ public class MapWrapper
 		Layers.Add(MapImplementation.createVirtualEarthLayer ());
 	}
 
-	public bool HasTemporalMarker {
-		get {
-			return temporalMarker != null;
-		}
-	}
-
-	public Dictionary<string, double> GetCoordinatesOfCursor ()
-	{
-		return new Dictionary<string, double> ();
-	}
-
-	public void SetTemporalMarker ()
-	{
-		temporalMarker = new object ();
-		MapImplementation.AddMarker (new AbstractMarker ());
+	public void SetTemporalMarker(BaseCoordinates coordinates){
+		temporalAbstractMarker = markerGenerator.GenerateMarker (coordinates);
+		MapImplementation.AddMarker (temporalAbstractMarker);
 	}
 
 	public void AddTemporalMarker ()
 	{
-		markers.Add (temporalMarker);
-		temporalMarker = null;
+		markers.Add (temporalAbstractMarker);
+		temporalAbstractMarker = null;
 	}
 
 	public void SetMarkerInMap (BaseCoordinates coordinates)
 	{
-		AbstractMarker marker = new AbstractMarker ();
+		ConcreteMarker marker = new ConcreteMarker ();
 		marker.Location = coordinates;
 		markers.Add (marker);
 		MapImplementation.AddMarker (marker);
 	}
-
-
 }

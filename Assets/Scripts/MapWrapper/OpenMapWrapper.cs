@@ -25,7 +25,7 @@ public class OpenMapWrapper : MonoBehaviour
 	protected InputReader inputReader;
 	public GameObject ReportTrigger;
 	protected double PrivateTriggerMovementManager;
-	PlayerPrefStorage loaderInit = new PlayerPrefStorage();
+	protected PlayerPrefStorage loaderInit = new PlayerPrefStorage();
 
 	private ReportLoader reportLoader;
 
