@@ -7,6 +7,7 @@ using System.Threading;
 using UnityEngine;
 using System.Globalization;
 
+
 public class ReportSender: MonoBehaviour {
 
 	public InputField ubicationField;
@@ -14,7 +15,7 @@ public class ReportSender: MonoBehaviour {
 	public InputField dateFieldDay;
 	public InputField dateFieldMonth;
 	public InputField dateFieldYear;
-	public InputField hourField2;
+	public InputField hourField;
 	public InputField minuteField;
 
 	public Button submitButton;
@@ -36,6 +37,7 @@ public class ReportSender: MonoBehaviour {
 				reportWindow.SetActive(false);
 				ClearReportInput();
 			}else{
+
 				/*if(!isValidDate(dateField.text)){
 					dateField.image.color = Color.red;
 				}*/
@@ -67,7 +69,7 @@ public class ReportSender: MonoBehaviour {
 
 	void HourConcat ()
 	{
-		hourString = hourField2.text + ":" + minuteField.text;
+		hourString = hourField.text + ":" + minuteField.text;
 	}
 
 	public void resetColorValidation ()
