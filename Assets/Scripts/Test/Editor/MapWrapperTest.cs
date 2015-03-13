@@ -26,9 +26,9 @@ namespace UnityTest
 		[Test]
 		[Category("Marker on map test")]
 		public void TestPutMarkerOnMap ()
-		{
-			AbstractMarker userGeneratedMarker = new AbstractMarker ();
-			mapWrapper.SetMarkerInMap (userGeneratedMarker);
+		{	
+			BaseCoordinates markerLocation = NSubstitute.Substitute.For<BaseCoordinates> (1, 1);
+			mapWrapper.SetMarkerInMap (markerLocation);
 			Assert.AreEqual (1, mapWrapper.MarkersCount);
 		}
 
@@ -36,9 +36,9 @@ namespace UnityTest
 		[Category("Two Markers on map test")]
 		public void TestPutTwoMarkersOnMap ()
 		{
-			AbstractMarker userGeneratedMarker = new AbstractMarker ();
-			mapWrapper.SetMarkerInMap (userGeneratedMarker);
-			mapWrapper.SetMarkerInMap (userGeneratedMarker);
+			BaseCoordinates markerLocation = NSubstitute.Substitute.For<BaseCoordinates> (1, 1);
+			mapWrapper.SetMarkerInMap (markerLocation);
+			mapWrapper.SetMarkerInMap (markerLocation);
 			Assert.AreEqual (2, mapWrapper.MarkersCount);
 		}
 
@@ -68,12 +68,13 @@ namespace UnityTest
 			Assert.AreEqual (1, mapWrapper.MarkersCount);
 		}
 
-		[Test]
+		[Test, Ignore]
 		[Category ("Map add marker tests")]
 		public void TestMapIsAddingAMarkerGeneratedByUser ()
 		{
 			AbstractMarker userGeneratedMarker = new AbstractMarker ();
-			mapWrapper.SetMarkerInMap (userGeneratedMarker);
+			BaseCoordinates markerLocation = NSubstitute.Substitute.For<BaseCoordinates> (1, 1);
+			mapWrapper.SetMarkerInMap (markerLocation);
 			Map.Received (1).AddMarker (userGeneratedMarker);
 		}
 
@@ -170,9 +171,7 @@ namespace UnityTest
 		[Test]
 		[Category("Map setup start coordinates")]
 		public void TestInitialCoordinatesAreSet(){
-			double latitude = 1111;
-			double longitude = 1111;
-			BaseCoordinates coordinates = NSubstitute.Substitute.For<BaseCoordinates> (latitude, longitude);
+			BaseCoordinates coordinates = NSubstitute.Substitute.For<BaseCoordinates> (1, 1);
 			mapWrapper.setOriginCoordinates (coordinates);
 			Map.Received (1).setOriginCoordinates (coordinates);
 		}
@@ -196,6 +195,23 @@ namespace UnityTest
 		public void TestEnableInputs(){
 			mapWrapper.EnableInputs ();
 			Assert.IsTrue (Map.InputsEnabled);
+		}
+
+		[Test]
+		[Category("Set user location")]
+		public void TestSetUserLocationIsSet(){
+			mapWrapper.SetUserLocation ();
+			Map.Received (1).SetUserLocation ();
+		}
+
+		[Test]
+		[Category("Test Marker has coordinates")]
+		public void TestMarkerHasCoordinates(){
+			BaseCoordinates markerLocation = NSubstitute.Substitute.For<BaseCoordinates> (1, 1);
+			AbstractMarker argumentUsed = null;
+			Map.AddMarker (Arg.Do<AbstractMarker> (x => argumentUsed = x));//  [0].Location, markerLocation);
+			mapWrapper.SetMarkerInMap (markerLocation);
+			Assert.AreSame (markerLocation, argumentUsed.Location);
 		}
 
 	}

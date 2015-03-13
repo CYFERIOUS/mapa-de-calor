@@ -40,10 +40,12 @@ public class MapImplementation : AbstractMap {
 			map.InputsEnabled = value;
 		}
 	}
-	#endregion
 
-	#region AbstractMap implementation
-	
+	public void SetUserLocation ()
+	{
+		throw new System.NotImplementedException ();
+	}
+
 
 	public void setOriginCoordinates (BaseCoordinates coordinates)
 	{
@@ -74,13 +76,6 @@ public class MapImplementation : AbstractMap {
 			SetActiveVirtualEarthTileLayer (layer as VirtualEarthTileLayer);
 	}
 	
-	
-	public BaseVirtualEarthLayer createVirtualEarthLayer (string key)
-	{
-		VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer> ("VirtualEarth");
-		return virtualEarthLayer;
-	}
-	
 	public BaseVirtualEarthLayer createVirtualEarthLayer ()
 	{
 		VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer> ("VirtualEarth");
@@ -93,4 +88,5 @@ public class MapImplementation : AbstractMap {
 	}
 
 	#endregion
+
 }

@@ -21,6 +21,11 @@ public class MapWrapper
 	private List<object> markers = new List<object> ();
 	private object temporalMarker;
 
+	public void SetUserLocation ()
+	{
+		MapImplementation.SetUserLocation ();
+	}
+
 	public void AddLayer (BaseVirtualEarthLayer layer)
 	{
 		Layers.Add (layer);
@@ -96,10 +101,12 @@ public class MapWrapper
 		temporalMarker = null;
 	}
 
-	public void SetMarkerInMap (AbstractMarker userGeneratedMarker)
+	public void SetMarkerInMap (BaseCoordinates coordinates)
 	{
-		markers.Add (new object ());
-		MapImplementation.AddMarker (userGeneratedMarker);
+		AbstractMarker marker = new AbstractMarker ();
+		marker.Location = coordinates;
+		markers.Add (marker);
+		MapImplementation.AddMarker (marker);
 	}
 
 

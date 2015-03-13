@@ -2,7 +2,8 @@
 using System.Collections;
 using UnitySlippyMap;
 
-public class MapWrapperBehaviour: OpenMapWrapper{
+public class MapWrapperBehaviour: OpenMapWrapper
+{
 
 	private MapWrapper mapWrapper;
 	private AbstractMap mapImplementation;

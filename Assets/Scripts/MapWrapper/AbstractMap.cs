@@ -32,4 +32,6 @@ public interface AbstractMap {
 	void SetActiveVirtualEarthLayer (BaseVirtualEarthLayer layer);
 
 	void addInputDelegateKeyboard ();
+
+	void SetUserLocation ();
 }
