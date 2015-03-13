@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System;
@@ -14,19 +14,23 @@ public class ReportSender: MonoBehaviour {
 	public InputField dateFieldDay;
 	public InputField dateFieldMonth;
 	public InputField dateFieldYear;
-	public InputField hourField;
+	public InputField hourField2;
+	public InputField minuteField;
+
 	public Button submitButton;
 	public Button cancelButton;
 	public int counter = 0;
 
-	private string dateField;
+	private string dateString;
+	public string hourString;
 
 	public GameObject reportWindow;
 
 	void Start(){
 		submitButton.onClick.AddListener (delegate {
 			DateFieldsConcat();
-			if(isValidDate(dateField) && isValidHour(hourField.text)){
+			HourConcat();
+			if(isValidDate(dateString) && isValidHour(hourString)){
 				resetColorValidation();
 				HandleSubmitClicked();
 				reportWindow.SetActive(false);
@@ -35,9 +39,9 @@ public class ReportSender: MonoBehaviour {
 				/*if(!isValidDate(dateField.text)){
 					dateField.image.color = Color.red;
 				}*/
-				if(!isValidHour(hourField.text)){
+				/*if(!isValidHour(hourField.text)){
 					hourField.image.color = Color.red;
-				}
+				}*/
 			}
 
 		});
@@ -50,22 +54,27 @@ public class ReportSender: MonoBehaviour {
 		/*dateField.onValueChange.AddListener (delegate {
 			dateField.image.color = Color.white;
 		});*/
-		hourField.onValueChange.AddListener (delegate {
+		/*hourField.onValueChange.AddListener (delegate {
 			hourField.image.color = Color.white;
-		});
+		});*/
 	}
 
 	void DateFieldsConcat ()
 	{
-		dateField=dateFieldDay.text+"-"+dateFieldMonth.text+"-"+dateFieldYear.text;
-		print (dateField);
+		dateString=dateFieldDay.text+"-"+dateFieldMonth.text+"-"+dateFieldYear.text;
+		print (dateString);
+	}
+
+	void HourConcat ()
+	{
+		hourString = hourField2.text + ":" + minuteField.text;
 	}
 
 	public void resetColorValidation ()
 	{
 		commentsField.image.color = Color.white;
 		//dateField.image.color = Color.white;
-		hourField.image.color = Color.white;
+		//hourField.image.color = Color.white;
 	}
 
 	private void HandleSubmitClicked ()
@@ -89,8 +98,8 @@ public class ReportSender: MonoBehaviour {
 
 	int GetTimeStamp ()
 	{
-		String[] date = dateField.Split(new String[1]{"-"},StringSplitOptions.None);
-		String[] hour = hourField.text.Split(new String[1]{":"},StringSplitOptions.None);
+		String[] date = dateString.Split(new String[1]{"-"},StringSplitOptions.None);
+		String[] hour = hourString.Split(new String[1]{":"},StringSplitOptions.None);
 		Debug.Log (date.Length);
 		return ConvertToUnixTimestamp(ConvertToDateTime(date, hour));
 	}
@@ -128,7 +137,7 @@ public class ReportSender: MonoBehaviour {
 		ubicationField.text = "";
 		commentsField.text = "";
 		//dateField.text = "";
-		hourField.text = "";
+		//hourField.text = "";
 	}
 
 	public bool isValidDate(String date){
