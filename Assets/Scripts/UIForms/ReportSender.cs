@@ -11,26 +11,30 @@ public class ReportSender: MonoBehaviour {
 
 	public InputField ubicationField;
 	public InputField commentsField;
-	public InputField dateField;
+	public InputField dateFieldDay;
+	public InputField dateFieldMonth;
+	public InputField dateFieldYear;
 	public InputField hourField;
 	public Button submitButton;
 	public Button cancelButton;
 	public int counter = 0;
 
+	private string dateField;
+
 	public GameObject reportWindow;
 
 	void Start(){
 		submitButton.onClick.AddListener (delegate {
-
-			if(isValidDate(dateField.text) && isValidHour(hourField.text)){
+			DateFieldsConcat();
+			if(isValidDate(dateField) && isValidHour(hourField.text)){
 				resetColorValidation();
 				HandleSubmitClicked();
 				reportWindow.SetActive(false);
 				ClearReportInput();
 			}else{
-				if(!isValidDate(dateField.text)){
+				/*if(!isValidDate(dateField.text)){
 					dateField.image.color = Color.red;
-				}
+				}*/
 				if(!isValidHour(hourField.text)){
 					hourField.image.color = Color.red;
 				}
@@ -43,18 +47,24 @@ public class ReportSender: MonoBehaviour {
 			resetColorValidation();
 		});
 
-		dateField.onValueChange.AddListener (delegate {
+		/*dateField.onValueChange.AddListener (delegate {
 			dateField.image.color = Color.white;
-		});
+		});*/
 		hourField.onValueChange.AddListener (delegate {
 			hourField.image.color = Color.white;
 		});
 	}
 
+	void DateFieldsConcat ()
+	{
+		dateField=dateFieldDay.text+"-"+dateFieldMonth.text+"-"+dateFieldYear.text;
+		print (dateField);
+	}
+
 	public void resetColorValidation ()
 	{
 		commentsField.image.color = Color.white;
-		dateField.image.color = Color.white;
+		//dateField.image.color = Color.white;
 		hourField.image.color = Color.white;
 	}
 
@@ -79,7 +89,7 @@ public class ReportSender: MonoBehaviour {
 
 	int GetTimeStamp ()
 	{
-		String[] date = dateField.text.Split(new String[1]{"-"},StringSplitOptions.None);
+		String[] date = dateField.Split(new String[1]{"-"},StringSplitOptions.None);
 		String[] hour = hourField.text.Split(new String[1]{":"},StringSplitOptions.None);
 		Debug.Log (date.Length);
 		return ConvertToUnixTimestamp(ConvertToDateTime(date, hour));
@@ -117,7 +127,7 @@ public class ReportSender: MonoBehaviour {
 	public void ClearReportInput(){
 		ubicationField.text = "";
 		commentsField.text = "";
-		dateField.text = "";
+		//dateField.text = "";
 		hourField.text = "";
 	}
 
