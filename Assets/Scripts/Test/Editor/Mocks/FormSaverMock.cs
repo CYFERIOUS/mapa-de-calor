@@ -5,13 +5,19 @@ public class FormSaverMock : IFormDataSaver {
 
 	private IDataStorage storage;
 	private Vector2 coordinates;
+	private int key;
 
 	public void SetStorage(IDataStorage storage){
 		this.storage = storage;
 	}
 
+	public void SetKey(int val) {
+		key = val;
+	}
+
 	public void Save(FormData data){
 		storage.SetName (data.name);
+		storage.SetKey (data.key);
 		storage.SetComments (data.comments);
 		storage.SetAnnotation (data.annotation);
 		storage.SetTimestamp (data.timestamp);

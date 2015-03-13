@@ -15,6 +15,7 @@ public class ReportSender: MonoBehaviour {
 	public InputField hourField;
 	public Button submitButton;
 	public Button cancelButton;
+	public int counter = 0;
 
 	public GameObject reportWindow;
 
@@ -70,6 +71,7 @@ public class ReportSender: MonoBehaviour {
 	{
 		FormData data = new FormData ();
 		data.annotation = GetAnnotation ();
+		data.key = counter + 1;
 		data.comments = commentsField.text;
 		data.timestamp = GetTimeStamp ();
 		return data;
