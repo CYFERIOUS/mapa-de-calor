@@ -20,7 +20,7 @@ public class OpenMapWrapper : MonoBehaviour
 	private Ray pulsacion;
 	private RaycastHit colision;
 	private bool isMarkerSet;
-	private Dictionary<string, double> LastPutMarkerCoordinates = null;
+	public Dictionary<string, double> LastPutMarkerCoordinates = null;
 	protected bool isOnMainWindow = true;
 	protected InputReader inputReader;
 	public GameObject ReportTrigger;
@@ -146,15 +146,17 @@ public class OpenMapWrapper : MonoBehaviour
 
 	public void RemoveLastPutMarker ()
 	{
-		Marker[] markers = map.GetComponentsInChildren<Marker> ();
+		RemoveMarker (LastPutMarkerCoordinates ["longitude"],LastPutMarkerCoordinates ["latitude"]);
+	}
 
+	public void RemoveMarker(double latitude, double longitude){
+		Marker[] markers = map.GetComponentsInChildren<Marker> ();
 		foreach (Marker marker in markers) {
-			if (marker.CoordinatesWGS84 [0] == LastPutMarkerCoordinates ["longitude"] && marker.CoordinatesWGS84 [1] == LastPutMarkerCoordinates ["latitude"]) {
+			if (marker.CoordinatesWGS84 [0] == latitude && marker.CoordinatesWGS84 [1] == longitude) {
 				map.RemoveMarker (marker);
 				SetNullLastPutMarkerCoordinates ();
 			}
 		}
-
 	}
 
 	public void SetCoordinatesOnInputField (double latitude, double longitude)

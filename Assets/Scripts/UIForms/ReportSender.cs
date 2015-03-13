@@ -8,6 +8,7 @@ using UnityEngine;
 using System.Globalization;
 
 
+
 public class ReportSender: MonoBehaviour {
 
 	public InputField ubicationField;
@@ -25,6 +26,8 @@ public class ReportSender: MonoBehaviour {
 	private string dateString;
 	public string hourString;
 
+	public OpenMapWrapper openMap;
+
 	public GameObject reportWindow;
 
 	void Start(){
@@ -36,8 +39,10 @@ public class ReportSender: MonoBehaviour {
 				HandleSubmitClicked();
 				reportWindow.SetActive(false);
 				ClearReportInput();
+				openMap.SetNullLastPutMarkerCoordinates();
+			
 			}else{
-
+				RemoveMarker();
 				/*if(!isValidDate(dateField.text)){
 					dateField.image.color = Color.red;
 				}*/
@@ -59,6 +64,16 @@ public class ReportSender: MonoBehaviour {
 		/*hourField.onValueChange.AddListener (delegate {
 			hourField.image.color = Color.white;
 		});*/
+	}
+
+	void RemoveMarker ()
+	{
+		string[] coordenadas=ubicationField.text.Split(',');
+		double longitud;
+		double latitud;
+		double.TryParse(coordenadas[0],out longitud);
+		double.TryParse(coordenadas[1],out latitud);
+		openMap.RemoveMarker(longitud,latitud);
 	}
 
 	void DateFieldsConcat ()
@@ -138,8 +153,11 @@ public class ReportSender: MonoBehaviour {
 	public void ClearReportInput(){
 		ubicationField.text = "";
 		commentsField.text = "";
-		//dateField.text = "";
-		//hourField.text = "";
+		dateFieldDay.text= "";
+		dateFieldMonth.text= "";
+		dateFieldYear.text= "";
+		hourField.text= "";
+		minuteField.text= "";
 	}
 
 	public bool isValidDate(String date){
