@@ -184,6 +184,10 @@ public class ReportSender: MonoBehaviour {
 			return false;
 		}
 	}
+
+	public void DayInputFieldChangerColor(){
+
+	}
 }
 public class AppConfig{
 	
