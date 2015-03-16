@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System;
@@ -7,48 +7,33 @@ using System.Threading;
 using UnityEngine;
 using System.Globalization;
 
-
-
 public class ReportSender: MonoBehaviour {
 
 	public InputField ubicationField;
 	public InputField commentsField;
-	public InputField dateFieldDay;
-	public InputField dateFieldMonth;
-	public InputField dateFieldYear;
+	public InputField dateField;
 	public InputField hourField;
-	public InputField minuteField;
-
 	public Button submitButton;
 	public Button cancelButton;
 	public int counter = 0;
-
-	private string dateString;
-	public string hourString;
-
-	public OpenMapWrapper openMap;
 
 	public GameObject reportWindow;
 
 	void Start(){
 		submitButton.onClick.AddListener (delegate {
-			DateFieldsConcat();
-			HourConcat();
-			if(isValidDate(dateString) && isValidHour(hourString)){
+
+			if(isValidDate(dateField.text) && isValidHour(hourField.text)){
 				resetColorValidation();
 				HandleSubmitClicked();
 				reportWindow.SetActive(false);
 				ClearReportInput();
-				openMap.SetNullLastPutMarkerCoordinates();
-			
 			}else{
-				RemoveMarker();
-				/*if(!isValidDate(dateField.text)){
+				if(!isValidDate(dateField.text)){
 					dateField.image.color = Color.red;
-				}*/
-				/*if(!isValidHour(hourField.text)){
+				}
+				if(!isValidHour(hourField.text)){
 					hourField.image.color = Color.red;
-				}*/
+				}
 			}
 
 		});
@@ -58,40 +43,19 @@ public class ReportSender: MonoBehaviour {
 			resetColorValidation();
 		});
 
-		/*dateField.onValueChange.AddListener (delegate {
+		dateField.onValueChange.AddListener (delegate {
 			dateField.image.color = Color.white;
-		});*/
-		/*hourField.onValueChange.AddListener (delegate {
+		});
+		hourField.onValueChange.AddListener (delegate {
 			hourField.image.color = Color.white;
-		});*/
-	}
-
-	void RemoveMarker ()
-	{
-		string[] coordenadas=ubicationField.text.Split(',');
-		double longitud;
-		double latitud;
-		double.TryParse(coordenadas[0],out longitud);
-		double.TryParse(coordenadas[1],out latitud);
-		openMap.RemoveMarker(longitud,latitud);
-	}
-
-	void DateFieldsConcat ()
-	{
-		dateString=dateFieldDay.text+"-"+dateFieldMonth.text+"-"+dateFieldYear.text;
-		print (dateString);
-	}
-
-	void HourConcat ()
-	{
-		hourString = hourField.text + ":" + minuteField.text;
+		});
 	}
 
 	public void resetColorValidation ()
 	{
 		commentsField.image.color = Color.white;
-		//dateField.image.color = Color.white;
-		//hourField.image.color = Color.white;
+		dateField.image.color = Color.white;
+		hourField.image.color = Color.white;
 	}
 
 	private void HandleSubmitClicked ()
@@ -115,8 +79,8 @@ public class ReportSender: MonoBehaviour {
 
 	int GetTimeStamp ()
 	{
-		String[] date = dateString.Split(new String[1]{"-"},StringSplitOptions.None);
-		String[] hour = hourString.Split(new String[1]{":"},StringSplitOptions.None);
+		String[] date = dateField.text.Split(new String[1]{"-"},StringSplitOptions.None);
+		String[] hour = hourField.text.Split(new String[1]{":"},StringSplitOptions.None);
 		Debug.Log (date.Length);
 		return ConvertToUnixTimestamp(ConvertToDateTime(date, hour));
 	}
@@ -153,11 +117,8 @@ public class ReportSender: MonoBehaviour {
 	public void ClearReportInput(){
 		ubicationField.text = "";
 		commentsField.text = "";
-		dateFieldDay.text= "";
-		dateFieldMonth.text= "";
-		dateFieldYear.text= "";
-		hourField.text= "";
-		minuteField.text= "";
+		dateField.text = "";
+		hourField.text = "";
 	}
 
 	public bool isValidDate(String date){
@@ -183,10 +144,6 @@ public class ReportSender: MonoBehaviour {
 		} catch {
 			return false;
 		}
-	}
-
-	public void DayInputFieldChangerColor(){
-
 	}
 }
 public class AppConfig{

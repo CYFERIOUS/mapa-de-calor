@@ -20,19 +20,18 @@ public class OpenMapWrapper : MonoBehaviour
 	private Ray pulsacion;
 	private RaycastHit colision;
 	private bool isMarkerSet;
-	public Dictionary<string, double> LastPutMarkerCoordinates = null;
+	private Dictionary<string, double> LastPutMarkerCoordinates = null;
 	protected bool isOnMainWindow = true;
 	protected InputReader inputReader;
 	public GameObject ReportTrigger;
 	protected double PrivateTriggerMovementManager;
-	protected PlayerPrefStorage loaderInit = new PlayerPrefStorage();
-
+	protected PlayerPrefStorage loaderInit = new PlayerPrefStorage ();
 	private ReportLoader reportLoader;
-
 	const float timeToLongPress = 1f;
-	
 	private float timeSincePress = 0f;
 	private bool isLongPressing;
+	private int pinSize = 27;
+	private bool currentPin = false;
 
 	public int MarkersCount {
 		get {
@@ -41,7 +40,7 @@ public class OpenMapWrapper : MonoBehaviour
 	}
 
 	public bool HasTemporalMarker {
-		get{
+		get {
 			return true;
 		}
 	}
@@ -63,63 +62,53 @@ public class OpenMapWrapper : MonoBehaviour
 		DrawGPSUserLocation ();
 		SetUpInputReader ();
 		PrivateTriggerMovementManager = map.CenterWGS84 [0];
-		int keyTotals = loaderInit.GetTotalKey ();
-		Debug.Log ("totalReportes" + keyTotals);
-		for(int i = 0;i<=keyTotals-1;i++){
-			loaderInit.SetKey(i);
-			Vector2 init = loaderInit.GetAnnotation();
-			CreateAnnotation (init.x, init.y);
-		}
-
+		LoadPrefsData ();
 	}
 
-	public void SetUpInputReader(){
+	public void SetUpInputReader ()
+	{
 		inputReader = new InputReader ();
-		inputReader.SetGenerator (GetValidInputGenerator());
-		inputReader.LongPressExecuted +=()=>{
-			SetSingleMarkerOnMap();
+		inputReader.SetGenerator (GetValidInputGenerator ());
+		inputReader.LongPressExecuted += () => {
+			SetSingleMarkerOnMap ();
 			ReportTrigger.SetActive (true);
 			PrivateTriggerMovementManager = map.CenterWGS84 [0];
 		};
-		LoadPrefsData ();
+
 	}
 
 	void LoadPrefsData ()
 	{
-		reportLoader = new ReportLoader ();
-		reportLoader.SetStorage (LoadDataAppConfig.GetStorage());
-		FormData data = new FormData ();
-
-		data.annotation = reportLoader.Load ().annotation;
-
-		Debug.Log (data.annotation.x);
-		Debug.Log (data.annotation.y);
-
-		CreateAnnotation ((double)data.annotation.x,(double)data.annotation.y);
+		int keyTotals = loaderInit.GetTotalKey ();
+		for (int i = 0; i<=keyTotals-1; i++) {
+			loaderInit.SetKey (i);
+			Vector2 init = loaderInit.GetAnnotation ();
+			CreateAnnotation (init.x, init.y);
+		}
 	}
 
-	private InputGenerator GetValidInputGenerator()
+	private InputGenerator GetValidInputGenerator ()
 	{
 		#if UNITY_EDITOR
 			return GetComponent<EditorInputGenerator>();
 		#else
-			return GetComponent<DeviceInputGenerator>();
+		return GetComponent<DeviceInputGenerator> ();
 		#endif
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if(isOnMainWindow==true){
-			inputReader.Update();
+		if (isOnMainWindow == true) {
+			inputReader.Update ();
 		}
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
 		}
 
-		if(PrivateTriggerMovementManager!=map.CenterWGS84[0]&&ReportTrigger.activeInHierarchy==true){
-			ReportTrigger.SetActive(false);
-			RemoveLastPutMarker();
+		if (PrivateTriggerMovementManager != map.CenterWGS84 [0] && ReportTrigger.activeInHierarchy == true) {
+			ReportTrigger.SetActive (false);
+			RemoveLastPutMarker ();
 		}
 	}
 
@@ -130,33 +119,32 @@ public class OpenMapWrapper : MonoBehaviour
 			
 		}
 		SetMarkerInMap ();
+
 	}
 
 	public void SetMarkerInMap ()
 	{
-
-
 		Dictionary<string, double> CursorCoordinates = GetCoordinatesOfCursor ();
+
+
+		pinSize = 10;
 		CreateAnnotation (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
 		SetCoordinatesOnInputField (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
 		LastPutMarkerCoordinates = CursorCoordinates;
-
 
 	}
 
 	public void RemoveLastPutMarker ()
 	{
-		RemoveMarker (LastPutMarkerCoordinates ["longitude"],LastPutMarkerCoordinates ["latitude"]);
-	}
-
-	public void RemoveMarker(double latitude, double longitude){
 		Marker[] markers = map.GetComponentsInChildren<Marker> ();
+
 		foreach (Marker marker in markers) {
-			if (marker.CoordinatesWGS84 [0] == latitude && marker.CoordinatesWGS84 [1] == longitude) {
+			if (marker.CoordinatesWGS84 [0] == LastPutMarkerCoordinates ["longitude"] && marker.CoordinatesWGS84 [1] == LastPutMarkerCoordinates ["latitude"]) {
 				map.RemoveMarker (marker);
 				SetNullLastPutMarkerCoordinates ();
 			}
 		}
+
 	}
 
 	public void SetCoordinatesOnInputField (double latitude, double longitude)
@@ -171,24 +159,17 @@ public class OpenMapWrapper : MonoBehaviour
 	
 	public void SetupVirtualEarthLayer ()
 	{
-
-		
 		// create a VirtualEarth tile layer
 		VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer> ("VirtualEarth");
 		virtualEarthLayer.Key = "Ag-ML2n_NjUqTCNOJyd9Yyr-GRfEWVmY_yboAe3A3aUL2JrE1d9er914Tfs9kgrp";
 		virtualEarthLayer.gameObject.SetActive (true);
-		
-
-		
 	}
 
-	public void SetupOpenMapsLayer(){
+	public void SetupOpenMapsLayer ()
+	{
 		// create an OSM tile layer
-
-		OSMTileLayer osmLayer = map.CreateLayer<OSMTileLayer>("OSM");
+		OSMTileLayer osmLayer = map.CreateLayer<OSMTileLayer> ("OSM");
 		osmLayer.BaseURL = "http://a.tile.openstreetmap.org/";
-		
-
 	}
 	
 	public void SetupMapInstance ()
@@ -248,17 +229,17 @@ public class OpenMapWrapper : MonoBehaviour
 		map.SetLocationMarker<LocationMarker> (markerGO);
 		DestroyImmediate (go);
 	}
-	
 
 	public void CreateAnnotation (double latitude, double longitude)
-	{
-		GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.BottomCenter, MarkerTexture, 4000, new Vector3 (1.0f, 1.0f, 1.0f) / 27);
+	{	
+
+		GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.BottomCenter, MarkerTexture, 4000, new Vector3 (1.0f, 1.0f, 1.0f) / pinSize);
 		map.CreateMarker<Marker> ("Marker", new double[2] {
 			longitude,
 			latitude
 		}, markerGO);
 		DestroyImmediate (go);
-		
+
 	}
 	
 	public GameObject CreateMarkerGameObject (Tile.AnchorPoint anchorPoint, Texture mainTexture, int renderQueue, Vector3 localScale)
@@ -272,18 +253,18 @@ public class OpenMapWrapper : MonoBehaviour
 		
 	}
 
-	public void ToggleisOnMainWindow(){
+	public void ToggleisOnMainWindow ()
+	{
 		isOnMainWindow = !isOnMainWindow;
 	}
-
-	public void SetToTrueIsOnMainWindow(){
-		isOnMainWindow = true;
-	}
 }
-public class LoadDataAppConfig{
+
+public class LoadDataAppConfig
+{
 	
-	static public IDataStorage GetStorage(){
-		return new PlayerPrefStorage();
+	static public IDataStorage GetStorage ()
+	{
+		return new PlayerPrefStorage ();
 	}
 }
 

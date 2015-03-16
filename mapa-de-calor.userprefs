@@ -1,31 +1,21 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UserReports\ReportFormValidator.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MapWrapper\OpenMapWrapper.cs">
     <Files>
-      <File FileName="Assets\Scripts\UIForms\ReportSender.cs" Line="25" Column="1" />
-      <File FileName="Assets\Scripts\Test\Editor\UserReports\ReportSenderTests.cs" Line="29" Column="33" />
-      <File FileName="Assets\Scripts\Test\Editor\UserReports\ReportSaverTests.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UserReports\ReportFormValidator.cs" Line="6" Column="20" />
-      <File FileName="Assets\Scripts\UserReports\FormData.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\UIForms\ReportSender.cs" Line="174" Column="1" />
+      <File FileName="Assets\Scripts\MapWrapper\OpenMapWrapper.cs" Line="207" Column="35" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Scripts" expanded="True">
+              <Node name="MapWrapper" expanded="True">
+                <Node name="OpenMapWrapper.cs" selected="True" />
+              </Node>
+              <Node name="Storages" expanded="True" />
               <Node name="UIForms" expanded="True" />
-              <Node name="UserReports" expanded="True">
-                <Node name="ReportFormValidator.cs" selected="True" />
-              </Node>
-            </Node>
-          </Node>
-          <Node name="Assembly-CSharp-Editor" expanded="True">
-            <Node name="Scripts" expanded="True">
-              <Node name="Test" expanded="True">
-                <Node name="Editor" expanded="True">
-                  <Node name="UserReports" expanded="True" />
-                </Node>
-              </Node>
+              <Node name="UserReports" expanded="True" />
             </Node>
           </Node>
         </State>
