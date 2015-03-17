@@ -33,7 +33,7 @@ public class ReportFormValidator  {
 	public bool IsValidYear ()
 	{
 		const int LIMIT_YEAR = 9999;
-		return (year>=FIRST_TIME_NUMBER_VALID && year<=LIMIT_YEAR && stringYear.Length==4);
+		return (year>=FIRST_DATE_NUMBER_VALID && year<=LIMIT_YEAR && stringYear.Length==4);
 	}
 
 	public bool IsValidHour ()
