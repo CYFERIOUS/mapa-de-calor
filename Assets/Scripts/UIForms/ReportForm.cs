@@ -10,7 +10,7 @@ public class ReportForm : MonoBehaviour {
 	public InputField minuteInput;
 	public InputField commentsInput;
 	private ReportFormValidator validator;
-
+	private Color wrongInputColor=new Color(0.9f,0.6f,0.6f,0.8f);
 
 	public void Start()
 	{
@@ -32,7 +32,8 @@ public class ReportForm : MonoBehaviour {
 		if (validator.IsValidDay())
 			dayInput.image.color = Color.white;
 		else
-			dayInput.image.color = Color.red;
+			dayInput.image.color = wrongInputColor;
+			
 	}
 
 	void MonthInputFieldColorChanger ()
@@ -41,7 +42,7 @@ public class ReportForm : MonoBehaviour {
 		if (validator.IsValidMonth())
 			monthInput.image.color = Color.white;
 		else
-			monthInput.image.color = Color.red;
+			monthInput.image.color = wrongInputColor;
 	}
 
 	void YearInputFieldColorChanger ()
@@ -50,7 +51,8 @@ public class ReportForm : MonoBehaviour {
 		if (validator.IsValidYear())
 			yearInput.image.color = Color.white;
 		else
-			yearInput.image.color = Color.red;
+			yearInput.image.color = wrongInputColor;
+
 	}
 
 	void HourInputFieldColorChanger ()
@@ -59,7 +61,7 @@ public class ReportForm : MonoBehaviour {
 		if (validator.IsValidHour())
 			hourInput.image.color = Color.white;
 		else
-			hourInput.image.color = Color.red;
+			hourInput.image.color = wrongInputColor;
 	}
 
 	void MinuteInputFieldColorChanger ()
@@ -68,7 +70,7 @@ public class ReportForm : MonoBehaviour {
 		if (validator.IsValidMinute())
 			minuteInput.image.color = Color.white;
 		else
-			minuteInput.image.color = Color.red;
+			minuteInput.image.color = wrongInputColor;
 	}
 
 	void CommentsInputFieldColorChanger ()
@@ -77,6 +79,6 @@ public class ReportForm : MonoBehaviour {
 		if (validator.IsValidComment())
 			commentsInput.image.color = Color.white;
 		else
-			commentsInput.image.color = Color.red;
+			commentsInput.image.color = wrongInputColor;
 	}
 }
