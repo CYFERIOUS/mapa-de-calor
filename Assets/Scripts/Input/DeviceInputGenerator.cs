@@ -4,6 +4,7 @@ using System.Collections;
 public class DeviceInputGenerator : MonoBehaviour, InputGenerator {
 
 private bool generatedLongPress=false;
+private bool generatedTapPress=false;
 
 #if UNITY_EDITOR
 	public bool GeneratedLongPress ()
@@ -12,7 +13,7 @@ private bool generatedLongPress=false;
 	}
 	public bool GeneratedTap ()
 	{
-		return false;
+		return generatedTapPress;
 	}
 #else
 	
@@ -22,7 +23,7 @@ private bool generatedLongPress=false;
 	}
 	public bool GeneratedTap ()
 	{
-		return false;
+		return generatedTapPress;
 	}
 	
 	const float timeToLongPress = 1f;
@@ -32,6 +33,7 @@ private bool generatedLongPress=false;
 	
 	void Update () {
 		generatedLongPress = false;
+		generatedTapPress = false;
 		if (Input.GetTouch(0).phase==TouchPhase.Began) {
 			isLongPressing = true;
 		}
@@ -46,6 +48,9 @@ private bool generatedLongPress=false;
 				isLongPressing = false;
 				timeSincePress = 0;
 				generatedLongPress = true;
+			}
+			else{
+				generatedTapPress=true;
 			}
 		} else {
 			timeSincePress = 0;

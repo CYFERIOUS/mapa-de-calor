@@ -4,6 +4,7 @@ using System.Collections;
 public class EditorInputGenerator : MonoBehaviour, InputGenerator {
 
 	private bool generatedLongPress=false;
+	private bool generatedTapPress=false;
 
 	public bool GeneratedLongPress ()
 	{
@@ -11,7 +12,7 @@ public class EditorInputGenerator : MonoBehaviour, InputGenerator {
 	}
 	public bool GeneratedTap ()
 	{
-		return false;
+		return generatedTapPress;
 	}
 
 	const float timeToLongPress = 1f;
@@ -21,6 +22,7 @@ public class EditorInputGenerator : MonoBehaviour, InputGenerator {
 	
 	void Update () {
 		generatedLongPress = false;
+		generatedTapPress = false;
 		if (Input.GetMouseButtonDown (0)) {
 			isLongPressing = true;
 		}
@@ -35,6 +37,9 @@ public class EditorInputGenerator : MonoBehaviour, InputGenerator {
 				isLongPressing = false;
 				timeSincePress = 0;
 				generatedLongPress = true;
+			}
+			else{
+				generatedTapPress=true;
 			}
 		} else {
 			timeSincePress = 0;
