@@ -26,7 +26,7 @@ public class ReportSender: MonoBehaviour {
 	private string dateString;
 	public string hourString;
 
-	public OpenMapWrapper openMap;
+	public MapWrapperBehaviour openMap;
 	public ReportForm reportform;
 
 	public GameObject reportWindow;
