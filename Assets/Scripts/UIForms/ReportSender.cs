@@ -43,12 +43,6 @@ public class ReportSender: MonoBehaviour {
 			
 			}else{
 				RemoveMarker();
-				/*if(!isValidDate(dateField.text)){
-					dateField.image.color = Color.red;
-				}*/
-				/*if(!isValidHour(hourField.text)){
-					hourField.image.color = Color.red;
-				}*/
 			}
 
 		});
@@ -57,13 +51,6 @@ public class ReportSender: MonoBehaviour {
 			ClearReportInput();
 			resetColorValidation();
 		});
-
-		/*dateField.onValueChange.AddListener (delegate {
-			dateField.image.color = Color.white;
-		});*/
-		/*hourField.onValueChange.AddListener (delegate {
-			hourField.image.color = Color.white;
-		});*/
 	}
 
 	void RemoveMarker ()
@@ -90,8 +77,6 @@ public class ReportSender: MonoBehaviour {
 	public void resetColorValidation ()
 	{
 		commentsField.image.color = Color.white;
-		//dateField.image.color = Color.white;
-		//hourField.image.color = Color.white;
 	}
 
 	private void HandleSubmitClicked ()
