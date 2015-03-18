@@ -14,42 +14,42 @@ namespace UnityTest {
 		[Category("Name is saved Test")]
 		public void TestNameIsSaved() {
 			for(int key = 0; key < keyTotals; ++key)
-				storage.Received().SetName(key, name);
+				storage.Received().SetName(key, data[key].name);
 		}
 
 		[Test]
 		[Category("Comments are Saved Test")]
 		public void TestCommentsIsSaved() {
 			for(int key = 0; key < keyTotals; ++key)
-				storage.Received().SetComments(key, comments);
+				storage.Received().SetComments(key, data[key].comments);
 		}
 
 		[Test]
 		[Category("Annotation is Saved Test")]
 		public void TestAnnotationIsSaved() {
 			for(int key = 0; key < keyTotals; ++key)
-				storage.Received().SetAnnotation(key, annotation);
+				storage.Received().SetAnnotation(key, data[key].annotation);
 		}
 
 		[Test]
 		[Category("Timestamp is Saved")]
 		public void TestTimestampIsSaved() {
 			for(int key = 0; key < keyTotals; ++key)
-				storage.Received().SetTimestamp(key, timestamp);
+				storage.Received().SetTimestamp(key, data[key].timestamp);
 		}
 
 		[Test]
 		[Category("Article is Saved")]
 		public void TestArticleIsSaved() {
 			for(int key = 0; key < keyTotals; ++key)
-				storage.Received().SetStuff(key, stuff);
+				storage.Received().SetStuff(key, data[key].stuff);
 		}
 
 		[Test]
 		[Category("Ocurrence is Saved")]
 		public void TestRobberyIsSaved() {
 			for(int key = 0; key < keyTotals; ++key)
-				storage.Received().SetOcurrence(key, ocurrence);
+				storage.Received().SetOcurrence(key, data[key].ocurrence);
 		}
 
 	}
