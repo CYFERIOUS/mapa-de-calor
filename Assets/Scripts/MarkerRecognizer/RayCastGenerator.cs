@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RayCastGenerator : MonoBehaviour {
+public class RayCastGenerator : MonoBehaviour,InterfaceRayCastGenerator {
 
 	protected InputReader inputReader;
 	protected Recognizer recognizer;
@@ -21,7 +21,7 @@ public class RayCastGenerator : MonoBehaviour {
 		inputReader = new InputReader ();
 		inputReader.SetGenerator (GetValidInputGenerator());
 		inputReader.TapExecuted +=()=>{
-			
+			ReturnsObject();
 		};
 	}
 
@@ -34,4 +34,8 @@ public class RayCastGenerator : MonoBehaviour {
 		#endif
 	}
 
+	public bool ReturnsObject ()
+	{
+		return true;
+	}
 }
