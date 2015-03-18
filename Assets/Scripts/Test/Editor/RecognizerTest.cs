@@ -20,8 +20,9 @@ namespace UnityTest {
 		public void SetUp(){
 			inputReader = new InputReader ();
 			generator = Substitute.For<InputGenerator> ();
-			recognizer = Substitute.For<Recognizer> ();
+
 			inputReader.SetGenerator (generator);
+			recognizer = new Recognizer ();
 		}
 		
 		[Test]
@@ -33,9 +34,19 @@ namespace UnityTest {
 		}
 
 		[Test]
+		[Category("Recognizer test")]
+		public void TestIfRayCastIsGenerated(){
+
+//			generator.GeneratedTap ().Returns (true);
+//			inputReader.TapExecuted += HandleActionExecuted;
+//			AssertActionWasCalled ();
+		}
+
+		[Test]
 		[Category("Recognizer Tests")]
 		public void TestIfTapDetectsAnObject(){
-			recognizer.ReturnsObject ().Returns (true);
+
+			//Assert.IsTrue (recognizer.ReturnsObject());
 		}
 
 		private void HandleActionExecuted() {
