@@ -28,6 +28,7 @@ namespace UnityTest {
 			CreateFormData ();
 			ConfigureSubstitue ();
 			ConfigureAccessors ();
+			saver.SetKey(0);
 			saver.Save (data);
 		}
 		
@@ -60,32 +61,33 @@ namespace UnityTest {
 		[Test]
 		[Category("Name is loaded")]
 		public void TestNameIsLoaded() {
-			Assert.AreEqual (name, loader.Load().name);
+			Assert.AreEqual (name, loader.Load(0).name);
 		}
 		[Test]
 		[Category("Annotation is loaded")]
 		public void TestAnnotationIsLoaded() {
-			Assert.AreEqual (annotation, loader.Load().annotation);
+			Assert.AreEqual (annotation.x, loader.Load(0).annotation.x);
+			Assert.AreEqual (annotation.y, loader.Load(0).annotation.y);
 		}
 		[Test]
 		[Category("Comment is loaded")]
 		public void TestCommentIsLoaded() {
-			Assert.AreEqual (comments, loader.Load().comments);
+			Assert.AreEqual (comments, loader.Load(0).comments);
 		}
 		[Test]
 		[Category("Stuff is loaded")]
 		public void TestStuffIsLoaded() {
-			Assert.AreEqual (stuff, loader.Load().stuff);
+			Assert.AreEqual (stuff, loader.Load(0).stuff);
 		}
 		[Test]
 		[Category("Time is loaded")]
 		public void TestTimeIsLoaded() {
-			Assert.AreEqual (timestamp, loader.Load().timestamp);
+			Assert.AreEqual (timestamp, loader.Load(0).timestamp);
 		}
 		[Test]
 		[Category("Ocurrence is loaded")]
 		public void TestOcurrenceIsLoaded() {
-			Assert.AreEqual (ocurrence, loader.Load().ocurrence);
+			Assert.AreEqual (ocurrence, loader.Load(0).ocurrence);
 		}
 	}
 }

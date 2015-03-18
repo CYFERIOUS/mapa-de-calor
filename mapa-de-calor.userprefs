@@ -1,21 +1,24 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MapWrapper\OpenMapWrapper.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Test\Editor\UserReports\AnnotationManagerTest.cs">
     <Files>
-      <File FileName="Assets\Scripts\UIForms\ReportSender.cs" Line="174" Column="1" />
-      <File FileName="Assets\Scripts\MapWrapper\OpenMapWrapper.cs" Line="207" Column="35" />
+      <File FileName="Assets\Scripts\UserReports\AnnotationManager.cs" Line="17" Column="37" />
+      <File FileName="Assets\Scripts\Test\Editor\UserReports\DataIOTestBase.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Test\Editor\UserReports\AnnotationManagerTest.cs" Line="30" Column="1" />
+      <File FileName="Assets\Scripts\UIForms\ReportSender.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True">
+          <Node name="Assembly-CSharp-Editor" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="MapWrapper" expanded="True">
-                <Node name="OpenMapWrapper.cs" selected="True" />
+              <Node name="Test" expanded="True">
+                <Node name="Editor" expanded="True">
+                  <Node name="UserReports" expanded="True">
+                    <Node name="AnnotationManagerTest.cs" selected="True" />
+                  </Node>
+                </Node>
               </Node>
-              <Node name="Storages" expanded="True" />
-              <Node name="UIForms" expanded="True" />
-              <Node name="UserReports" expanded="True" />
             </Node>
           </Node>
         </State>

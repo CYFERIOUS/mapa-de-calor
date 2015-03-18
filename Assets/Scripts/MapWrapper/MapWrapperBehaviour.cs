@@ -21,15 +21,6 @@ public class MapWrapperBehaviour:OpenMapWrapper
 		DrawGPSUserLocation ();
 		SetUpInputReader ();
 		PrivateTriggerMovementManager = map.CenterWGS84 [0];
-
-		int keyTotals = loaderInit.GetTotalKey ();
-		Debug.Log ("totalReportes" + keyTotals);
-		for (int i = 0; i<=keyTotals-1; i++) {
-			loaderInit.SetKey (i);
-			Vector2 init = loaderInit.GetAnnotation ();
-			CreateAnnotation (init.x, init.y);
-		}
-
 	}
 
 	public void CreateAnnotation (double latitude, double longitude){

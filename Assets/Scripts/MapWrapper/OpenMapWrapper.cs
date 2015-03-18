@@ -25,9 +25,8 @@ public class OpenMapWrapper : MonoBehaviour
 	protected InputReader inputReader;
 	public GameObject ReportTrigger;
 	protected double PrivateTriggerMovementManager;
-	protected PlayerPrefStorage loaderInit = new PlayerPrefStorage();
 
-	private ReportLoader reportLoader;
+
 
 	const float timeToLongPress = 1f;
 	
@@ -63,15 +62,10 @@ public class OpenMapWrapper : MonoBehaviour
 		DrawGPSUserLocation ();
 		SetUpInputReader ();
 		PrivateTriggerMovementManager = map.CenterWGS84 [0];
-		int keyTotals = loaderInit.GetTotalKey ();
-		Debug.Log ("totalReportes" + keyTotals);
-		for(int i = 0;i<=keyTotals-1;i++){
-			loaderInit.SetKey(i);
-			Vector2 init = loaderInit.GetAnnotation();
-			CreateAnnotation (init.x, init.y);
-		}
-
+	
 	}
+
+
 
 	public void SetUpInputReader(){
 		inputReader = new InputReader ();
@@ -81,21 +75,6 @@ public class OpenMapWrapper : MonoBehaviour
 			ReportTrigger.SetActive (true);
 			PrivateTriggerMovementManager = map.CenterWGS84 [0];
 		};
-		LoadPrefsData ();
-	}
-
-	void LoadPrefsData ()
-	{
-		reportLoader = new ReportLoader ();
-		reportLoader.SetStorage (LoadDataAppConfig.GetStorage());
-		FormData data = new FormData ();
-
-		data.annotation = reportLoader.Load ().annotation;
-
-		Debug.Log (data.annotation.x);
-		Debug.Log (data.annotation.y);
-
-		CreateAnnotation ((double)data.annotation.x,(double)data.annotation.y);
 	}
 
 	private InputGenerator GetValidInputGenerator()
@@ -280,10 +259,5 @@ public class OpenMapWrapper : MonoBehaviour
 		isOnMainWindow = true;
 	}
 }
-public class LoadDataAppConfig{
-	
-	static public IDataStorage GetStorage(){
-		return new PlayerPrefStorage();
-	}
-}
+
 
