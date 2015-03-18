@@ -12,7 +12,8 @@ public class MapWrapperBehaviour:MonoBehaviour
 	public InputField DirectionInputField;
 
 	protected InputReader inputReader;
-	protected double PrivateTriggerMovementManager;
+	protected double PrivateTriggerMovementManagerXAxis;
+	protected double PrivateTriggerMovementManagerYAxis;
 	protected bool isOnMainWindow = true;
 
 	private MapWrapper mapWrapper;
@@ -39,7 +40,8 @@ public class MapWrapperBehaviour:MonoBehaviour
 		SetUpLoader();
 		SetUpManager ();
 		manager.loadAnnotations();
-		PrivateTriggerMovementManager = map.CenterWGS84 [0];
+		PrivateTriggerMovementManagerXAxis = map.CenterWGS84 [0];
+		PrivateTriggerMovementManagerYAxis = map.CenterWGS84 [1];
 	}
 
 	void SetUpManager () {
@@ -68,9 +70,10 @@ public class MapWrapperBehaviour:MonoBehaviour
 			Application.Quit ();
 		}
 
-		float resta = Mathf.Abs ((float)PrivateTriggerMovementManager - (float)map.CenterWGS84 [0]);
+		float restaX = Mathf.Abs ((float)PrivateTriggerMovementManagerXAxis - (float)map.CenterWGS84 [0]);
+		float restaY = Mathf.Abs ((float)PrivateTriggerMovementManagerYAxis - (float)map.CenterWGS84 [1]);
 		
-		if ( resta>0.001 && ReportTrigger.activeInHierarchy == true) {
+		if ( (restaX>0.001 || restaY>0.001) && ReportTrigger.activeInHierarchy == true) {
 			ReportTrigger.SetActive (false);
 			RemoveLastPutMarker ();
 		}
@@ -99,7 +102,8 @@ public class MapWrapperBehaviour:MonoBehaviour
 		inputReader.LongPressExecuted +=()=>{
 			SetSingleMarkerOnMap();
 			ReportTrigger.SetActive (true);
-			PrivateTriggerMovementManager = map.CenterWGS84 [0];
+			PrivateTriggerMovementManagerXAxis = map.CenterWGS84 [0];
+			PrivateTriggerMovementManagerYAxis = map.CenterWGS84 [1];
 		};
 	}
 
