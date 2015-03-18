@@ -5,18 +5,25 @@ using UnityEngine;
 
 public abstract class MarkerGenerator
 {
-	public object DefaultTexture {
+	public Texture UserLocationTexture {
+		get;
+		set;
+	}
+
+	public Texture DefaultTexture {
 		get;
 		set;
 	}
 
 	public AbstractMarker GenerateMarker(BaseCoordinates location)
 	{
-		AbstractMarker markerInstance = CreateMarkerInstance();
+		AbstractMarker markerInstance = CreateMarkerInstance(location);
 		markerInstance.Location = location;
 		return markerInstance;
 	}
+	
+	public abstract void DrawUserLocationMarker();
+	protected abstract AbstractMarker CreateMarkerInstance(BaseCoordinates location);
 
-	protected abstract AbstractMarker CreateMarkerInstance();
 }
 

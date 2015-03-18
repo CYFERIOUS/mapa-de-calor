@@ -6,17 +6,18 @@ namespace UnityTest
 {
 	[TestFixture]
 	[Category("Test Category")]
-	internal class ConcreteMarkerGeneratorTest
+	internal class MarkerGeneratorTest
 	{
-		MarkerGenerator concreteMarkerGenerator = new ConcreteMarkerGenerator();
+		MarkerGenerator MarkerGeneratorMock = new MarkerGeneratorMock();
 
 		[Test]
 		[Category("Create Marker With default texture")]
 		public void TestCreateMarkerWithDefaultTexture()
 		{	
 			BaseCoordinates location = NSubstitute.Substitute.For<BaseCoordinates> (1, 1);
-			AbstractMarker marker = concreteMarkerGenerator.GenerateMarker (location);
-			Assert.AreEqual (concreteMarkerGenerator.DefaultTexture, marker.Texture);
+			AbstractMarker marker = MarkerGeneratorMock.GenerateMarker (location);
+			Assert.AreEqual (MarkerGeneratorMock.DefaultTexture, marker.Texture);
 		}
+
 	}
 }

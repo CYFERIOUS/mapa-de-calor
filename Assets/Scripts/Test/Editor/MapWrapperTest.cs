@@ -104,6 +104,7 @@ namespace UnityTest
 			Assert.AreSame (markerLocation, argumentUsed.Location);
 		}
 
+
 		[Test]
 		[Category ("Map setup camera tests")]
 		public void TestMapSetupsCurrentCamera ()
@@ -220,13 +221,6 @@ namespace UnityTest
 		public void TestEnableInputs(){
 			mapWrapper.EnableInputs ();
 			Assert.IsTrue (map.InputsEnabled);
-		}
-
-		[Test]
-		[Category("Set user location")]
-		public void TestSetUserLocationIsSet(){
-			mapWrapper.SetUserLocation ();
-			map.Received (1).SetUserLocation ();
 		}
 
 	}

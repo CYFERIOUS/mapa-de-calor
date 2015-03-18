@@ -2,7 +2,7 @@
 using System.Collections;
 
 public interface AbstractMarker {
-	object Texture {
+	Texture Texture {
 		get;
 		set;
 	}

@@ -37,7 +37,7 @@ public class MapWrapper
 
 	public void SetUserLocation ()
 	{
-		MapImplementation.SetUserLocation ();
+		markerGenerator.DrawUserLocationMarker ();
 	}
 
 	public void AddLayer (BaseVirtualEarthLayer layer)
@@ -104,7 +104,7 @@ public class MapWrapper
 
 	public void SetMarkerInMap (BaseCoordinates coordinates)
 	{
-		ConcreteMarker marker = new ConcreteMarker ();
+		AbstractMarker marker = markerGenerator.GenerateMarker(coordinates);
 		marker.Location = coordinates;
 		markers.Add (marker);
 		MapImplementation.AddMarker (marker);
