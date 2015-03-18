@@ -8,6 +8,8 @@ public class MapWrapperBehaviour:OpenMapWrapper
 	private MapWrapper mapWrapper;
 	private AbstractMap mapImplementation;
 	private MarkerGenerator markerGenerator;
+	private IFormDataLoader loader;
+	private AnnotationManager manager;
 
 	void Start ()
 	{	
@@ -21,6 +23,18 @@ public class MapWrapperBehaviour:OpenMapWrapper
 		DrawGPSUserLocation ();
 		SetUpInputReader ();
 		PrivateTriggerMovementManager = map.CenterWGS84 [0];
+		SetUpLoader();
+		SetUpManager ();
+		manager.loadAnnotations();
+	}
+
+	void SetUpManager () {
+		manager = new AnnotationManager(loader, mapWrapper);
+	}
+
+	void SetUpLoader() {
+		loader = new ReportLoader();
+		loader.SetStorage(new PlayerPrefStorage());
 	}
 
 	public void CreateAnnotation (double latitude, double longitude){
