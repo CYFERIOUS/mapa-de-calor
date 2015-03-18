@@ -17,7 +17,7 @@ public class ReportForm : MonoBehaviour {
 		validator = new ReportFormValidator ();
 	}
 
-	public void Update() {
+	public void Validate() {
 		DayInputFieldColorChanger();
 		MonthInputFieldColorChanger();
 		YearInputFieldColorChanger();
@@ -80,5 +80,14 @@ public class ReportForm : MonoBehaviour {
 			commentsInput.image.color = Color.white;
 		else
 			commentsInput.image.color = wrongInputColor;
+	}
+
+	public void ReportCleaner(){
+		dayInput.image.color = Color.white;;
+		monthInput.image.color = Color.white;;
+		yearInput.image.color = Color.white;;
+		hourInput.image.color = Color.white;;
+		minuteInput.image.color = Color.white;;
+		commentsInput.image.color = Color.white;;
 	}
 }

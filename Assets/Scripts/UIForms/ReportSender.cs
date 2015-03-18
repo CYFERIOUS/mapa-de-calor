@@ -27,6 +27,7 @@ public class ReportSender: MonoBehaviour {
 	public string hourString;
 
 	public OpenMapWrapper openMap;
+	public ReportForm reportform;
 
 	public GameObject reportWindow;
 
@@ -34,6 +35,7 @@ public class ReportSender: MonoBehaviour {
 		submitButton.onClick.AddListener (delegate {
 			DateFieldsConcat();
 			HourConcat();
+			reportform.Validate();
 			if(isValidDate(dateString) && isValidHour(hourString)){
 				resetColorValidation();
 				HandleSubmitClicked();
@@ -49,6 +51,7 @@ public class ReportSender: MonoBehaviour {
 
 		cancelButton.onClick.AddListener (delegate {
 			ClearReportInput();
+			reportform.ReportCleaner();
 			resetColorValidation();
 		});
 	}
