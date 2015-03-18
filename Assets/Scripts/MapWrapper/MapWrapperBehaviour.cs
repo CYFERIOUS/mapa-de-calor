@@ -67,8 +67,10 @@ public class MapWrapperBehaviour:MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
 		}
+
+		float resta = Mathf.Abs ((float)PrivateTriggerMovementManager - (float)map.CenterWGS84 [0]);
 		
-		if (PrivateTriggerMovementManager != map.CenterWGS84 [0] && ReportTrigger.activeInHierarchy == true) {
+		if ( resta>0.001 && ReportTrigger.activeInHierarchy == true) {
 			ReportTrigger.SetActive (false);
 			RemoveLastPutMarker ();
 		}

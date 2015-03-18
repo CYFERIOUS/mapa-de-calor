@@ -14,7 +14,7 @@ namespace UnityTest {
 		public InputReader inputReader;
 		public bool wascalled;
 		InputGenerator generator;
-		Recognizer recognizer;
+		RayCastGenerator recognizer;
 
 		[SetUp]
 		public void SetUp(){
@@ -22,7 +22,7 @@ namespace UnityTest {
 			generator = Substitute.For<InputGenerator> ();
 
 			inputReader.SetGenerator (generator);
-			recognizer = new Recognizer ();
+			recognizer = new RayCastGenerator ();
 		}
 		
 		[Test]
@@ -34,19 +34,10 @@ namespace UnityTest {
 		}
 
 		[Test]
-		[Category("Recognizer test")]
-		public void TestIfRayCastIsGenerated(){
-
-//			generator.GeneratedTap ().Returns (true);
-//			inputReader.TapExecuted += HandleActionExecuted;
-//			AssertActionWasCalled ();
-		}
-
-		[Test]
 		[Category("Recognizer Tests")]
 		public void TestIfTapDetectsAnObject(){
 
-			//Assert.IsTrue (recognizer.ReturnsObject());
+			Assert.IsTrue (recognizer.ReturnsObject());
 		}
 
 		private void HandleActionExecuted() {
