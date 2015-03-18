@@ -18,13 +18,12 @@ public class ReportLoader : IFormDataLoader {
 		FormData data = new FormData ();
 
 		if(isValidKey(key)) {
-			storage.SetKey(key);
-			data.name = storage.GetName ();
-			data.annotation = storage.GetAnnotation ();
-			data.stuff = storage.GetStuff();
-			data.comments = storage.GetComments();
-			data.timestamp = storage.GetTimestamp();
-			data.ocurrence = storage.GetOcurrence();
+			data.name = storage.GetName (key);
+			data.annotation = storage.GetAnnotation (key);
+			data.stuff = storage.GetStuff(key);
+			data.comments = storage.GetComments(key);
+			data.timestamp = storage.GetTimestamp(key);
+			data.ocurrence = storage.GetOcurrence(key);
 		}
 		return data;
 	}

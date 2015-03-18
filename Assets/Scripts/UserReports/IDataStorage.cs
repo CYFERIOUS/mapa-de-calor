@@ -3,22 +3,20 @@ using System.Collections;
 
 public interface IDataStorage  {
 
-	string GetName();
-	int GetKey();
-	string GetComments();
-	Vector2 GetAnnotation ();
-	int GetTimestamp ();
-	string GetStuff ();
-	int GetOcurrence ();
+	string GetName(int key);
+	string GetComments(int key);
+	Vector2 GetAnnotation (int key);
+	int GetTimestamp (int key);
+	string GetStuff (int key);
+	int GetOcurrence (int key);
 	int GetTotalKey();
 
-	void SetName (string val);
-	void SetKey (int val);
+	void SetName (int key, string val);
 	void SetTotalKey(int val);
-	void SetComments (string val);
-	void SetAnnotation (Vector2 val);
-	void SetTimestamp (int val);
-	void SetStuff (string val);
-	void SetOcurrence (int val);
+	void SetComments (int key, string val);
+	void SetAnnotation (int key, Vector2 val);
+	void SetTimestamp (int key, int val);
+	void SetStuff (int key, string val);
+	void SetOcurrence (int key, int val);
 	void save();
 }

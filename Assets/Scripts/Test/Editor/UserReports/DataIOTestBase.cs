@@ -14,7 +14,7 @@ namespace UnityTest {
 		protected ReportLoader loader = new ReportLoader();
 		
 		protected IDataStorage storage;
-		protected FormData data;
+		protected FormData[] data;
 		
 		protected string name = "name";
 		protected string comments = "comments";
@@ -22,72 +22,101 @@ namespace UnityTest {
 		protected int timestamp = 338498400;
 		protected string stuff = "article";
 		protected int ocurrence = (int)Ocurrence.Assault;
+		protected int keyTotals;
 		
 		[SetUp]
 		public void Setup(){
-			CreateFormData ();
+			CreateFormData (3);
 			ConfigureSubstitue ();
 			ConfigureAccessors ();
-			saver.SetKey(0);
-			saver.Save (data);
+			saveData();
 		}
 		
-		private void CreateFormData(){
-			data = new FormData ();
-			data.name = name;
-			data.comments = comments;
-			data.annotation = annotation;
-			data.timestamp = timestamp;
-			data.stuff = stuff;
-			data.ocurrence = ocurrence;
+		private void CreateFormData(int size) {
+			keyTotals = size;
+			data = new FormData[size];
+			for(int id = 0;id < size; ++id)
+				data[id] = generateForm(id);
 		}
 
-		private void ConfigureSubstitue ()
-		{
+		FormData generateForm (int id) {
+			FormData form = new FormData ();
+			form.name = name + id;
+			form.comments = comments + id;
+			form.annotation = new Vector2((float)(annotation.x + id), (float)(annotation.y + id));
+			form.timestamp = timestamp + id;
+			form.stuff = stuff + id;
+			form.ocurrence = ocurrence + id;
+			return form;
+		}
+		
+		private void ConfigureSubstitue () {
 			storage = Substitute.For<IDataStorage>();
-			storage.GetName ().Returns(data.name);
-			storage.GetAnnotation ().Returns(data.annotation);
-			storage.GetComments ().Returns(data.comments);
-			storage.GetStuff ().Returns(data.stuff);
-			storage.GetTimestamp ().Returns(data.timestamp);
-			storage.GetOcurrence ().Returns(data.ocurrence);
+			storage.GetTotalKey ().Returns(keyTotals);
+
+			for(int key = 0; key < keyTotals; ++key) {
+				storage.GetName (key).Returns(data[key].name);
+				storage.GetAnnotation (key).Returns(data[key].annotation);
+				storage.GetComments (key).Returns(data[key].comments);
+				storage.GetStuff (key).Returns(data[key].stuff);
+				storage.GetTimestamp (key).Returns(data[key].timestamp);
+				storage.GetOcurrence (key).Returns(data[key].ocurrence);
+			}
 		}
 
-		private void ConfigureAccessors ()
-		{
+		void saveData () {
+			for(int id = 0; id < keyTotals; ++id) {
+				saver.SetKey(id);
+				saver.Save (data[id]);
+			}
+		}
+
+		private void ConfigureAccessors () {
 			saver.SetStorage (storage);
 			loader.SetStorage (storage);
 		}
+
 		[Test]
 		[Category("Name is loaded")]
 		public void TestNameIsLoaded() {
-			Assert.AreEqual (name, loader.Load(0).name);
+			for(int key = 0; key < keyTotals; ++key)
+				Assert.AreEqual (data[key].name, loader.Load(key).name);
 		}
+
 		[Test]
 		[Category("Annotation is loaded")]
 		public void TestAnnotationIsLoaded() {
-			Assert.AreEqual (annotation.x, loader.Load(0).annotation.x);
-			Assert.AreEqual (annotation.y, loader.Load(0).annotation.y);
+			for(int key = 0; key < keyTotals; ++key) {
+				Assert.AreEqual (data[key].annotation.x, loader.Load(key).annotation.x);
+				Assert.AreEqual (data[key].annotation.y, loader.Load(key).annotation.y);
+			}
 		}
+
 		[Test]
 		[Category("Comment is loaded")]
 		public void TestCommentIsLoaded() {
-			Assert.AreEqual (comments, loader.Load(0).comments);
+			for(int key = 0; key < keyTotals; ++key)
+				Assert.AreEqual (data[key].comments, loader.Load(key).comments);
 		}
 		[Test]
 		[Category("Stuff is loaded")]
 		public void TestStuffIsLoaded() {
-			Assert.AreEqual (stuff, loader.Load(0).stuff);
+			for(int key = 0; key < keyTotals; ++key)
+				Assert.AreEqual (data[key].stuff, loader.Load(key).stuff);
 		}
+
 		[Test]
 		[Category("Time is loaded")]
 		public void TestTimeIsLoaded() {
-			Assert.AreEqual (timestamp, loader.Load(0).timestamp);
+			for(int key = 0; key < keyTotals; ++key)
+				Assert.AreEqual (data[key].timestamp, loader.Load(key).timestamp);
 		}
+
 		[Test]
 		[Category("Ocurrence is loaded")]
 		public void TestOcurrenceIsLoaded() {
-			Assert.AreEqual (ocurrence, loader.Load(0).ocurrence);
+			for(int key = 0; key < keyTotals; ++key)
+				Assert.AreEqual (data[key].ocurrence, loader.Load(key).ocurrence);
 		}
 	}
 }

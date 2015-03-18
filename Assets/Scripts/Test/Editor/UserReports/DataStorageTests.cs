@@ -39,87 +39,63 @@ namespace UnityTest {
 		[Test]
 		[Category("Name is saved")]
 		public void TestNameIsSaved() {
-			for (int i = 0; i < numberOfSavedValues; ++i) {
-				storage.SetKey (i);
-				storage.SetName (name + storage.GetKey());
+			for (int key = 0; key < numberOfSavedValues; ++key) {
+				storage.SetName (key, name + key);
 				storage.save ();
-			}
-			for (int i = 0; i < numberOfSavedValues; ++i) {
-				storage.SetKey(i);
-				Assert.AreEqual (name + i, storage.GetName ());
+				Assert.AreEqual (name + key, storage.GetName (key));
 			}
 		}
 
 		[Test]
 		[Category("comments are saved")]
 		public void TestCommentsAreSaved() {
-			for (int i = 0; i < numberOfSavedValues; ++i) {
-				storage.SetKey (i);
-				storage.SetComments (comments + storage.GetKey());
+			for (int key = 0; key < numberOfSavedValues; ++key) {
+				storage.SetComments (key, comments + key);
 				storage.save ();
-			}
-			for (int i = 0; i < numberOfSavedValues; ++i) {
-				storage.SetKey(i);
-				Assert.AreEqual (comments + i, storage.GetComments ());
+				Assert.AreEqual (comments + key, storage.GetComments (key));
 			}
 		}
 
 		[Test]
 		[Category("Annotation is saved")]
 		public void TestAnnotationIsSaved() {
-			for (int i = 0; i < numberOfSavedValues; ++i) {
-				storage.SetKey (i);
-				annotation.x = (float)i;
-				annotation.y = (float)(i * 2);
-				storage.SetAnnotation (annotation);
+			for (int key = 0; key < numberOfSavedValues; ++key) {
+				annotation.x = (float)key;
+				annotation.y = (float)(key * 2);
+				storage.SetAnnotation (key, annotation);
 				storage.save ();
-			}
-			for (int i = 0; i < numberOfSavedValues; ++i) {
-				storage.SetKey(i);
-				Assert.AreEqual ((float)i, storage.GetAnnotation().x);
-				Assert.AreEqual ((float)(i * 2), storage.GetAnnotation().y);
+				Assert.AreEqual ((float)key, storage.GetAnnotation(key).x);
+				Assert.AreEqual ((float)(key * 2), storage.GetAnnotation(key).y);
 			}
 		}
 
 		[Test]
 		[Category("Timestamp is saved")]
 		public void TestTimestampIsSaved() {
-			for (int i = 0; i < numberOfSavedValues; ++i) {
-				storage.SetKey (i);
-				storage.SetTimestamp (timestamp + storage.GetKey());
+			for (int key = 0; key < numberOfSavedValues; ++key) {
+				storage.SetTimestamp (key, timestamp + key);
 				storage.save ();
-			}
-			for (int i = 0; i < numberOfSavedValues; ++i) {
-				storage.SetKey(i);
-				Assert.AreEqual (timestamp + i, storage.GetTimestamp ());
+				Assert.AreEqual (timestamp + key, storage.GetTimestamp (key));
 			}
 		}
 
 		[Test]
 		[Category("Stuff is saved")]
 		public void TestStuffIsSaved() {
-			for (int i = 0; i < numberOfSavedValues; ++i) {
-				storage.SetKey (i);
-				storage.SetStuff(stuff + storage.GetKey());
+			for (int key = 0; key < numberOfSavedValues; ++key) {
+				storage.SetStuff(key, stuff + key);
 				storage.save ();
-			}
-			for (int i = 0; i < numberOfSavedValues; ++i) {
-				storage.SetKey(i);
-				Assert.AreEqual (stuff + i, storage.GetStuff ());
+				Assert.AreEqual (stuff + key, storage.GetStuff (key));
 			}
 		}
 
 		[Test]
 		[Category("Ocurrence is saved")]
 		public void TestOcurrenceIsSaved() {
-			for (int i = 0; i < numberOfSavedValues; ++i) {
-				storage.SetKey (i);
-				storage.SetOcurrence (ocurrence + storage.GetKey());
+			for (int key = 0; key < numberOfSavedValues; ++key) {
+				storage.SetOcurrence (key, ocurrence + key);
 				storage.save ();
-			}
-			for (int i = 0; i < numberOfSavedValues; ++i) {
-				storage.SetKey(i);
-				Assert.AreEqual (ocurrence + i, storage.GetOcurrence ());
+				Assert.AreEqual (ocurrence + key, storage.GetOcurrence (key));
 			}
 		}
 		[Test]

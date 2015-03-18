@@ -23,20 +23,18 @@ public class ReportSaver : IFormDataSaver {
 	
 	public void Save(FormData data){
 		SetKeyToSave ();
-		storage.SetKey (actualKey);
-		storage.SetName (data.name);
-		storage.SetComments (data.comments);
-		storage.SetAnnotation (data.annotation);
-		storage.SetTimestamp (data.timestamp);
-		storage.SetStuff (data.stuff);
-		storage.SetOcurrence (data.ocurrence);
+		storage.SetName (actualKey, data.name);
+		storage.SetComments (actualKey, data.comments);
+		storage.SetAnnotation (actualKey, data.annotation);
+		storage.SetTimestamp (actualKey, data.timestamp);
+		storage.SetStuff (actualKey, data.stuff);
+		storage.SetOcurrence (actualKey, data.ocurrence);
 		storage.SetTotalKey (keyTotals);
 		storage.save ();
 	}
 
 	private void SetKeyToSave () {
 		if (!isValidKey(actualKey)) {
-			storage.SetKey (keyTotals);
 			SetKey (keyTotals);
 			++keyTotals;
 		}

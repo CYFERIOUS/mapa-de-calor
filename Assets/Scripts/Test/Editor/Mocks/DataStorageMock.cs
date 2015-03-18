@@ -39,31 +39,28 @@ public class DataStorageMock : IDataStorage {
 			form.key = key;
 	}
 
-	public string GetName(){
+	public string GetName(int k){
 		FormData form = search ();
 		return (form.key == -1)? null : form.name;
 	}
-	public int GetKey(){
-		return key;
-	}
-	public string GetComments(){
+	public string GetComments(int k){
 		FormData form = search ();
 		return (form.key == -1)? null : form.comments;
 	}
-	public Vector2 GetAnnotation(){
+	public Vector2 GetAnnotation(int k){
 		FormData form = search ();
 		return (form.key == -1)? new Vector2() : form.annotation;
 	}
-	public int GetTimestamp(){
+	public int GetTimestamp(int k){
 		FormData form = search ();
 		return (form.key == -1)? 0 : form.timestamp;
 	}
-	public string GetStuff(){
+	public string GetStuff(int k){
 		FormData form = search ();
 		return (form.key == -1)? null : form.stuff;
 	}
 
-	public int GetOcurrence() {
+	public int GetOcurrence(int k) {
 		FormData form = search ();
 		return (form.key == -1)? 0 : form.ocurrence;
 	}
@@ -72,31 +69,31 @@ public class DataStorageMock : IDataStorage {
 		return total;
 	}
 
-	public void SetName(string val){
+	public void SetName(int k, string val){
 		name = val;
 	}
 
-	public void SetKey(int val){
+	public void SetKey(int k, int val){
 		key = val;
 	}
 
-	public void SetComments(string val){
+	public void SetComments(int k, string val){
 		comments = val;
 	}
 
-	public void SetAnnotation(Vector2 val){
+	public void SetAnnotation(int k, Vector2 val){
 		coordinates = val;
 	}
 
-	public void SetTimestamp(int val){
+	public void SetTimestamp(int k, int val){
 		timeStamp = val;
 	}
 
-	public void SetStuff(string val){
+	public void SetStuff(int k, string val){
 		stuff = val;
 	}
 
-	public void SetOcurrence(int val) {
+	public void SetOcurrence(int k, int val) {
 		ocurrence = val;
 	}
 	public void SetTotalKey(int val) {

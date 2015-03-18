@@ -16,13 +16,12 @@ public class FormSaverMock : IFormDataSaver {
 	}
 
 	public void Save(FormData data){
-		storage.SetName (data.name);
-		storage.SetKey (data.key);
-		storage.SetComments (data.comments);
-		storage.SetAnnotation (data.annotation);
-		storage.SetTimestamp (data.timestamp);
-		storage.SetStuff (data.stuff);
-		storage.SetOcurrence (data.ocurrence);
+		storage.SetName (key, data.name);
+		storage.SetComments (key, data.comments);
+		storage.SetAnnotation (key, data.annotation);
+		storage.SetTimestamp (key, data.timestamp);
+		storage.SetStuff (key, data.stuff);
+		storage.SetOcurrence (key, data.ocurrence);
 	}
 
 	public FormData Load() {
