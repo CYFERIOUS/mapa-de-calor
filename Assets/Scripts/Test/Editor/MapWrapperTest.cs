@@ -112,6 +112,22 @@ namespace UnityTest
 			mapWrapper.RemoveTemporalMarker ();
 			map.Received (1).EraseMarker (createdMarker);
 		}
+
+		[Test]
+		[Category("Temporal Marker test")]
+		public void TestOnlyErasesTemporalMarkerIfHasBeenSetFirst(){
+			mapWrapper.RemoveTemporalMarker ();
+			map.DidNotReceive ().EraseMarker (Arg.Any<AbstractMarker> ());
+		}
+
+		[Test]
+		[Category("Temporal Marker test")]
+		public void TestWhenTemporalMarkerIsSetPreviousTemporalMarkerIsRemoved(){
+			mapWrapper.SetTemporalMarker (temporalMarkerLocation);
+			mapWrapper.SetTemporalMarker (markerLocation);
+			map.Received (1).EraseMarker (Arg.Any<AbstractMarker> ());
+		}
+		
 		
 		[Test]
 		[Category("Test Marker has coordinates")]

@@ -37,7 +37,8 @@ public class MapWrapper
 
 	public void RemoveTemporalMarker ()
 	{
-		EraseMarker (temporalAbstractMarker);
+		if(HasTemporalMarker)
+			EraseMarker (temporalAbstractMarker);
 		temporalAbstractMarker = null;
 	}
 
@@ -108,6 +109,7 @@ public class MapWrapper
 	}
 
 	public void SetTemporalMarker(BaseCoordinates coordinates){
+		RemoveTemporalMarker ();
 		temporalAbstractMarker = markerGenerator.GenerateMarker (coordinates);
 		MapImplementation.AddMarker (temporalAbstractMarker);
 	}

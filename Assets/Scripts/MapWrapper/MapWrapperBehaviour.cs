@@ -1,7 +1,5 @@
 using UnityEngine;
-using System.Collections;
 using UnitySlippyMap;
-using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class MapWrapperBehaviour:MonoBehaviour
@@ -21,10 +19,6 @@ public class MapWrapperBehaviour:MonoBehaviour
 	private MarkerGenerator markerGenerator;
 	private IFormDataLoader loader;
 	private AnnotationManager manager;
-	public Dictionary<string, double> LastPutMarkerCoordinates = null;
-
-
-
 
 	void Start ()
 	{	
@@ -114,18 +108,9 @@ public class MapWrapperBehaviour:MonoBehaviour
 	
 	public void RemoveLastPutMarker ()
 	{
-		//RemoveMarker (LastPutMarkerCoordinates ["longitude"],LastPutMarkerCoordinates ["latitude"]);
 		mapWrapper.RemoveTemporalMarker ();
 	}
-
-//	public void RemoveMarker(double latitude, double longitude){
-//		Marker[] markers = map.GetComponentsInChildren<Marker> ();
-//		foreach (Marker marker in markers) {
-//			if (marker.CoordinatesWGS84 [0] == latitude && marker.CoordinatesWGS84 [1] == longitude) {
-//				mapWrapper.EraseMarker (marker as AbstractMarker);
-//			}
-//		}
-//	}
+	
 
 	public void EraseTemporalMarker ()
 	{
@@ -143,38 +128,18 @@ public class MapWrapperBehaviour:MonoBehaviour
 
 	public void SetSingleMarkerOnMap ()
 	{
-
-		if (mapWrapper.HasTemporalMarker) {
-			RemoveLastPutMarker ();
-			
-		}
-		Dictionary<string, double> CursorCoordinates = GetCoordinatesOfCursor ();
-		Coordinates location = new Coordinates (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
+		Coordinates location = GetCoordinatesOfCursor ();
 		mapWrapper.SetTemporalMarker (location);
-		SetCoordinatesOnInputField (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
-
+		SetCoordinatesOnInputField (location.Latitude, location.Longitude);
 	}
 
-	public void SetMarkerInMap ()
-	{	
-		Dictionary<string, double> CursorCoordinates = GetCoordinatesOfCursor ();
-		CreateAnnotation (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
-		SetCoordinatesOnInputField (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
-		LastPutMarkerCoordinates = CursorCoordinates;
-
-	}
-
-	public Dictionary<string, double> GetCoordinatesOfCursor ()
+	public Coordinates GetCoordinatesOfCursor ()
 	{
-		Dictionary<string, double> dictionary = new Dictionary<string, double> ();
 		Coordinates referenceLocation = mapWrapper.GetReferenceLocation () as Coordinates;
 		Vector3 wordPos = getCursorPosition ();
 		double latitude = (0.0167 * wordPos [2]) + (referenceLocation.Latitude);
 		double longitude = (0.0167 * wordPos [0]) + (referenceLocation.Longitude);
-		dictionary.Add ("latitude", latitude);
-		dictionary.Add ("longitude", longitude);
-		return dictionary;
-		
+		return new Coordinates (latitude, longitude); 
 	}
 
 	public Vector3 getCursorPosition ()
