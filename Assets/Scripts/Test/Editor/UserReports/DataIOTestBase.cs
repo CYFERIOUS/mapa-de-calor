@@ -42,6 +42,7 @@ namespace UnityTest {
 
 		FormData generateForm (int id) {
 			FormData form = new FormData ();
+			form.key = id;
 			form.name = name + id;
 			form.comments = comments + id;
 			form.annotation = new Vector2((float)(annotation.x + id), (float)(annotation.y + id));

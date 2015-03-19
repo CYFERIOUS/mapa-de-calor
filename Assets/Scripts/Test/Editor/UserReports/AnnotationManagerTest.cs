@@ -54,8 +54,8 @@ namespace UnityTest {
 		}
 
 		[Test]
-		[Category("Annotations are loaded")]
-		public void TestAnnotationsAreLoaded() {
+		[Category("All Annotations are loaded")]
+		public void TestAllAnnotationsAreLoaded() {
 			manager.loadAnnotations();
 			Assert.AreEqual(manager.mapWrapper.MarkersCount, manager.AnnotationsCount());
 		}
@@ -67,12 +67,67 @@ namespace UnityTest {
 			Assert.AreEqual(data.Length, dataLoaded.Count);
 		}
 
-	}
-}
+		[Test]
+		[Category("Keys are loaded")]
+		public void TestKeysAreLoaded() {
+			ArrayList dataLoaded = manager.getReports();
+			for(int key = 0; key<data.Length;key++)
+				Assert.AreEqual(data[key].key, ((FormData)dataLoaded[key]).key);
+		}
 
-public class LoadDataAppConfig{
-	
-	static public IDataStorage GetStorage(){
-		return new PlayerPrefStorage();
+		[Test]
+		[Category("Names are loaded")]
+		public void TestNamesAreLoaded() {
+			ArrayList dataLoaded = manager.getReports();
+			for(int key = 0;key<data.Length;key++)
+				Assert.AreEqual(data[key].name, ((FormData)dataLoaded[key]).name);
+		}
+
+		[Test]
+		[Category("Annotations are loaded")]
+		public void TestAnnotationsAreLoaded() {
+			ArrayList dataLoaded = manager.getReports();
+			for(int key = 0; key<data.Length;key++){
+				Assert.AreEqual(data[key].annotation.x, ((FormData)dataLoaded[key]).annotation.x);
+				Assert.AreEqual(data[key].annotation.y, ((FormData)dataLoaded[key]).annotation.y);
+			}
+		}
+
+		[Test]
+		[Category("Comments are loaded")]
+		public void TestCommentsAreLoaded() {
+			ArrayList dataLoaded = manager.getReports();
+			for(int key = 0; key<data.Length;key++){
+				Assert.AreEqual(data[key].comments, ((FormData)dataLoaded[key]).comments);
+			}
+		}
+
+		[Test]
+		[Category("Stuff are loaded")]
+		public void TestStuffAreLoaded() {
+			ArrayList dataLoaded = manager.getReports();
+			for(int key = 0; key<data.Length;key++){
+				Assert.AreEqual(data[key].stuff, ((FormData)dataLoaded[key]).stuff);
+			}
+		}
+
+		[Test]
+		[Category("Ocurrence are loaded")]
+		public void TestOcurrenceAreLoaded() {
+			ArrayList dataLoaded = manager.getReports();
+			for(int key = 0; key<data.Length;key++){
+				Assert.AreEqual(data[key].ocurrence, ((FormData)dataLoaded[key]).ocurrence);
+			}
+		}
+
+		[Test]
+		[Category("TimeStamp are loaded")]
+		public void TestTimeStampAreLoaded() {
+			ArrayList dataLoaded = manager.getReports();
+			for(int key = 0; key<data.Length;key++){
+				Assert.AreEqual(data[key].timestamp, ((FormData)dataLoaded[key]).timestamp);
+			}
+		}
+
 	}
 }
