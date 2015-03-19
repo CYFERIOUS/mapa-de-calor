@@ -12,7 +12,8 @@ public class MapWrapperBehaviour:MonoBehaviour
 	public InputField DirectionInputField;
 
 	protected InputReader inputReader;
-	protected double PrivateTriggerMovementManager;
+	protected double PrivateTriggerMovementManagerXAxis;
+	protected double PrivateTriggerMovementManagerYAxis;
 	protected bool isOnMainWindow = true;
 
 	private MapWrapper mapWrapper;
@@ -39,7 +40,8 @@ public class MapWrapperBehaviour:MonoBehaviour
 		SetUpLoader();
 		SetUpManager ();
 		manager.loadAnnotations();
-		PrivateTriggerMovementManager = mapWrapper.GetReferenceLocation().Longitude;
+		PrivateTriggerMovementManagerXAxis = mapWrapper.GetReferenceLocation().Longitude;
+		PrivateTriggerMovementManagerYAxis = mapWrapper.GetReferenceLocation().Latitude;
 	}
 
 	public void AddTemporalMarker ()
@@ -72,9 +74,10 @@ public class MapWrapperBehaviour:MonoBehaviour
 			Application.Quit ();
 		}
 
-		float resta = Mathf.Abs ((float)PrivateTriggerMovementManager - (float)mapWrapper.GetReferenceLocation().Longitude);
+		float restaX = Mathf.Abs ((float)PrivateTriggerMovementManagerXAxis - (float)mapWrapper.GetReferenceLocation().Longitude);
+		float restaY = Mathf.Abs ((float)PrivateTriggerMovementManagerYAxis - (float)mapWrapper.GetReferenceLocation().Latitude);
 		
-		if ( resta>0.001 && ReportTrigger.activeInHierarchy == true) {
+		if ( (restaX>0.001 || restaY>0.001) && ReportTrigger.activeInHierarchy == true) {
 			ReportTrigger.SetActive (false);
 			RemoveLastPutMarker ();
 		}
@@ -103,7 +106,8 @@ public class MapWrapperBehaviour:MonoBehaviour
 		inputReader.LongPressExecuted +=()=>{
 			SetSingleMarkerOnMap();
 			ReportTrigger.SetActive (true);
-			PrivateTriggerMovementManager = mapWrapper.GetReferenceLocation().Longitude;
+			PrivateTriggerMovementManagerXAxis = mapWrapper.GetReferenceLocation().Longitude;
+			PrivateTriggerMovementManagerYAxis = mapWrapper.GetReferenceLocation().Latitude;
 		};
 	}
 
