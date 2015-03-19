@@ -11,4 +11,9 @@ public interface AbstractMarker {
 		get;
 		set;
 	}
+
+	int Id {
+		get;
+		set;
+	}
 }

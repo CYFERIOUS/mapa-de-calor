@@ -114,6 +114,13 @@ public class MapWrapper
 		MapImplementation.AddMarker (temporalAbstractMarker);
 	}
 
+	public void SetTemporalMarker(BaseCoordinates coordinates, int id){
+		RemoveTemporalMarker ();
+		temporalAbstractMarker = markerGenerator.GenerateMarker (coordinates);
+		temporalAbstractMarker.Id = id;
+		MapImplementation.AddMarker (temporalAbstractMarker);
+	}
+
 	public void AddTemporalMarker ()
 	{
 		markers.Add (temporalAbstractMarker);

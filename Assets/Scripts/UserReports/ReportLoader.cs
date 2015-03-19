@@ -4,7 +4,6 @@ using System.Collections;
 public class ReportLoader : IFormDataLoader {
 
 	private IDataStorage storage;
-	private int keyTotals;
 
 	public void SetStorage(IDataStorage storage){
 		this.storage = storage;
@@ -18,6 +17,7 @@ public class ReportLoader : IFormDataLoader {
 		FormData data = new FormData ();
 
 		if(isValidKey(key)) {
+			data.key = key;
 			data.name = storage.GetName (key);
 			data.annotation = storage.GetAnnotation (key);
 			data.stuff = storage.GetStuff(key);

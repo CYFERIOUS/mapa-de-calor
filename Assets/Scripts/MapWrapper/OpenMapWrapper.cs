@@ -189,8 +189,6 @@ public class OpenMapWrapper : MonoBehaviour
 		Dictionary<string, double> dictionary = new Dictionary<string, double> ();
 		
 		Vector3 wordPos = getCursorPosition ();
-
-		//ReportTrigger.transform.localScale = new Vector2 (0.5f,0.5f);
 		double latitude = (0.0167 * wordPos [2]) + ((map.CenterWGS84) [1]);
 		double longitude = (0.0167 * wordPos [0]) + ((map.CenterWGS84) [0]);
 		dictionary.Add ("latitude", latitude);

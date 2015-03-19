@@ -24,6 +24,5 @@ public abstract class MarkerGenerator
 	
 	public abstract void DrawUserLocationMarker();
 	protected abstract AbstractMarker CreateMarkerInstance(BaseCoordinates location);
-
 }
 

@@ -14,4 +14,8 @@ public class ConcreteMarker: Marker, AbstractMarker {
 		set;
 	}
 
+	public int Id {
+		get;
+		set;
+	}
 }

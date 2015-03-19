@@ -16,6 +16,7 @@ namespace UnityTest
 		AbstractMap map;
 		MarkerGenerator markerGenerator;
 		BaseCoordinates temporalMarkerLocation;
+		int temporalMarkerId;
 		BaseCoordinates markerLocation;
 		AbstractMarker marker;
 
@@ -27,6 +28,7 @@ namespace UnityTest
 			mapWrapper = new MapWrapper ();
 			mapWrapper.MapImplementation = map;
 			mapWrapper.MarkerGenerator = markerGenerator;
+			temporalMarkerId = 2;
 		}
 
 		private void SetUpSubstitutes()
@@ -75,6 +77,15 @@ namespace UnityTest
 			map.AddMarker (Arg.Do<AbstractMarker> (x => argumentUsed = x));
 			mapWrapper.SetTemporalMarker (temporalMarkerLocation);
 			Assert.AreSame (temporalMarkerLocation, argumentUsed.Location);
+		}
+
+		[Test]
+		[Category("Test temporal marker")]
+		public void TestTemporalMarkerHasIdSetByUser() {
+			AbstractMarker argumentUsed = null;
+			map.AddMarker (Arg.Do<AbstractMarker> (x => argumentUsed = x));
+			mapWrapper.SetTemporalMarker (temporalMarkerLocation, temporalMarkerId);
+			Assert.AreEqual (temporalMarkerId, argumentUsed.Id);
 		}
 
 		[Test]

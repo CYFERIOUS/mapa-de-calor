@@ -7,6 +7,8 @@ public class AnnotationManager {
 	public MapWrapper mapWrapper;
 	private ArrayList reports;
 
+
+
 	public AnnotationManager (IFormDataLoader _loader, MapWrapper _mapWrapper) {
 		loader = _loader;
 		reports = new ArrayList();
@@ -24,10 +26,12 @@ public class AnnotationManager {
 	public void loadAnnotations () {
 		getReports();
 		foreach (FormData report in reports)
-			mapWrapper.SetMarkerInMap(new Coordinates(report.annotation.x, report.annotation.y));
+			mapWrapper.SetMarkerInMap(new Coordinates(report.annotation.x, report.annotation.y), report.key);
 	}
 
 	public int AnnotationsCount () {
 		return reports.Count;
 	}
+
+
 }
