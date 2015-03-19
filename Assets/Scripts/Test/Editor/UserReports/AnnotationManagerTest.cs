@@ -4,16 +4,14 @@ using System.Threading;
 using NUnit.Framework;
 using UnityEngine;
 using NSubstitute;
+using System.Collections;
 
 namespace UnityTest {
 	[TestFixture]
 	[Category("AnnotationManager Test")]
-	internal class AnnotationManagerTest {
+	internal class AnnotationManagerTest : DataIOTestBase {
 
 		protected AnnotationManager manager;
-		protected ReportSaver saver;
-		protected ReportLoader loader;
-		protected Coordinates[] coords;
 
 		protected MapWrapper mapWrapper;
 		protected AbstractMap map;
@@ -26,14 +24,11 @@ namespace UnityTest {
 		[SetUp]
 		public void Setup(){
 			SetUpAnnotationManager();
-			SetUpSaver();
 			fillData();
 		}
 
 		private void SetUpAnnotationManager() {
 			SetUpMapWrapper();
-			loader = new ReportLoader();
-			loader.SetStorage(LoadDataAppConfig.GetStorage());
 			manager = new AnnotationManager(loader, mapWrapper);
 		}
 
@@ -51,35 +46,25 @@ namespace UnityTest {
 			marker = NSubstitute.Substitute.For<AbstractMarker>();
 		}
 
-		void SetUpSaver () {
-			saver = new ReportSaver();
-			saver.SetStorage(LoadDataAppConfig.GetStorage());
-		}
-
 		private void fillData() {
-			SetUpCoords();
-			for(int i = 0;i < coords.Length; ++i) {
-				FormData data = new FormData();
-				data.annotation = new Vector2((float)coords[i].Latitude, (float)coords[i].Longitude);
-				saver.SetKey(i);
-				saver.Save(data);
+			for(int key = 0;key < keyTotals; ++key) {
+				saver.SetKey(key);
+				saver.Save(data[key]);
 			}
-		}
-
-		private void SetUpCoords() {
-			coords = new Coordinates[] {
-				new Coordinates(4.63712,-74.08491),
-				new Coordinates(4.64153,-74.08588),
-				new Coordinates(4.64191,-74.08135),
-				new Coordinates(4.63839,-74.08124)
-			};
 		}
 
 		[Test]
 		[Category("Annotations are loaded")]
-		public void AnnotationsAreLoaded() {
+		public void TestAnnotationsAreLoaded() {
 			manager.loadAnnotations();
 			Assert.AreEqual(manager.mapWrapper.MarkersCount, manager.AnnotationsCount());
+		}
+
+		[Test]
+		[Category("Reports are loaded")]
+		public void TestReportsAreLoaded() {
+			ArrayList dataLoaded = manager.getReports();
+			Assert.AreEqual(data.Length, dataLoaded.Count);
 		}
 
 	}

@@ -26,7 +26,7 @@ public class AnnotationManager {
 	public void loadAnnotations () {
 		getReports();
 		foreach (FormData report in reports)
-			mapWrapper.SetMarkerInMap(new Coordinates(report.annotation.x, report.annotation.y), report.key);
+			mapWrapper.SetMarkerInMap(new Coordinates(report.annotation.x, report.annotation.y));
 	}
 
 	public int AnnotationsCount () {

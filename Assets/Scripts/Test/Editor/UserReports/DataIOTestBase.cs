@@ -23,10 +23,11 @@ namespace UnityTest {
 		protected string stuff = "article";
 		protected int ocurrence = (int)Ocurrence.Assault;
 		protected int keyTotals;
+		protected int numberOfFormData = 5;
 		
 		[SetUp]
 		public void Setup(){
-			CreateFormData (3);
+			CreateFormData (numberOfFormData);
 			ConfigureSubstitue ();
 			ConfigureAccessors ();
 			saveData();
