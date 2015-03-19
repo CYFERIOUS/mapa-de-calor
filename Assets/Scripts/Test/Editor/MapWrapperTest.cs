@@ -54,7 +54,7 @@ namespace UnityTest
 		}
 
 		[Test]
-		[Category("Set Temporal Marker test")]
+		[Category("Temporal Marker tests")]
 		public void TestSettingTemporalMarkerMakesMapHasATemporalMarker ()
 		{ 
 			mapWrapper.SetTemporalMarker (temporalMarkerLocation);
@@ -62,14 +62,14 @@ namespace UnityTest
 		}
 
 		[Test]
-		[Category("Test temporal marker is instance of abstract marker")]
+		[Category("Temporal marker tests")]
 		public void TestTemporalMarkerIsInstanceOfAbstractMarker(){
 			mapWrapper.SetTemporalMarker (temporalMarkerLocation);
 			map.Received (1).AddMarker (Arg.Any<AbstractMarker>());
 		}
 
 		[Test]
-		[Category("Test temporal marker has coordinates")]
+		[Category("Temporal marker tests")]
 		public void TestTemporalMarkerHasLocationSetByUser(){
 			AbstractMarker argumentUsed = null;
 			map.AddMarker (Arg.Do<AbstractMarker> (x => argumentUsed = x));
@@ -79,7 +79,7 @@ namespace UnityTest
 
 		[Test]
 		[Category("Temporal Marker test")]
-		public void TestAddingTemporalMarkerMakesMapHasNoTemporalMarker ()
+		public void TestAddingTemporalMarkerMakesMapWrapperHasNoTemporalMarker ()
 		{
 			mapWrapper.SetTemporalMarker (temporalMarkerLocation);
 			mapWrapper.AddTemporalMarker ();
@@ -96,6 +96,24 @@ namespace UnityTest
 		}
 
 		[Test]
+		[Category("Temporal Marker test")]
+		public void TestWhenRemoveTemporalMarkerMapWrapperHasNoTemporalMarker(){
+			mapWrapper.SetTemporalMarker (temporalMarkerLocation);
+			mapWrapper.RemoveTemporalMarker ();
+			Assert.IsFalse (mapWrapper.HasTemporalMarker);
+		}
+
+		[Test]
+		[Category("Temporal Marker test")]
+		public void TestRemoveTemporalMarkerErasesItFromMap(){
+			AbstractMarker createdMarker = null;
+			map.AddMarker (Arg.Do<AbstractMarker> (x => createdMarker = x));
+			mapWrapper.SetTemporalMarker (temporalMarkerLocation);
+			mapWrapper.RemoveTemporalMarker ();
+			map.Received (1).EraseMarker (createdMarker);
+		}
+		
+		[Test]
 		[Category("Test Marker has coordinates")]
 		public void TestMarkerHasCoordinates(){
 			AbstractMarker argumentUsed = null;
@@ -104,6 +122,12 @@ namespace UnityTest
 			Assert.AreSame (markerLocation, argumentUsed.Location);
 		}
 
+		[Test]
+		[Category("Test Erase Marker")]
+		public void TestEraseMarker (){
+			mapWrapper.EraseMarker (marker);
+			map.Received (1).EraseMarker (marker);
+		}
 
 		[Test]
 		[Category ("Map setup camera tests")]
@@ -221,6 +245,14 @@ namespace UnityTest
 		public void TestEnableInputs(){
 			mapWrapper.EnableInputs ();
 			Assert.IsTrue (map.InputsEnabled);
+		}
+
+		[Test]
+		[Category("Get reference location of current map view")]
+		public void TestGetReferenceLocationOfCurrentMapView(){
+			BaseCoordinates ReferenceLocation = mapWrapper.GetReferenceLocation ();
+			map.Received (1).GetReferenceLocation ();
+
 		}
 
 	}

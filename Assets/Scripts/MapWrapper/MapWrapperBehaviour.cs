@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnitySlippyMap;
 using System.Collections.Generic;
@@ -22,12 +22,12 @@ public class MapWrapperBehaviour:MonoBehaviour
 	private AnnotationManager manager;
 	public Dictionary<string, double> LastPutMarkerCoordinates = null;
 
-	private Map map;
+
 
 
 	void Start ()
 	{	
-		map = Map.Instance;
+
 		mapImplementation = new MapImplementation ();
 		mapWrapper = new MapWrapper ();
 		SetupMarkerGenerator ();
@@ -39,7 +39,12 @@ public class MapWrapperBehaviour:MonoBehaviour
 		SetUpLoader();
 		SetUpManager ();
 		manager.loadAnnotations();
-		PrivateTriggerMovementManager = map.CenterWGS84 [0];
+		PrivateTriggerMovementManager = mapWrapper.GetReferenceLocation().Longitude;
+	}
+
+	public void AddTemporalMarker ()
+	{
+		mapWrapper.AddTemporalMarker ();
 	}
 
 	void SetUpManager () {
@@ -58,7 +63,6 @@ public class MapWrapperBehaviour:MonoBehaviour
 	}
 
 
-
 	void Update ()
 	{
 		if (isOnMainWindow == true) {
@@ -68,7 +72,7 @@ public class MapWrapperBehaviour:MonoBehaviour
 			Application.Quit ();
 		}
 
-		float resta = Mathf.Abs ((float)PrivateTriggerMovementManager - (float)map.CenterWGS84 [0]);
+		float resta = Mathf.Abs ((float)PrivateTriggerMovementManager - (float)mapWrapper.GetReferenceLocation().Longitude);
 		
 		if ( resta>0.001 && ReportTrigger.activeInHierarchy == true) {
 			ReportTrigger.SetActive (false);
@@ -99,29 +103,29 @@ public class MapWrapperBehaviour:MonoBehaviour
 		inputReader.LongPressExecuted +=()=>{
 			SetSingleMarkerOnMap();
 			ReportTrigger.SetActive (true);
-			PrivateTriggerMovementManager = map.CenterWGS84 [0];
+			PrivateTriggerMovementManager = mapWrapper.GetReferenceLocation().Longitude;
 		};
 	}
 
 	
 	public void RemoveLastPutMarker ()
 	{
-		RemoveMarker (LastPutMarkerCoordinates ["longitude"],LastPutMarkerCoordinates ["latitude"]);
+		//RemoveMarker (LastPutMarkerCoordinates ["longitude"],LastPutMarkerCoordinates ["latitude"]);
+		mapWrapper.RemoveTemporalMarker ();
 	}
 
-	public void RemoveMarker(double latitude, double longitude){
-		Marker[] markers = map.GetComponentsInChildren<Marker> ();
-		foreach (Marker marker in markers) {
-			if (marker.CoordinatesWGS84 [0] == latitude && marker.CoordinatesWGS84 [1] == longitude) {
-				map.RemoveMarker (marker);
-				SetNullLastPutMarkerCoordinates ();
-			}
-		}
-	}
+//	public void RemoveMarker(double latitude, double longitude){
+//		Marker[] markers = map.GetComponentsInChildren<Marker> ();
+//		foreach (Marker marker in markers) {
+//			if (marker.CoordinatesWGS84 [0] == latitude && marker.CoordinatesWGS84 [1] == longitude) {
+//				mapWrapper.EraseMarker (marker as AbstractMarker);
+//			}
+//		}
+//	}
 
-	public void SetNullLastPutMarkerCoordinates ()
+	public void EraseTemporalMarker ()
 	{
-		LastPutMarkerCoordinates = null;
+		mapWrapper.RemoveTemporalMarker();
 	}
 
 	private InputGenerator GetValidInputGenerator()
@@ -135,11 +139,16 @@ public class MapWrapperBehaviour:MonoBehaviour
 
 	public void SetSingleMarkerOnMap ()
 	{
-		if (LastPutMarkerCoordinates != null) {
+
+		if (mapWrapper.HasTemporalMarker) {
 			RemoveLastPutMarker ();
 			
 		}
-		SetMarkerInMap ();
+		Dictionary<string, double> CursorCoordinates = GetCoordinatesOfCursor ();
+		Coordinates location = new Coordinates (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
+		mapWrapper.SetTemporalMarker (location);
+		SetCoordinatesOnInputField (CursorCoordinates ["latitude"], CursorCoordinates ["longitude"]);
+
 	}
 
 	public void SetMarkerInMap ()
@@ -154,12 +163,10 @@ public class MapWrapperBehaviour:MonoBehaviour
 	public Dictionary<string, double> GetCoordinatesOfCursor ()
 	{
 		Dictionary<string, double> dictionary = new Dictionary<string, double> ();
-		
+		Coordinates referenceLocation = mapWrapper.GetReferenceLocation () as Coordinates;
 		Vector3 wordPos = getCursorPosition ();
-		
-		//ReportTrigger.transform.localScale = new Vector2 (0.5f,0.5f);
-		double latitude = (0.0167 * wordPos [2]) + ((map.CenterWGS84) [1]);
-		double longitude = (0.0167 * wordPos [0]) + ((map.CenterWGS84) [0]);
+		double latitude = (0.0167 * wordPos [2]) + (referenceLocation.Latitude);
+		double longitude = (0.0167 * wordPos [0]) + (referenceLocation.Longitude);
 		dictionary.Add ("latitude", latitude);
 		dictionary.Add ("longitude", longitude);
 		return dictionary;

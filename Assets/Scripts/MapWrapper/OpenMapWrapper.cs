@@ -64,9 +64,7 @@ public class OpenMapWrapper : MonoBehaviour
 		PrivateTriggerMovementManager = map.CenterWGS84 [0];
 	
 	}
-
-
-
+	
 	public void SetUpInputReader(){
 		inputReader = new InputReader ();
 		inputReader.SetGenerator (GetValidInputGenerator());

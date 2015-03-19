@@ -8,6 +8,18 @@ public class MapImplementation : AbstractMap {
 	private Map map = Map.Instance;
 
 	#region AbstractMap implementation
+
+	public void EraseMarker (AbstractMarker marker)
+	{
+
+			map.RemoveMarker (marker as Marker);
+	}
+
+	public BaseCoordinates GetReferenceLocation ()
+	{
+		return new Coordinates(map.CenterWGS84[1], map.CenterWGS84[0]) as BaseCoordinates;
+	}
+
 	public float CurrentZoom {
 		get {
 			return map.CurrentZoom;
@@ -86,6 +98,8 @@ public class MapImplementation : AbstractMap {
 	{
 		
 	}
+
+
 
 	#endregion
 

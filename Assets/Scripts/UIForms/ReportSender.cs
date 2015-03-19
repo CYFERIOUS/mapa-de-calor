@@ -41,10 +41,10 @@ public class ReportSender: MonoBehaviour {
 				HandleSubmitClicked();
 				reportWindow.SetActive(false);
 				ClearReportInput();
-				openMap.SetNullLastPutMarkerCoordinates();
+				openMap.AddTemporalMarker();
 			
 			}else{
-				RemoveMarker();
+				openMap.EraseTemporalMarker();
 			}
 
 		});
@@ -56,15 +56,15 @@ public class ReportSender: MonoBehaviour {
 		});
 	}
 
-	void RemoveMarker ()
-	{
-		string[] coordenadas=ubicationField.text.Split(',');
-		double longitud;
-		double latitud;
-		double.TryParse(coordenadas[0],out longitud);
-		double.TryParse(coordenadas[1],out latitud);
-		openMap.RemoveMarker(longitud,latitud);
-	}
+//	void RemoveMarker ()
+//	{
+//		string[] coordenadas=ubicationField.text.Split(',');
+//		double longitud;
+//		double latitud;
+//		double.TryParse(coordenadas[0],out longitud);
+//		double.TryParse(coordenadas[1],out latitud);
+//		openMap.RemoveMarker(longitud,latitud);
+//	}
 
 	void DateFieldsConcat ()
 	{
@@ -128,6 +128,7 @@ public class ReportSender: MonoBehaviour {
 		string ubicationText = ubicationField.text;
 		string[] coordinates = ubicationText.Split (new string[1]{" , "}, StringSplitOptions.None);
 		return new Vector2 (float.Parse(coordinates[0]), float.Parse(coordinates[1]));
+			
 	}
 
 	public static int ConvertToUnixTimestamp(DateTime date)

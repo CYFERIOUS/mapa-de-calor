@@ -34,4 +34,8 @@ public interface AbstractMap {
 	void addInputDelegateKeyboard ();
 
 	void SetUserLocation ();
+
+	BaseCoordinates GetReferenceLocation ();
+
+	void EraseMarker (AbstractMarker marker);
 }

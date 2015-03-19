@@ -35,6 +35,22 @@ public class MapWrapper
 		}
 	}
 
+	public void RemoveTemporalMarker ()
+	{
+		EraseMarker (temporalAbstractMarker);
+		temporalAbstractMarker = null;
+	}
+
+	public void EraseMarker (AbstractMarker marker)
+	{
+		MapImplementation.EraseMarker (marker);
+	}
+
+	public BaseCoordinates GetReferenceLocation ()
+	{
+		return MapImplementation.GetReferenceLocation ();
+	}
+
 	public void SetUserLocation ()
 	{
 		markerGenerator.DrawUserLocationMarker ();
