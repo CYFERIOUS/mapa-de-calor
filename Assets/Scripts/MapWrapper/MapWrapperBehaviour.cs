@@ -204,4 +204,12 @@ public class MapWrapperBehaviour:MonoBehaviour
 	{
 		DirectionInputField.text = latitude.ToString () + " , " + longitude.ToString ();
 	}
+
+	public void ToggleisOnMainWindow(){
+		isOnMainWindow = !isOnMainWindow;
+	}
+	
+	public void SetToTrueIsOnMainWindow(){
+		isOnMainWindow = true;
+	}
 }
