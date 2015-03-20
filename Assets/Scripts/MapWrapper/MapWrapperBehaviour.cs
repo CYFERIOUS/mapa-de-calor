@@ -179,6 +179,7 @@ public class MapWrapperBehaviour:MonoBehaviour
 			Debug.Log(hit.collider.gameObject.tag + " " + " " + hit.collider.gameObject.name);
 			if(hit.collider.gameObject.tag == "Pin"){
 				reportView.gameObject.SetActive(true);
+				isOnMainWindow = false;
 			}
 		} else {
 			hit.collider.gameObject.SetActive(true);
