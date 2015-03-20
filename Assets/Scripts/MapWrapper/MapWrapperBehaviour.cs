@@ -20,6 +20,9 @@ public class MapWrapperBehaviour:MonoBehaviour
 	private IFormDataLoader loader;
 	private AnnotationManager manager;
 
+	[SerializeField]
+	private ReportView reportView;
+
 	void Start ()
 	{	
 
@@ -36,6 +39,9 @@ public class MapWrapperBehaviour:MonoBehaviour
 		manager.loadAnnotations();
 		PrivateTriggerMovementManagerXAxis = mapWrapper.GetReferenceLocation().Longitude;
 		PrivateTriggerMovementManagerYAxis = mapWrapper.GetReferenceLocation().Latitude;
+
+			
+		
 	}
 
 	public void AddTemporalMarker ()
@@ -75,6 +81,7 @@ public class MapWrapperBehaviour:MonoBehaviour
 			ReportTrigger.SetActive (false);
 			RemoveLastPutMarker ();
 		}
+
 	}
 
 	public void SetupMapInstance ()
@@ -90,19 +97,36 @@ public class MapWrapperBehaviour:MonoBehaviour
 
 	public void SetupMarkerGenerator ()
 	{
+
 		markerGenerator = new ConcreteMarkerGenerator (Map.Instance);
 		markerGenerator.DefaultTexture = MarkerTexture;
+
+	
+
 	}
 
 	public void SetUpInputReader(){
 		inputReader = new InputReader ();
 		inputReader.SetGenerator (GetValidInputGenerator());
-		inputReader.LongPressExecuted +=()=>{
+		inputReader.TapExecuted += HandleTap;
+		inputReader.LongPressExecuted += HandleLongPress;
+	}
+
+	private void HandleLongPress(){
+
 			SetSingleMarkerOnMap();
 			ReportTrigger.SetActive (true);
 			PrivateTriggerMovementManagerXAxis = mapWrapper.GetReferenceLocation().Longitude;
 			PrivateTriggerMovementManagerYAxis = mapWrapper.GetReferenceLocation().Latitude;
-		};
+		
+	}
+
+	private void HandleTap(){
+
+
+			getObjectType ();
+
+		
 	}
 
 	
@@ -144,6 +168,7 @@ public class MapWrapperBehaviour:MonoBehaviour
 
 	public Vector3 getCursorPosition ()
 	{
+
 		Vector3 mousePos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0f);
 		ReportTrigger.transform.position = mousePos;
 		Ray ray = Camera.main.ScreenPointToRay (mousePos);
@@ -151,15 +176,28 @@ public class MapWrapperBehaviour:MonoBehaviour
 		
 		Vector3 wordPos;
 		if (Physics.Raycast (ray, out hit, 1000f)) {
-			
+
 			wordPos = hit.point;
 			
 		} else {
-			
+		
 			wordPos = Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position);
 		}
-		
+
 		return wordPos;
+	}
+
+	public void getObjectType ()
+	{
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit;
+		if (Physics.Raycast (ray, out hit)) {
+			if(hit.collider.gameObject.tag == "Pin"){
+				reportView.gameObject.SetActive(true);
+			}
+		} else {
+			hit.collider.gameObject.SetActive(true);
+		}
 	}
 
 	public void SetCoordinatesOnInputField (double latitude, double longitude)

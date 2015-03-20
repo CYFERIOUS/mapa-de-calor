@@ -38,6 +38,7 @@ public class ConcreteMarkerGenerator : MarkerGenerator {
 		go.renderer.material.mainTexture = mainTexture;
 		go.renderer.material.renderQueue = renderQueue;
 		go.transform.localScale = localScale;
+		go.tag = "Pin";
 		return go;
 
 	}

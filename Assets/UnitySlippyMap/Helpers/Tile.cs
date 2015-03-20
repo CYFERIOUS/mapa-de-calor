@@ -77,6 +77,7 @@ public class Tile : MonoBehaviour
 			color.a = a;
 			material.color = color;
 		}
+
 	}
 	
 	#endregion
@@ -131,6 +132,8 @@ public class Tile : MonoBehaviour
 		MeshFilter meshFilter = tileTemplate.AddComponent<MeshFilter>();
 		MeshRenderer meshRenderer = tileTemplate.AddComponent<MeshRenderer>();
 		BoxCollider boxCollider = tileTemplate.AddComponent<BoxCollider>();
+
+
 			
 		// add the geometry
 		Mesh mesh = meshFilter.mesh;
@@ -227,8 +230,9 @@ public class Tile : MonoBehaviour
 		tile.material = meshRenderer.material = new Material(shader);
 			
 		// setup the collider
-		boxCollider.size = new Vector3(1.0f, 0.0f, 1.0f);
-		
+			boxCollider.size = new Vector3(1.0f, 0.0f, 1.0f);
+			boxCollider.center = new Vector3 (0.0f,0.0f,0.5f);
+
 		return tile;
     }
 	
