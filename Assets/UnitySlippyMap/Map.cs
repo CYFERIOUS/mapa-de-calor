@@ -953,7 +953,7 @@ public class Map : MonoBehaviour
 		
 		//go.name = "go - " + name;
 		go.transform.parent = markerObject.gameObject.transform;
-		go.transform.localPosition = Vector3.zero;
+		go.transform.localPosition = new Vector3(0f, 0.05f, 0f);
 		
 		T marker = markerObject.AddComponent<T>();
 		

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_IPHONE || UNITY_ANDROID && !UNITY_EDITOR
+using UnityEngine;
 using System.Collections;
 
 public class DeviceInputGenerator : MonoBehaviour, InputGenerator {
@@ -6,17 +7,6 @@ public class DeviceInputGenerator : MonoBehaviour, InputGenerator {
 private bool generatedLongPress=false;
 private bool generatedTapPress=false;
 
-#if UNITY_EDITOR
-	public bool GeneratedLongPress ()
-	{
-		return generatedLongPress;
-	}
-	public bool GeneratedTap ()
-	{
-		return generatedTapPress;
-	}
-#else
-	
 	public bool GeneratedLongPress ()
 	{
 		return generatedLongPress;
@@ -56,5 +46,5 @@ private bool generatedTapPress=false;
 			timeSincePress = 0;
 		}
 	}
-#endif
 }
+#endif

@@ -16,6 +16,7 @@ public class EditorInputGenerator : MonoBehaviour, InputGenerator {
 	}
 
 	const float timeToLongPress = 1f;
+	const float timeToTap = 0.3f;
 	
 	private float timeSincePress = 0f;
 	private bool isLongPressing;
@@ -23,11 +24,23 @@ public class EditorInputGenerator : MonoBehaviour, InputGenerator {
 	void Update () {
 		generatedLongPress = false;
 		generatedTapPress = false;
+
+		bool didATap = false;
+
 		if (Input.GetMouseButtonDown (0)) {
 			isLongPressing = true;
 		}
 		if (Input.GetMouseButtonUp (0)) {
+			if (isLongPressing)
+				didATap = true;
 			isLongPressing = false;
+		}
+
+		if (didATap)
+		{
+			if (timeSincePress <= timeToTap ){
+				generatedTapPress=true;
+			}
 		}
 		
 		if (isLongPressing) {
@@ -38,11 +51,10 @@ public class EditorInputGenerator : MonoBehaviour, InputGenerator {
 				timeSincePress = 0;
 				generatedLongPress = true;
 			}
-			else{
-				generatedTapPress=true;
-			}
 		} else {
 			timeSincePress = 0;
 		}
+
+
 	}
 }

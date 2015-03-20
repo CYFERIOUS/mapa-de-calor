@@ -39,9 +39,6 @@ public class MapWrapperBehaviour:MonoBehaviour
 		manager.loadAnnotations();
 		PrivateTriggerMovementManagerXAxis = mapWrapper.GetReferenceLocation().Longitude;
 		PrivateTriggerMovementManagerYAxis = mapWrapper.GetReferenceLocation().Latitude;
-
-			
-		
 	}
 
 	public void AddTemporalMarker ()
@@ -97,12 +94,8 @@ public class MapWrapperBehaviour:MonoBehaviour
 
 	public void SetupMarkerGenerator ()
 	{
-
 		markerGenerator = new ConcreteMarkerGenerator (Map.Instance);
 		markerGenerator.DefaultTexture = MarkerTexture;
-
-	
-
 	}
 
 	public void SetUpInputReader(){
@@ -113,20 +106,14 @@ public class MapWrapperBehaviour:MonoBehaviour
 	}
 
 	private void HandleLongPress(){
-
-			SetSingleMarkerOnMap();
-			ReportTrigger.SetActive (true);
-			PrivateTriggerMovementManagerXAxis = mapWrapper.GetReferenceLocation().Longitude;
-			PrivateTriggerMovementManagerYAxis = mapWrapper.GetReferenceLocation().Latitude;
-		
+		SetSingleMarkerOnMap();
+		ReportTrigger.SetActive (true);
+		PrivateTriggerMovementManagerXAxis = mapWrapper.GetReferenceLocation().Longitude;
+		PrivateTriggerMovementManagerYAxis = mapWrapper.GetReferenceLocation().Latitude;
 	}
 
 	private void HandleTap(){
-
-
-			getObjectType ();
-
-		
+		getObjectType ();
 	}
 
 	
@@ -150,14 +137,14 @@ public class MapWrapperBehaviour:MonoBehaviour
 		#endif
 	}
 
-	public void SetSingleMarkerOnMap ()
+	private void SetSingleMarkerOnMap ()
 	{
 		Coordinates location = GetCoordinatesOfCursor ();
 		mapWrapper.SetTemporalMarker (location);
 		SetCoordinatesOnInputField (location.Latitude, location.Longitude);
 	}
 
-	public Coordinates GetCoordinatesOfCursor ()
+	private Coordinates GetCoordinatesOfCursor ()
 	{
 		Coordinates referenceLocation = mapWrapper.GetReferenceLocation () as Coordinates;
 		Vector3 wordPos = getCursorPosition ();
@@ -166,7 +153,7 @@ public class MapWrapperBehaviour:MonoBehaviour
 		return new Coordinates (latitude, longitude); 
 	}
 
-	public Vector3 getCursorPosition ()
+	private Vector3 getCursorPosition ()
 	{
 
 		Vector3 mousePos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0f);
@@ -176,11 +163,8 @@ public class MapWrapperBehaviour:MonoBehaviour
 		
 		Vector3 wordPos;
 		if (Physics.Raycast (ray, out hit, 1000f)) {
-
 			wordPos = hit.point;
-			
 		} else {
-		
 			wordPos = Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position);
 		}
 
@@ -192,6 +176,7 @@ public class MapWrapperBehaviour:MonoBehaviour
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		RaycastHit hit;
 		if (Physics.Raycast (ray, out hit)) {
+			Debug.Log(hit.collider.gameObject.tag + " " + " " + hit.collider.gameObject.name);
 			if(hit.collider.gameObject.tag == "Pin"){
 				reportView.gameObject.SetActive(true);
 			}

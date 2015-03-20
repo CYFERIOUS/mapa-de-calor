@@ -1,35 +1,51 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UnitySlippyMap\Helpers\Tile.cs">
     <Files>
-      <File FileName="Assets\Scripts\Output\ReportView.cs" Line="11" Column="4" />
+      <File FileName="Assets\Scripts\Marker\MarkerGenerator.cs" Line="18" Column="33" />
+      <File FileName="Assets\Scripts\Output\ReportView.cs" Line="6" Column="1" />
       <File FileName="Assets\Scripts\Test\Editor\UserReports\TestReportView.cs" Line="16" Column="5" />
-      <File FileName="Assets\Scripts\Test\Editor\UserReports\DataIOTestBase.cs" Line="45" Column="18" />
-      <File FileName="Assets\Scripts\Marker\MarkerGenerator.cs" Line="26" Column="29" />
+      <File FileName="Assets\Scripts\Test\Editor\UserReports\DataIOTestBase.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Marker\AbstractMarker.cs" Line="16" Column="7" />
-      <File FileName="Assets\Scripts\Test\Editor\MapWrapperTest.cs" Line="88" Column="19" />
-      <File FileName="Assets\Scripts\MapWrapper\MapWrapper.cs" Line="130" Column="2" />
       <File FileName="Assets\Scripts\UserReports\AnnotationManager.cs" Line="18" Column="18" />
       <File FileName="Assets\Scripts\UserReports\ReportLoader.cs" Line="21" Column="19" />
       <File FileName="Assets\Scripts\Test\Editor\UserReports\AnnotationManagerTest.cs" Line="88" Column="43" />
       <File FileName="Assets\Scripts\Marker\ConcreteMarker.cs" Line="20" Column="3" />
       <File FileName="Assets\UnitySlippyMap\Marker\Marker.cs" Line="21" Column="1" />
-      <File FileName="Assets\Scripts\MapWrapper\MapWrapperBehaviour.cs" Line="157" Column="4" />
-      <File FileName="Assets\Scripts\Input\DeviceInputGenerator.cs" Line="9" Column="17" />
-      <File FileName="Assets\UnitySlippyMap\Helpers\Tile.cs" Line="269" Column="15" />
+      <File FileName="Assets\Scripts\MapWrapper\MapWrapperBehaviour.cs" Line="156" Column="38" />
+      <File FileName="Assets\UnitySlippyMap\Helpers\Tile.cs" Line="233" Column="52" />
       <File FileName="Assets\Scripts\UIForms\ReportSender.cs" Line="7" Column="1" />
+      <File FileName="Assets\Scripts\Marker\ConcreteMarkerGenerator.cs" Line="5" Column="46" />
+      <File FileName="Assets\Scripts\Input\InputGenerator.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Input\InputReader.cs" Line="29" Column="34" />
+      <File FileName="Assets\Scripts\Input\DeviceInputGenerator.cs" Line="5" Column="23" />
+      <File FileName="Assets\Scripts\MapWrapper\MapWrapper.cs" Line="114" Column="26" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Scripts" expanded="True">
+              <Node name="Input" expanded="True" />
               <Node name="MapWrapper" expanded="True" />
+              <Node name="Marker" expanded="True" />
+              <Node name="Output" expanded="True" />
               <Node name="UIForms" expanded="True" />
+              <Node name="UserReports" expanded="True" />
             </Node>
             <Node name="UnitySlippyMap" expanded="True">
               <Node name="Helpers" expanded="True">
                 <Node name="Tile.cs" selected="True" />
+              </Node>
+              <Node name="Marker" expanded="True" />
+            </Node>
+          </Node>
+          <Node name="Assembly-CSharp-Editor" expanded="True">
+            <Node name="Scripts" expanded="True">
+              <Node name="Test" expanded="True">
+                <Node name="Editor" expanded="True">
+                  <Node name="UserReports" expanded="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
