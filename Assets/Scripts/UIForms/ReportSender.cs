@@ -38,6 +38,7 @@ public class ReportSender: MonoBehaviour {
 			reportform.Validate();
 			if(isValidDate(dateString) && isValidHour(hourString)){
 				resetColorValidation();
+				reportform.ReportCleaner();
 				HandleSubmitClicked();
 				reportWindow.SetActive(false);
 				ClearReportInput();
@@ -79,7 +80,7 @@ public class ReportSender: MonoBehaviour {
 
 	public void resetColorValidation ()
 	{
-		commentsField.image.color = Color.white;
+		commentsField.image.color = new Color(0.9f,0.6f,0.6f,0.8f);
 	}
 
 	private void HandleSubmitClicked ()

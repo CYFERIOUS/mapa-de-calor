@@ -10,6 +10,7 @@ public class ReportForm : MonoBehaviour {
 	public InputField minuteInput;
 	public InputField commentsInput;
 	private ReportFormValidator validator;
+	private Color defaultInputColor = new Color (0.41f,0.92f,0.77f);
 	private Color wrongInputColor=new Color(0.9f,0.6f,0.6f,0.8f);
 
 	public void Start()
@@ -30,7 +31,7 @@ public class ReportForm : MonoBehaviour {
 	{
 		validator.Day = dayInput.text;
 		if (validator.IsValidDay())
-			dayInput.image.color = Color.white;
+			dayInput.image.color =defaultInputColor;
 		else
 			dayInput.image.color = wrongInputColor;
 			
@@ -40,7 +41,7 @@ public class ReportForm : MonoBehaviour {
 	{
 		validator.Month = monthInput.text;
 		if (validator.IsValidMonth())
-			monthInput.image.color = Color.white;
+			monthInput.image.color = defaultInputColor;
 		else
 			monthInput.image.color = wrongInputColor;
 	}
@@ -49,7 +50,7 @@ public class ReportForm : MonoBehaviour {
 	{
 		validator.Year = yearInput.text;
 		if (validator.IsValidYear())
-			yearInput.image.color = Color.white;
+			yearInput.image.color = defaultInputColor;
 		else
 			yearInput.image.color = wrongInputColor;
 
@@ -59,7 +60,7 @@ public class ReportForm : MonoBehaviour {
 	{
 		validator.Hour = hourInput.text;
 		if (validator.IsValidHour())
-			hourInput.image.color = Color.white;
+			hourInput.image.color = defaultInputColor;
 		else
 			hourInput.image.color = wrongInputColor;
 	}
@@ -68,7 +69,7 @@ public class ReportForm : MonoBehaviour {
 	{
 		validator.Minute = minuteInput.text;
 		if (validator.IsValidMinute())
-			minuteInput.image.color = Color.white;
+			minuteInput.image.color = defaultInputColor;
 		else
 			minuteInput.image.color = wrongInputColor;
 	}
@@ -77,17 +78,17 @@ public class ReportForm : MonoBehaviour {
 	{
 		validator.Comments = commentsInput.text;
 		if (validator.IsValidComment())
-			commentsInput.image.color = Color.white;
+			commentsInput.image.color = defaultInputColor;
 		else
 			commentsInput.image.color = wrongInputColor;
 	}
 
 	public void ReportCleaner(){
-		dayInput.image.color = Color.white;;
-		monthInput.image.color = Color.white;;
-		yearInput.image.color = Color.white;;
-		hourInput.image.color = Color.white;;
-		minuteInput.image.color = Color.white;;
-		commentsInput.image.color = Color.white;;
+		dayInput.image.color = defaultInputColor;
+		monthInput.image.color = defaultInputColor;
+		yearInput.image.color = defaultInputColor;
+		hourInput.image.color = defaultInputColor;
+		minuteInput.image.color = defaultInputColor;
+		commentsInput.image.color = defaultInputColor;
 	}
 }
