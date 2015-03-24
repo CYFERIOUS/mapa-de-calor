@@ -28,9 +28,16 @@ public class ReportView: MonoBehaviour {
 
 	public void ExtractInfo(){
 		userName.text = "User";
-		//userDate.text = dataPerUser.timestamp.ToString();
-		userDate.text = (ConvertFromUnixTimestamp(dataPerUser.timestamp)).ToString();
-		userHour.text =  dataPerUser.timestamp.ToString();
+
+		string timeData = (ConvertFromUnixTimestamp(dataPerUser.timestamp)).ToString();
+		string[] words =  timeData.Split(' ');
+
+		foreach (string s in words) {
+		
+			userDate.text  = words[0];
+			userHour.text =  words[1]+words[2];
+		}
+
 		userComments.text =  dataPerUser.comments;
 	}
 

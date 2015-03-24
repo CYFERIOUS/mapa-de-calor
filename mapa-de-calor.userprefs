@@ -1,29 +1,25 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Output\ReportView.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Input\InputReader.cs">
     <Files>
+      <File FileName="Assets\Scripts\Output\ReportView.cs" Line="27" Column="3" />
+      <File FileName="Assets\Scripts\Input\InputGenerator.cs" Line="6" Column="2" />
+      <File FileName="Assets\Scripts\UIForms\ReportSender.cs" Line="181" Column="24" />
       <File FileName="Assets\Scripts\UserReports\AnnotationManager.cs" Line="19" Column="37" />
-      <File FileName="Assets\Scripts\UserReports\ReportLoader.cs" Line="36" Column="1" />
-      <File FileName="Assets\Scripts\UserReports\ReportSaver.cs" Line="26" Column="42" />
-      <File FileName="Assets\Scripts\Output\ReportView.cs" Line="10" Column="17" />
-      <File FileName="Assets\Scripts\MapWrapper\MapWrapperBehaviour.cs" Line="191" Column="47" />
+      <File FileName="Assets\Scripts\Input\InputReader.cs" Line="26" Column="13" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="MapImplmepentation" expanded="True" />
-              <Node name="MapWrapper" expanded="True" />
-              <Node name="Marker" expanded="True" />
-              <Node name="Output" expanded="True">
-                <Node name="ReportView.cs" selected="True" />
+              <Node name="Input" expanded="True">
+                <Node name="InputReader.cs" selected="True" />
               </Node>
+              <Node name="MapWrapper" expanded="True" />
+              <Node name="Output" expanded="True" />
+              <Node name="UIForms" expanded="True" />
               <Node name="UserReports" expanded="True" />
-            </Node>
-            <Node name="UnitySlippyMap" expanded="True">
-              <Node name="Helpers" expanded="True" />
-              <Node name="Marker" expanded="True" />
             </Node>
           </Node>
         </State>
