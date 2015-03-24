@@ -37,7 +37,6 @@ public class ReportSender: MonoBehaviour {
 			HourConcat();
 			reportform.Validate();
 			if(isValidDate(dateString) && isValidHour(hourString)){
-				resetColorValidation();
 				reportform.ReportCleaner();
 				HandleSubmitClicked();
 				reportWindow.SetActive(false);
@@ -53,7 +52,6 @@ public class ReportSender: MonoBehaviour {
 		cancelButton.onClick.AddListener (delegate {
 			ClearReportInput();
 			reportform.ReportCleaner();
-			resetColorValidation();
 		});
 	}
 
@@ -78,18 +76,12 @@ public class ReportSender: MonoBehaviour {
 		hourString = hourField.text + ":" + minuteField.text;
 	}
 
-	public void resetColorValidation ()
-	{
-		commentsField.image.color = new Color(0.9f,0.6f,0.6f,0.8f);
-	}
-
 	private void HandleSubmitClicked ()
 	{
 		FormData formdata = CreateFormData ();
 		ReportSaver saver = new ReportSaver();
 		saver.SetStorage (AppConfig.GetStorage());
 		saver.Save (formdata);
-
 	}
 
 	private FormData CreateFormData ()
