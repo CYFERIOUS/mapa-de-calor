@@ -124,9 +124,15 @@ namespace UnityTest {
 		[Category("TimeStamp are loaded")]
 		public void TestTimeStampAreLoaded() {
 			ArrayList dataLoaded = manager.getReports();
-			for(int key = 0; key<data.Length;key++){
+			for(int key = 0; key<data.Length;key++)
 				Assert.AreEqual(data[key].timestamp, ((FormData)dataLoaded[key]).timestamp);
-			}
+		}
+
+		[Test]
+		[Category("Pind id is extracted")]
+		public void TestPinIDIsExtracted() {
+			for(int key = 0; key < data.Length;key++)
+				Assert.AreEqual(key, manager.ExtractId("Pin" + key));
 		}
 
 	}

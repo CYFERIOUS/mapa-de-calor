@@ -33,5 +33,7 @@ public class AnnotationManager {
 		return reports.Count;
 	}
 
-
+	public int ExtractId(string pin) {
+		return int.Parse(pin.Substring(3));
+	}
 }

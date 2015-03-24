@@ -15,15 +15,15 @@ public class ReportView: MonoBehaviour {
 	public  Text userComments;
 
 	void Start(){
-		CallData();
+		CallData(-1);
 		ExtractInfo();
 	}
 
-	void CallData(){
+	public void CallData(int key) {
 		loader = new ReportLoader();
 		dataPerUser = new FormData();
 		loader.SetStorage(CallerData.GetStorage());
-		dataPerUser = loader.Load(1);
+		dataPerUser = loader.Load(key);
 	}
 
 	public void ExtractInfo(){

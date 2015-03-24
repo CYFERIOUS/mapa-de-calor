@@ -5,6 +5,10 @@ using UnitySlippyMap;
 public class ConcreteMarkerGenerator : MarkerGenerator {
 
 	private Map map;
+	int Count {
+		get;
+		set;
+	}
 
 	public ConcreteMarkerGenerator(Map mapInstance){
 		map = mapInstance;
@@ -39,6 +43,8 @@ public class ConcreteMarkerGenerator : MarkerGenerator {
 		go.renderer.material.renderQueue = renderQueue;
 		go.transform.localScale = localScale;
 		go.tag = "Pin";
+		go.name = "Pin" + this.Count;
+		this.Count++;
 		return go;
 
 	}

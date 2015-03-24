@@ -179,11 +179,18 @@ public class MapWrapperBehaviour:MonoBehaviour
 			Debug.Log(hit.collider.gameObject.tag + " " + " " + hit.collider.gameObject.name);
 			if(hit.collider.gameObject.tag == "Pin"){
 				reportView.gameObject.SetActive(true);
+				showClickedReport(hit.collider.gameObject.name);
 				isOnMainWindow = false;
 			}
 		} else {
 			hit.collider.gameObject.SetActive(true);
 		}
+	}
+
+	private void showClickedReport(string pinName) {
+		int id = manager.ExtractId(pinName);
+		reportView.CallData(id);
+		reportView.ExtractInfo();
 	}
 
 	public void SetCoordinatesOnInputField (double latitude, double longitude)
