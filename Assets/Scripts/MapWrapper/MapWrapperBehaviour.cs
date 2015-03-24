@@ -182,9 +182,7 @@ public class MapWrapperBehaviour:MonoBehaviour
 				showClickedReport(hit.collider.gameObject.name);
 				isOnMainWindow = false;
 			}
-		} else {
-			hit.collider.gameObject.SetActive(true);
-		}
+		} 
 	}
 
 	private void showClickedReport(string pinName) {

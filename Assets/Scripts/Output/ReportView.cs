@@ -15,8 +15,7 @@ public class ReportView: MonoBehaviour {
 	public  Text userComments;
 
 	void Start(){
-		CallData(-1);
-		ExtractInfo();
+
 	}
 
 	public void CallData(int key) {
