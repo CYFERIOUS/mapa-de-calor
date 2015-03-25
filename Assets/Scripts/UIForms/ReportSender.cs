@@ -44,12 +44,13 @@ public class ReportSender: MonoBehaviour {
 				openMap.AddTemporalMarker();
 			
 			}else{
-				openMap.EraseTemporalMarker();
+				//openMap.EraseTemporalMarker();
 			}
 
 		});
 
 		cancelButton.onClick.AddListener (delegate {
+			openMap.EraseTemporalMarker();
 			ClearReportInput();
 			reportform.ReportCleaner();
 		});
