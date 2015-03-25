@@ -23,9 +23,12 @@ public class ReportView: MonoBehaviour {
 		dataPerUser = new FormData();
 		loader.SetStorage(CallerData.GetStorage());
 		dataPerUser = loader.Load(key);
+		ExtractInfo();
 	}
 
 	public void ExtractInfo(){
+
+		userComments.text =  dataPerUser.comments;
 		userName.text = "User";
 
 		string timeData = (ConvertFromUnixTimestamp(dataPerUser.timestamp)).ToString();
@@ -34,10 +37,10 @@ public class ReportView: MonoBehaviour {
 		foreach (string s in words) {
 		
 			userDate.text  = words[0];
-			userHour.text =  words[1]+words[2];
+			userHour.text =  words[1];
 		}
 
-		userComments.text =  dataPerUser.comments;
+
 	}
 
 	public  DateTime ConvertFromUnixTimestamp(double timestamp)

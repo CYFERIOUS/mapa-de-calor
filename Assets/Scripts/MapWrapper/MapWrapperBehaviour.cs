@@ -178,9 +178,10 @@ public class MapWrapperBehaviour:MonoBehaviour
 		if (Physics.Raycast (ray, out hit)) {
 			Debug.Log(hit.collider.gameObject.tag + " " + " " + hit.collider.gameObject.name);
 			if(hit.collider.gameObject.tag == "Pin"){
+				isOnMainWindow = false;
 				reportView.gameObject.SetActive(true);
 				showClickedReport(hit.collider.gameObject.name);
-				isOnMainWindow = false;
+
 			}
 		} 
 	}
@@ -188,7 +189,7 @@ public class MapWrapperBehaviour:MonoBehaviour
 	private void showClickedReport(string pinName) {
 		int id = manager.ExtractId(pinName);
 		reportView.CallData(id);
-		reportView.ExtractInfo();
+
 	}
 
 	public void SetCoordinatesOnInputField (double latitude, double longitude)
