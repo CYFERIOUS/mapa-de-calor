@@ -157,6 +157,7 @@ public class MapWrapperBehaviour:MonoBehaviour
 	{
 
 		Vector3 mousePos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0f);
+		Debug.Log(mousePos.x + " " + mousePos.y);
 		ReportTrigger.transform.position = mousePos;
 		Ray ray = Camera.main.ScreenPointToRay (mousePos);
 		RaycastHit hit;
