@@ -15,7 +15,7 @@ public class ConcreteMarkerGenerator : MarkerGenerator {
 	}
 	
 	protected override AbstractMarker CreateMarkerInstance (BaseCoordinates location)
-	{	GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.BottomCenter, DefaultTexture, 4000, new Vector3 (1.0f, 1.0f, 1.0f) / 27);
+	{	GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.BottomCenter, DefaultTexture, 4000, new Vector3 (1.0f, 1.0f, 1.0f) / 12);
 		ConcreteMarker marker = map.CreateMarker<ConcreteMarker> ("Marker", new double[2] {
 			location.Longitude,
 			location.Latitude
@@ -31,7 +31,7 @@ public class ConcreteMarkerGenerator : MarkerGenerator {
 
 	private void DrawGPSUserLocation ()
 	{
-		GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.MiddleCenter,UserLocationTexture, 4001, new Vector3 (1.0f, 1.0f, 1.0f) / 27);
+		GameObject markerGO = CreateMarkerGameObject (Tile.AnchorPoint.MiddleCenter,UserLocationTexture, 4001, new Vector3 (1.0f, 1.0f, 1.0f) / 12);
 		map.SetLocationMarker<LocationMarker> (markerGO);
 	}
 
